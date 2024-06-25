@@ -3,60 +3,239 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>个人主页</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>杨佳悦的个人主页</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #77a8d9 3px solid;
+        }
+        header a {
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+        header ul {
+            padding: 0;
+            list-style: none;
+        }
+        header li {
+            float: left;
+            display: inline;
+            padding: 0 20px 0 20px;
+        }
+        header #branding {
+            float: left;
+        }
+        header #branding h1 {
+            margin: 0;
+        }
+        header nav {
+            float: right;
+            margin-top: 10px;
+        }
+        header .highlight, header .current a {
+            color: #77a8d9;
+            font-weight: bold;
+        }
+        #showcase {
+            min-height: 400px;
+            background: url('showcase.jpg') no-repeat 0 -400px;
+            text-align: center;
+            color: #fff;
+            position: relative;
+        }
+        #showcase h1 {
+            margin-top: 100px;
+            font-size: 55px;
+            margin-bottom: 10px;
+            color: #ff5733; /* Brighter color */
+        }
+        #showcase p {
+            font-size: 20px;
+        }
+        #showcase img {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            max-width: 150px;
+            border-radius: 50%;
+        }
+        section {
+            padding: 20px;
+            margin: 20px 0;
+            background: #fff;
+        }
+        footer {
+            padding: 20px;
+            margin-top: 20px;
+            color: #fff;
+            background-color: #333;
+            text-align: center;
+        }
+        .button {
+            display: inline-block;
+            color: #fff;
+            background: #333;
+            padding: 7px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .language-toggle {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
+    <script>
+        function toggleLanguage() {
+            var lang = document.documentElement.lang;
+            if (lang === 'zh-CN') {
+                window.location.href = 'english.html'; // English version URL
+            } else {
+                window.location.href = 'index.html'; // Chinese version URL
+            }
+        }
+    </script>
 </head>
 <body>
     <header>
-        <h1>你的名字</h1>
-        <p>职业 / 头衔</p>
+        <div class="container">
+            <div id="branding">
+                <h1>杨佳悦</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li class="current"><a href="#">主页</a></li>
+                    <li><a href="#about">关于我</a></li>
+                    <li><a href="#education">教育背景</a></li>
+                    <li><a href="#awards">获奖情况</a></li>
+                    <li><a href="#grades">学习成绩</a></li>
+                    <li><a href="#hobbies">兴趣爱好</a></li>
+                    <li><a href="#research">科研经历</a></li>
+                    <li><a href="#teaching">教学课程</a></li>
+                    <li><a href="#notes">笔记整理</a></li>
+                    <li><a href="#resources">资源工具</a></li>
+                    <li><a href="#social">社交媒体</a></li>
+                </ul>
+                <div class="language-toggle">
+                    <button onclick="toggleLanguage()">中/EN</button>
+                </div>
+            </nav>
+        </div>
     </header>
 
-    <nav>
-        <ul>
-            <li><a href="#about">关于我</a></li>
-            <li><a href="#skills">技能</a></li>
-            <li><a href="#projects">项目</a></li>
-            <li><a href="#contact">联系我</a></li>
-        </ul>
-    </nav>
+    <section id="showcase">
+        <div class="container">
+            <h1>欢迎来到我的个人主页</h1>
+            <p>物理学和数学的博士生，喜欢讲课和科普。</p>
+            <img src="888.jpg" alt="Profile Photo">
+        </div>
+    </section>
 
-    <section id="about">
+    <section id="about" class="container">
         <h2>关于我</h2>
-        <p>这里是你的自我介绍。</p>
-    </section>
-
-    <section id="skills">
-        <h2>技能</h2>
+        <p>我叫杨佳悦，目前在加拿大滑铁卢大学攻读物理学和数学博士学位。我热衷于科学研究和教学，喜欢通过Bilibili平台进行物理科普。</p>
+        <p>联系方式：<a href="mailto:j43yang@uwaterloo.ca">j43yang@uwaterloo.ca</a></p>
+        <h3>教育背景</h3>
         <ul>
-            <li>技能1</li>
-            <li>技能2</li>
-            <li>技能3</li>
-            <!-- 添加更多技能 -->
+            <li><strong>博士生：</strong>加拿大滑铁卢大学（全额奖学金 50800加元*4年, 2024年9月-2028年8月），数学和物理</li>
+            <li><strong>硕士生：</strong>加拿大滑铁卢大学（全额奖学金 77280加元, 2022年9月-2024年8月），物理</li>
+            <li><strong>本科生：</strong>吉林大学唐敖庆班（2018年9月-2022年6月），物理</li>
+            <li><strong>高中：</strong>重庆市合川中学（2015年9月-2018年6月）</li>
         </ul>
-    </section>
-
-    <section id="projects">
-        <h2>项目</h2>
-        <div class="project">
-            <h3>项目名称1</h3>
-            <p>项目描述。</p>
-        </div>
-        <div class="project">
-            <h3>项目名称2</h3>
-            <p>项目描述。</p>
-        </div>
-        <!-- 添加更多项目 -->
-    </section>
-
-    <section id="contact">
-        <h2>联系我</h2>
-        <p>电子邮件: <a href="mailto:your.email@example.com">your.email@example.com</a></p>
-        <!-- 添加更多联系方式 -->
+        <h3>获奖情况</h3>
+        <ul>
+            <li>院长奖学金 8000元</li>
+            <li>吉林大学物理学院优秀学生</li>
+            <li>吉林大学天文知识竞赛冠军</li>
+            <li>北京大学物理学院优秀大学生暑期学校证书</li>
+            <li>英国剑桥大学学术交流项目证书</li>
+            <li>日本名古屋大学学术交流项目证书</li>
+            <li>中国科学院高能物理研究所冬季学校证书</li>
+            <li>吉林大学科研实践奖学金团队二等奖 10000元</li>
+            <li>加拿大Mitacs Globalink研究生奖学金 15000加元</li>
+            <li>加拿大Mitacs Globalink本科研究奖学金 1200加元</li>
+            <li>美国纽约大学石溪分校全额奖学金交流项目 50782美元</li>
+            <li>第33届中学生物理竞赛重庆二等奖</li>
+            <li>大学生物理学术竞赛吉林大学一等奖</li>
+            <li>大学生物理学术竞赛东北赛区一等奖</li>
+            <li>中国大学生物理学术竞赛全国决赛二等奖</li>
+        </ul>
+        <h3>学习成绩</h3>
+        <p><strong>本科绩点：</strong>91.16/100</p>
+        <p><strong>硕士绩点：</strong>94.33/100</p>
+        <h4>数学类</h4>
+        <ul>
+            <li>微积分A1 92</li>
+            <li>微积分A2 95</li>
+            <li>线性代数96</li>
+            <li>概率论与数理统计94</li>
+            <li>数学物理方法I 96</li>
+        </ul>
+        <h4>物理类</h4>
+        <ul>
+            <li>力学 93</li>
+            <li>理论力学 97</li>
+            <li>光学 94</li>
+            <li>电磁学 90</li>
+            <li>原子物理 90</li>
+            <li>量子力学 95</li>
+            <li>量子场论 98</li>
+            <li>广义相对论 97</li>
+        </ul>
+        <h4>英语类</h4>
+        <ul>
+            <li>托福 96</li>
+        </ul>
+        <h3>兴趣爱好</h3>
+        <p>我热爱讲课，喜欢给别人科普物理。我在Bilibili上拥有一万粉丝，欢迎关注我的频道。</p>
+        <p><a href="https://space.bilibili.com/87652178?spm_id_from=333.1007.0.0" class="button">访问我的Bilibili主页</a></p>
+        <h3>科研经历</h3>
+        <ul>
+            <li><strong>滑铁卢大学物理学系</strong> - 研究助理（2022-至今）</li>
+            <li><strong>吉林大学物理学系</strong> - 本科生研究员（2018-2022）</li>
+        </ul>
+        <h3>教学课程</h3>
+        <ul>
+            <li>本科生物理学教程</li>
+            <li>量子力学基础</li>
+        </ul>
+        <h3>笔记整理</h3>
+        <ul>
+            <li><a href="https://link3.cc/jiayue/notes1">量子力学笔记</a></li>
+            <li><a href="https://link3.cc/jiayue/notes2">广义相对论笔记</a></li>
+        </ul>
+        <h3>资源工具</h3>
+        <ul>
+            <li><a href="https://link3.cc/jiayue/resources1">物理学资源</a></li>
+            <li><a href="https://link3.cc/jiayue/resources2">数学工具</a></li>
+        </ul>
+        <h3>社交媒体</h3>
+        <ul>
+            <li><a href="https://link3.cc/jiayue/bilibili">Bilibili</a></li>
+            <li><a href="https://link3.cc/jiayue/twitter">Twitter</a></li>
+        </ul>
     </section>
 
     <footer>
-        <p>© 2024 你的名字</p>
+        <p>杨佳悦 &copy; 2024</p>
     </footer>
 </body>
 </html>
