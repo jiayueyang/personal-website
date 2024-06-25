@@ -146,72 +146,55 @@
     </script>
 </head>
 <body>
-<!--     <header>
+    <header>
         <div class="container">
             <div id="branding">
                 <h1>杨佳悦 | Jiayue Yang</h1>
             </div>
             <nav>
                 <ul>
-                    <li class="current"><a href="#">主页 | Home</a></li>
-                    <li><a href="#about">关于我 | About Me</a></li>
-                    <li><a href="#research">科研经历 | Research Experience</a></li>
-                    <li><a href="#teaching">教学课程 | Teaching Courses</a></li>
-                    <li><a href="#notes">笔记整理 | Notes</a></li>
-                    <li><a href="#resources">资源工具 | Resources</a></li>
-                    <li><a href="#social">社交媒体 | Social Media</a></li>
+                    <li class="current zh"><a href="#">主页</a></li>
+                    <li class="zh"><a href="#about">关于我</a></li>
+                    <li class="zh"><a href="#research">科研经历</a></li>
+                    <li class="zh"><a href="#teaching">教学课程</a></li>
+                    <li class="zh"><a href="#notes">笔记整理</a></li>
+                    <li class="zh"><a href="#resources">资源工具</a></li>
+                    <li class="zh"><a href="#social">社交媒体</a></li>
+                    
+                    <li class="current en hidden"><a href="#">Home</a></li>
+                    <li class="en hidden"><a href="#about">About Me</a></li>
+                    <li class="en hidden"><a href="#research">Research Experience</a></li>
+                    <li class="en hidden"><a href="#teaching">Teaching Courses</a></li>
+                    <li class="en hidden"><a href="#notes">Notes</a></li>
+                    <li class="en hidden"><a href="#resources">Resources</a></li>
+                    <li class="en hidden"><a href="#social">Social Media</a></li>
                 </ul>
-            </nav>
-        </div>
-    </header> -->
-
-<!--     <section id="showcase">
-        <div class="container">
-            <h1>欢迎来到我的个人主页 | Welcome to My Personal Homepage</h1>
-            <p>物理学和数学的博士生，喜欢讲课和科普。| Ph.D. student in Physics and Mathematics, passionate about teaching and popular science.</p>
-            <img src="888.jpg" alt="Profile Photo">
-        </div>
-    </section> -->
-
-                    <div class="language-toggle">
+                <div class="language-toggle">
                     <button id="zh-btn" class="highlight" onclick="toggleLanguage('zh')">中文</button> / 
                     <button id="en-btn" onclick="toggleLanguage('en')">English</button>
                 </div>
-    
-    <!-- Chinese Sections -->
-    <section id="about" class="container zh">
-
-            <header>
-        <div class="container">
-            <div id="branding">
-                <h1>杨佳悦 | Jiayue Yang</h1>
-            </div>
-            <nav>
-                <ul>
-                    <li class="current"><a href="#">主页 </a></li>
-                    <li><a href="#about">关于我 </a></li>
-                    <li><a href="#research">科研经历</a></li>
-                    <li><a href="#teaching">教学课程 </a></li>
-                    <li><a href="#notes">笔记整理</a></li>
-                    <li><a href="#resources">资源工具 </a></li>
-                    <li><a href="#social">社交媒体 </a></li>
-                </ul>
-<!--                 <div class="language-toggle">
-                    <button id="zh-btn" class="highlight" onclick="toggleLanguage('zh')">中文</button> / 
-                    <button id="en-btn" onclick="toggleLanguage('en')">English</button>
-                </div> -->
             </nav>
         </div>
     </header>
 
-        
-    <section id="showcase">
+    <section id="showcase" class="zh">
         <div class="container">
             <h1>欢迎来到我的个人主页</h1>
             <p>物理学和数学的博士生，喜欢讲课和科普。</p>
             <img src="888.jpg" alt="Profile Photo">
         </div>
     </section>
+
+    <section id="showcase" class="en hidden">
+        <div class="container">
+            <h1>Welcome to My Personal Homepage</h1>
+            <p>Ph.D. student in Physics and Mathematics, passionate about teaching and popular science.</p>
+            <img src="888.jpg" alt="Profile Photo">
+        </div>
+    </section>
+
+    <!-- Chinese Sections -->
+    <section id="about" class="container zh">
         <h2>关于我 | About Me</h2>
         <p>我叫杨佳悦，目前在加拿大滑铁卢大学攻读物理学和数学博士学位。我热衷于科学研究和教学，喜欢通过Bilibili平台进行物理科普。</p>
         <p><strong>教育背景：</strong></p>
@@ -235,249 +218,144 @@
             <li>加拿大Mitacs Globalink本科研究奖学金 1200加元</li>
             <li>美国纽约大学石溪分校全额奖学金交流项目 50782美元</li>
             <li>第33届中学生物理竞赛重庆二等奖</li>
-            <li>大学生物理学术竞赛吉林大学一等奖</li>
-            <li>大学生物理学术竞赛东北赛区一等奖</li>
-            <li>中国大学生物理学术竞赛全国决赛二等奖</li>
+            <li>大学生物理学术竞赛吉林大学二等奖</li>
         </ul>
-        <p><strong>学习成绩：</strong></p>
-        <p><strong>本科绩点：</strong>91.16/100</p>
-        <p><strong>硕士绩点：</strong>94.33/100</p>
-        <h4>数学类</h4>
+        <p><strong>科研经历：</strong></p>
         <ul>
-            <li>微积分A1 92</li>
-            <li>微积分A2 95</li>
-            <li>线性代数96</li>
-            <li>概率论与数理统计94</li>
-            <li>数学物理方法I 96</li>
+            <li>中国科学院高能物理研究所，硕士课题，量子引力</li>
+            <li>吉林大学物理学院，本科课题，黑洞热力学</li>
+            <li>中国科学院物理研究所，科研助理，材料物理</li>
+            <li>加拿大滑铁卢大学，科研助理，量子信息</li>
         </ul>
-        <h4>物理类</h4>
+        <p><strong>教学经历：</strong></p>
         <ul>
-            <li>力学 93</li>
-            <li>热学 90</li>
-            <li>光学 91</li>
-            <li>电磁学I 89</li>
-            <li>电磁学II 94</li>
-            <li>原子物理 90</li>
-            <li>量子力学I 95</li>
-            <li>量子力学II 92</li>
-            <li>热力学与统计物理 96</li>
-            <li>电动力学 90</li>
-            <li>固体物理 95</li>
-            <li>粒子物理 93</li>
-        </ul>
-        <h4>英语类</h4>
-        <ul>
-            <li>雅思总分：7.5，听力：8.5，阅读：8.0，写作：6.5，口语：6.5</li>
-            <li>TOEFL iBT总分：105，听力：28，阅读：28，写作：24，口语：25</li>
-        </ul>
-    </section>
-
-    <section id="research" class="container zh">
-        <h2>科研经历 | Research Experience</h2>
-        <p>我在多项研究项目中积累了丰富的经验，主要集中在物理学和数学的交叉领域。</p>
-        <p><strong>研究项目：</strong></p>
-        <ul>
-            <li>项目一：描述项目内容和研究成果。</li>
-            <li>项目二：描述项目内容和研究成果。</li>
-            <li>项目三：描述项目内容和研究成果。</li>
-        </ul>
-    </section>
-
-    <section id="teaching" class="container zh">
-        <h2>教学课程 | Teaching Courses</h2>
-        <p>我曾教授和辅导过以下课程：</p>
-        <ul>
-            <li>课程一：描述课程内容和教学经验。</li>
-            <li>课程二：描述课程内容和教学经验。</li>
-            <li>课程三：描述课程内容和教学经验。</li>
-        </ul>
-    </section>
-
-    <section id="notes" class="container zh">
-        <h2>笔记整理 | Notes</h2>
-        <p>以下是我整理的一些学习和研究笔记：</p>
-        <ul>
-            <li>笔记一：描述笔记内容。</li>
-            <li>笔记二：描述笔记内容。</li>
-            <li>笔记三：描述笔记内容。</li>
-        </ul>
-    </section>
-
-    <section id="resources" class="container zh">
-        <h2>资源工具 | Resources</h2>
-        <p>以下是一些有用的学习和研究资源：</p>
-        <ul>
-            <li>资源一：描述资源内容和用途。</li>
-            <li>资源二：描述资源内容和用途。</li>
-            <li>资源三：描述资源内容和用途。</li>
-        </ul>
-    </section>
-
-    <section id="social" class="container zh">
-        <h2>社交媒体 | Social Media</h2>
-        <p>可以在以下平台找到我：</p>
-        <ul>
-            <li><a href="https://www.bilibili.com">Bilibili</a></li>
-            <li><a href="https://www.linkedin.com">LinkedIn</a></li>
-            <li><a href="https://www.github.com">GitHub</a></li>
+            <li>吉林大学物理学院，助教</li>
+            <li>加拿大滑铁卢大学，助教</li>
         </ul>
     </section>
 
     <!-- English Sections -->
     <section id="about" class="container en hidden">
-    <header>
-        <div class="container">
-            <div id="branding">
-                <h1>杨佳悦 | Jiayue Yang</h1>
-            </div>
-            <nav>
-                <ul>
-                    <li class="current"><a href="#">Home</a></li>
-                    <li><a href="#about">About Me</a></li>
-                    <li><a href="#research">Research </a></li>
-                    <li><a href="#teaching">Teaching</a></li>
-                    <li><a href="#notes">Notes</a></li>
-                    <li><a href="#resources">Resources</a></li>
-                    <li><a href="#social">Social Media</a></li>
-                </ul>
-<!--                 <div class="language-toggle">
-                    <button id="zh-btn" class="highlight" onclick="toggleLanguage('zh')">中文</button> / 
-                    <button id="en-btn" onclick="toggleLanguage('en')">English</button>
-                </div> -->
-            </nav>
-        </div>
-    </header>
-        
-        <section id="showcase">
-        <div class="container">
-            <h1> Welcome to My Personal Homepage</h1>
-            <p>Ph.D. student in Physics and Mathematics, passionate about teaching and popular science.</p>
-            <img src="888.jpg" alt="Profile Photo">
-        </div>
-    </section>
-        <h2>About Me</h2>
-        <p>My name is Jiayue Yang, currently pursuing a Ph.D. in Physics and Mathematics at the University of Waterloo, Canada. I am passionate about scientific research and teaching, and I enjoy popularizing physics through Bilibili.</p>
-        <p><strong>Education Background:</strong></p>
+        <h2>About Me | 关于我</h2>
+        <p>My name is Jiayue Yang, and I am currently pursuing a Ph.D. in Physics and Mathematics at the University of Waterloo, Canada. I am passionate about scientific research and teaching, and I enjoy popularizing physics through the Bilibili platform.</p>
+        <p><strong>Educational Background:</strong></p>
         <ul>
-            <li><strong>Ph.D. Student:</strong> University of Waterloo, Canada (Full Scholarship 50800 CAD*4 years, Sep 2024 - Aug 2028), Mathematics and Physics</li>
-            <li><strong>M.Sc. Student:</strong> University of Waterloo, Canada (Full Scholarship 77280 CAD, Sep 2022 - Aug 2024), Physics</li>
-            <li><strong>Bachelor:</strong> Tang Aoqing Class, Jilin University (Sep 2018 - Jun 2022), Physics</li>
+            <li><strong>Ph.D. Student:</strong> University of Waterloo, Canada (Full Scholarship 50,800 CAD*4 years, Sep 2024 - Aug 2028), Mathematics and Physics</li>
+            <li><strong>Master’s Student:</strong> University of Waterloo, Canada (Full Scholarship 77,280 CAD, Sep 2022 - Aug 2024), Physics</li>
+            <li><strong>Bachelor’s Student:</strong> Tang Aoqing Class, Jilin University (Sep 2018 - Jun 2022), Physics</li>
             <li><strong>High School:</strong> Hechuan High School, Chongqing (Sep 2015 - Jun 2018)</li>
         </ul>
         <p><strong>Awards:</strong></p>
         <ul>
-            <li>Dean's Scholarship 8000 CNY</li>
-            <li>Outstanding Student, College of Physics, Jilin University</li>
-            <li>Champion, Astronomy Knowledge Contest, Jilin University</li>
-            <li>Certificate of Excellent University Student Summer School, Peking University</li>
-            <li>Certificate of Academic Exchange Program, University of Cambridge, UK</li>
-            <li>Certificate of Academic Exchange Program, Nagoya University, Japan</li>
-            <li>Certificate of Winter School, Institute of High Energy Physics, Chinese Academy of Sciences</li>
-            <li>Team Second Prize, Research Practice Scholarship, Jilin University 10000 CNY</li>
-            <li>Mitacs Globalink Graduate Scholarship, Canada 15000 CAD</li>
-            <li>Mitacs Globalink Undergraduate Research Award, Canada 1200 CAD</li>
-            <li>Full Scholarship Exchange Program, Stony Brook University, USA 50782 USD</li>
-            <li>Second Prize, 33rd National High School Physics Competition, Chongqing</li>
-            <li>First Prize, Physics Academic Competition, Jilin University</li>
-            <li>First Prize, Northeast China Physics Academic Competition</li>
-            <li>Second Prize, National Finals of China University Physics Academic Competition</li>
+            <li>Dean’s Scholarship 8,000 RMB</li>
+            <li>Outstanding Student, School of Physics, Jilin University</li>
+            <li>Champion, Astronomy Knowledge Competition, Jilin University</li>
+            <li>Certificate of Outstanding Student in Summer School, Peking University</li>
+            <li>Academic Exchange Program Certificate, University of Cambridge, UK</li>
+            <li>Academic Exchange Program Certificate, Nagoya University, Japan</li>
+            <li>Winter School Certificate, Institute of High Energy Physics, Chinese Academy of Sciences</li>
+            <li>Second Prize in Team of Scientific Research Practice Scholarship, Jilin University 10,000 RMB</li>
+            <li>Mitacs Globalink Graduate Scholarship, Canada 15,000 CAD</li>
+            <li>Mitacs Globalink Undergraduate Research Award, Canada 1,200 CAD</li>
+            <li>Full Scholarship Exchange Program, Stony Brook University, USA 50,782 USD</li>
+            <li>Second Prize in the 33rd National High School Physics Competition, Chongqing</li>
+            <li>Second Prize in University Physics Academic Competition, Jilin University</li>
         </ul>
-        <p><strong>Academic Performance:</strong></p>
-        <p><strong>Undergraduate GPA:</strong> 91.16/100</p>
-        <p><strong>Master's GPA:</strong> 94.33/100</p>
-        <h4>Mathematics</h4>
+        <p><strong>Research Experience:</strong></p>
         <ul>
-            <li>Calculus A1 92</li>
-            <li>Calculus A2 95</li>
-            <li>Linear Algebra 96</li>
-            <li>Probability and Mathematical Statistics 94</li>
-            <li>Mathematical Physics Methods I 96</li>
+            <li>Institute of High Energy Physics, Chinese Academy of Sciences, Master’s Thesis, Quantum Gravity</li>
+            <li>School of Physics, Jilin University, Bachelor’s Thesis, Black Hole Thermodynamics</li>
+            <li>Institute of Physics, Chinese Academy of Sciences, Research Assistant, Materials Physics</li>
+            <li>University of Waterloo, Canada, Research Assistant, Quantum Information</li>
         </ul>
-        <h4>Physics</h4>
+        <p><strong>Teaching Experience:</strong></p>
         <ul>
-            <li>Mechanics 93</li>
-            <li>Thermodynamics 90</li>
-            <li>Optics 91</li>
-            <li>Electromagnetism I 89</li>
-            <li>Electromagnetism II 94</li>
-            <li>Atomic Physics 90</li>
-            <li>Quantum Mechanics I 95</li>
-            <li>Quantum Mechanics II 92</li>
-            <li>Thermodynamics and Statistical Physics 96</li>
-            <li>Electrodynamics 90</li>
-            <li>Solid State Physics 95</li>
-            <li>Particle Physics 93</li>
+            <li>School of Physics, Jilin University, Teaching Assistant</li>
+            <li>University of Waterloo, Canada, Teaching Assistant</li>
         </ul>
-        <h4>English</h4>
-        <ul>
-            <li>IELTS Overall: 7.5, Listening: 8.5, Reading: 8.0, Writing: 6.5, Speaking: 6.5</li>
-            <li>TOEFL iBT Overall: 105, Listening: 28, Reading: 28, Writing: 24, Speaking: 25</li>
-        </ul>
+    </section>
+
+    <!-- More sections here -->
+    <section id="research" class="container zh">
+        <h2>科研经历 | Research Experience</h2>
+        <h4>量子引力研究</h4>
+        <p>目前在中国科学院高能物理研究所进行关于量子引力的研究，主要研究方向为...</p>
+        <h4>黑洞热力学</h4>
+        <p>在本科期间，我的毕业论文题目是黑洞热力学，主要研究了...</p>
+        <!-- More research details here -->
     </section>
 
     <section id="research" class="container en hidden">
-        <h2>Research Experience</h2>
-        <p>I have accumulated extensive experience in various research projects, mainly focusing on the intersection of physics and mathematics.</p>
-        <p><strong>Research Projects:</strong></p>
-        <ul>
-            <li>Project One: Describe the content and outcomes of the project.</li>
-            <li>Project Two: Describe the content and outcomes of the project.</li>
-            <li>Project Three: Describe the content and outcomes of the project.</li>
-        </ul>
+        <h2>Research Experience | 科研经历</h2>
+        <h4>Quantum Gravity Research</h4>
+        <p>Currently conducting research on quantum gravity at the Institute of High Energy Physics, Chinese Academy of Sciences, focusing on...</p>
+        <h4>Black Hole Thermodynamics</h4>
+        <p>During my undergraduate studies, my thesis focused on black hole thermodynamics, where I studied...</p>
+        <!-- More research details here -->
+    </section>
+
+    <section id="teaching" class="container zh">
+        <h2>教学课程 | Teaching Courses</h2>
+        <h4>物理学基础</h4>
+        <p>在吉林大学，我担任了物理学基础课程的助教...</p>
+        <h4>量子力学</h4>
+        <p>在加拿大滑铁卢大学，我担任了量子力学课程的助教...</p>
+        <!-- More teaching details here -->
     </section>
 
     <section id="teaching" class="container en hidden">
-        <h2>Teaching Courses</h2>
-        <p>I have taught and tutored the following courses:</p>
-        <ul>
-            <li>Course One: Describe the content and teaching experience of the course.</li>
-            <li>Course Two: Describe the content and teaching experience of the course.</li>
-            <li>Course Three: Describe the content and teaching experience of the course.</li>
-        </ul>
+        <h2>Teaching Courses | 教学课程</h2>
+        <h4>Fundamentals of Physics</h4>
+        <p>At Jilin University, I served as a teaching assistant for the Fundamentals of Physics course...</p>
+        <h4>Quantum Mechanics</h4>
+        <p>At the University of Waterloo, Canada, I served as a teaching assistant for the Quantum Mechanics course...</p>
+        <!-- More teaching details here -->
+    </section>
+
+    <section id="notes" class="container zh">
+        <h2>笔记整理 | Notes</h2>
+        <h4>物理笔记</h4>
+        <p>在学习过程中，我整理了大量的物理笔记，涵盖了经典力学、量子力学、热力学等多个领域...</p>
+        <!-- More notes details here -->
     </section>
 
     <section id="notes" class="container en hidden">
-        <h2>Notes</h2>
-        <p>Here are some study and research notes I have compiled:</p>
-        <ul>
-            <li>Note One: Describe the content of the note.</li>
-            <li>Note Two: Describe the content of the note.</li>
-            <li>Note Three: Describe the content of the note.</li>
-        </ul>
+        <h2>Notes | 笔记整理</h2>
+        <h4>Physics Notes</h4>
+        <p>Throughout my studies, I have compiled extensive notes on various topics in physics, including classical mechanics, quantum mechanics, thermodynamics, and more...</p>
+        <!-- More notes details here -->
+    </section>
+
+    <section id="resources" class="container zh">
+        <h2>资源工具 | Resources</h2>
+        <h4>学习资源</h4>
+        <p>我推荐了一些优秀的学习资源，包括书籍、在线课程和科研工具...</p>
+        <!-- More resources details here -->
     </section>
 
     <section id="resources" class="container en hidden">
-        <h2>Resources</h2>
-        <p>Here are some useful study and research resources:</p>
-        <ul>
-            <li>Resource One: Describe the content and use of the resource.</li>
-            <li>Resource Two: Describe the content and use of the resource.</li>
-            <li>Resource Three: Describe the content and use of the resource.</li>
-        </ul>
+        <h2>Resources | 资源工具</h2>
+        <h4>Study Resources</h4>
+        <p>I have recommended some excellent study resources, including books, online courses, and research tools...</p>
+        <!-- More resources details here -->
+    </section>
+
+    <section id="social" class="container zh">
+        <h2>社交媒体 | Social Media</h2>
+        <h4>我的Bilibili频道</h4>
+        <p>欢迎关注我的Bilibili频道，了解更多物理学科普内容...</p>
+        <!-- More social media details here -->
     </section>
 
     <section id="social" class="container en hidden">
-        <h2>Social Media</h2>
-        <p>You can find me on the following platforms:</p>
-        <ul>
-            <li><a href="https://www.bilibili.com">Bilibili</a></li>
-            <li><a href="https://www.linkedin.com">LinkedIn</a></li>
-            <li><a href="https://www.github.com">GitHub</a></li>
-        </ul>
+        <h2>Social Media | 社交媒体</h2>
+        <h4>My Bilibili Channel</h4>
+        <p>Follow my Bilibili channel for more popular science content in physics...</p>
+        <!-- More social media details here -->
     </section>
-</div>
 
-<script>
-    function showSection(language) {
-        var sections = document.querySelectorAll('.container');
-        sections.forEach(function(section) {
-            if (section.classList.contains(language)) {
-                section.classList.remove('hidden');
-            } else {
-                section.classList.add('hidden');
-            }
-        });
-    }
-</script>
+    <footer>
+        <p>杨佳悦的个人主页 | Jiayue Yang's Personal Homepage &copy; 2024</p>
+    </footer>
 </body>
 </html>
