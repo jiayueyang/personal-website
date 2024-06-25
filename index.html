@@ -1,137 +1,62 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>杨佳悦的个人主页</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background: url('https://source.unsplash.com/1600x900/?stars,night') no-repeat center center fixed;
-            background-size: cover;
-            color: #fff;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            background: rgba(0, 0, 0, 0.6);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            max-width: 800px;
-            margin: 50px auto;
-        }
-        h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px #000;
-        }
-        p {
-            font-size: 1.2em;
-            margin: 10px 0;
-            text-shadow: 1px 1px 2px #000;
-        }
-        img {
-            max-width: 200px;
-            border-radius: 50%;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            margin-bottom: 20px;
-        }
-        .lang-switch {
-            margin-top: 20px;
-            text-align: center;
-        }
-        .lang-switch button {
-            padding: 10px 20px;
-            margin: 0 5px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            background: #333;
-            color: #fff;
-            transition: background 0.3s;
-        }
-        .lang-switch button:hover {
-            background: #555;
-        }
-        .nav {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .nav a {
-            color: #fff;
-            margin: 0 15px;
-            text-decoration: none;
-            font-size: 1.2em;
-            transition: color 0.3s;
-        }
-        .nav a:hover {
-            color: #ddd;
-        }
-    </style>
+    <title>个人主页</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="nav">
-        <a href="#about">关于我</a>
-        <a href="#education">教育背景</a>
-        <a href="#awards">获奖情况</a>
-        <a href="#grades">学习成绩</a>
-        <a href="#interests">兴趣爱好</a>
-    </div>
-    <div class="lang-switch">
-        <button onclick="switchLang('zh')">中文</button>
-        <button onclick="switchLang('en')">English</button>
-    </div>
-    <div class="container" id="content-zh">
-        <img src="888.jpg" alt="杨佳悦">
-        <h1>欢迎来到我的个人主页</h1>
-        <p id="about">物理学和数学的博士生，喜欢讲课和科普。</p>
-        <h2 id="education">教育背景</h2>
-        <p>本科：北京大学物理学学士（2014-2018）</p>
-        <p>硕士：北京大学物理学硕士（2018-2021）</p>
-        <p>博士：滑铁卢大学物理学博士（2021-至今）</p>
-        <h2 id="awards">获奖情况</h2>
-        <p>国家奖学金（2016, 2018）</p>
-        <p>北京大学优秀毕业生（2018）</p>
-        <h2 id="grades">学习成绩</h2>
+    <header>
+        <h1>你的名字</h1>
+        <p>职业 / 头衔</p>
+    </header>
+
+    <nav>
         <ul>
-            <li>本科 GPA: 3.90/4.00</li>
-            <li>硕士 GPA: 94.33/100</li>
-            <li>数学课程: 高等数学A1 92, 高等数学A2 95, 线性代数 96, 概率论与数理统计 94, 数理方程I 96</li>
-            <li>物理课程: 力学 93, 理论力学 97, 光学 94, 电磁学 90, 原子物理 90, 量子力学 95, 量子场论 98, 广义相对论 97</li>
-            <li>英语: TOEFL 96</li>
+            <li><a href="#about">关于我</a></li>
+            <li><a href="#skills">技能</a></li>
+            <li><a href="#projects">项目</a></li>
+            <li><a href="#contact">联系我</a></li>
         </ul>
-        <h2 id="interests">兴趣爱好</h2>
-        <p>喜欢讲课和科普，在 Bilibili 拥有超过 10,000 名粉丝。（<a href="https://link3.cc/jiayue" target="_blank">点击查看</a>）</p>
-    </div>
-    <div class="container" id="content-en" style="display:none;">
-        <img src="888.jpg" alt="Jiayue Yang">
-        <h1>Welcome to My Personal Homepage</h1>
-        <p id="about">PhD student in Physics and Mathematics, passionate about teaching and science communication.</p>
-        <h2 id="education">Education</h2>
-        <p>Bachelor: Bachelor of Science in Physics, Peking University (2014-2018)</p>
-        <p>Master: Master of Science in Physics, Peking University (2018-2021)</p>
-        <p>PhD: PhD in Physics, University of Waterloo (2021-present)</p>
-        <h2 id="awards">Awards</h2>
-        <p>National Scholarship (2016, 2018)</p>
-        <p>Outstanding Graduate of Peking University (2018)</p>
-        <h2 id="grades">Grades</h2>
+    </nav>
+
+    <section id="about">
+        <h2>关于我</h2>
+        <p>这里是你的自我介绍。</p>
+    </section>
+
+    <section id="skills">
+        <h2>技能</h2>
         <ul>
-            <li>Undergraduate GPA: 3.90/4.00</li>
-            <li>Master GPA: 94.33/100</li>
-            <li>Math Courses: Calculus A1 92, Calculus A2 95, Linear Algebra 96, Probability and Statistics 94, Mathematical Physics Methods I 96</li>
-            <li>Physics Courses: Mechanics 93, Theoretical Mechanics 97, Optics 94, Electromagnetism 90, Atomic Physics 90, Quantum Mechanics 95, Quantum Field Theory 98, General Relativity 97</li>
-            <li>English: TOEFL 96</li>
+            <li>技能1</li>
+            <li>技能2</li>
+            <li>技能3</li>
+            <!-- 添加更多技能 -->
         </ul>
-        <h2 id="interests">Interests and Skills</h2>
-        <p>Enjoy teaching and science communication, over 10,000 followers on Bilibili. (<a href="https://link3.cc/jiayue" target="_blank">Click to view</a>)</p>
-    </div>
-    <script>
-        function switchLang(lang) {
-            document.getElementById('content-zh').style.display = lang === 'zh' ? 'block' : 'none';
-            document.getElementById('content-en').style.display = lang === 'en' ? 'block' : 'none';
-        }
-    </script>
+    </section>
+
+    <section id="projects">
+        <h2>项目</h2>
+        <div class="project">
+            <h3>项目名称1</h3>
+            <p>项目描述。</p>
+        </div>
+        <div class="project">
+            <h3>项目名称2</h3>
+            <p>项目描述。</p>
+        </div>
+        <!-- 添加更多项目 -->
+    </section>
+
+    <section id="contact">
+        <h2>联系我</h2>
+        <p>电子邮件: <a href="mailto:your.email@example.com">your.email@example.com</a></p>
+        <!-- 添加更多联系方式 -->
+    </section>
+
+    <footer>
+        <p>© 2024 你的名字</p>
+    </footer>
 </body>
 </html>
