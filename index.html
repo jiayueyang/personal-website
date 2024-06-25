@@ -4,176 +4,128 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>杨佳悦的个人主页</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Roboto', sans-serif;
-            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            background: url('https://source.unsplash.com/1600x900/?stars,night') no-repeat center center fixed;
+            background-size: cover;
             color: #fff;
             margin: 0;
             padding: 0;
         }
         .container {
-            max-width: 800px;
-            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.6);
             padding: 20px;
-            text-align: center;
-        }
-        .lang-switch {
-            text-align: right;
-            margin-top: 20px;
-        }
-        .lang-switch a {
-            margin-left: 10px;
-            text-decoration: none;
-            color: #fff;
-            font-weight: bold;
-            transition: color 0.3s ease;
-        }
-        .lang-switch a:hover {
-            color: #ffdd57;
-        }
-        .profile-img {
-            max-width: 200px;
-            border-radius: 50%;
-            margin: 20px 0;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 800px;
+            margin: 50px auto;
         }
         h1 {
             font-size: 2.5em;
-            margin: 20px 0;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-        }
-        p, ul {
-            font-size: 1.1em;
-            text-align: left;
-            margin: 10px 0;
-            padding: 0 20px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-        }
-        ul {
-            list-style: none;
-            padding-left: 0;
-        }
-        ul li {
             margin-bottom: 10px;
-            padding-left: 20px;
-            position: relative;
+            text-shadow: 2px 2px 4px #000;
         }
-        ul li:before {
-            content: "•";
-            color: #ffdd57;
-            position: absolute;
-            left: 0;
-            font-size: 1.5em;
-            line-height: 1.2em;
+        p {
+            font-size: 1.2em;
+            margin: 10px 0;
+            text-shadow: 1px 1px 2px #000;
         }
-        a {
-            color: #ffdd57;
+        img {
+            max-width: 200px;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+        .lang-switch {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .lang-switch button {
+            padding: 10px 20px;
+            margin: 0 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background: #333;
+            color: #fff;
+            transition: background 0.3s;
+        }
+        .lang-switch button:hover {
+            background: #555;
+        }
+        .nav {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .nav a {
+            color: #fff;
+            margin: 0 15px;
             text-decoration: none;
-            font-weight: bold;
+            font-size: 1.2em;
+            transition: color 0.3s;
         }
-        a:hover {
-            text-decoration: underline;
-        }
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 2em;
-            }
-            p, ul {
-                font-size: 1em;
-                padding: 0 10px;
-            }
+        .nav a:hover {
+            color: #ddd;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="lang-switch">
-            <a href="#" onclick="switchLang('zh')">中文</a> | <a href="#" onclick="switchLang('en')">English</a>
-        </div>
-        <div id="content-zh">
-            <h1>欢迎来到我的个人主页</h1>
-            <img src="888.jpg" alt="Jiayue Yang" class="profile-img">
-            <p>物理学和数学的博士生，喜欢讲课和科普。</p>
-            <p><strong>教育背景：</strong></p>
-            <ul>
-                <li>加拿大滑铁卢大学（全额奖学金 50800加元*4年, 2024年9月-2028年8月）博士生 数学和物理</li>
-                <li>加拿大滑铁卢大学（全额奖学金 77280加元, 2022年9月-2024年8月）硕士生 物理</li>
-                <li>吉林大学唐敖庆班（2018年9月-2022年6月）本科生 物理</li>
-                <li>重庆市合川中学（2015年9月 - 2018年6月）高中</li>
-            </ul>
-            <p><strong>获奖情况：</strong></p>
-            <ul>
-                <li>院长奖学金 8000元</li>
-                <li>吉林大学物理学院优秀学生</li>
-                <li>吉林大学天文知识竞赛冠军</li>
-                <li>北京大学物理学院优秀大学生暑期学校证书</li>
-                <li>英国剑桥大学学术交流项目证书</li>
-                <li>日本名古屋大学学术交流项目证书</li>
-                <li>中国科学院高能物理研究所冬季学校证书</li>
-                <li>吉林大学科研实践奖学金团队二等奖 10000元</li>
-                <li>加拿大Mitacs Globalink研究生奖学金 15000加元</li>
-                <li>加拿大Mitacs Globalink本科研究奖学金 1200加元</li>
-                <li>美国纽约大学石溪分校全额奖学金交流项目 50782美元</li>
-                <li>第33届中学生物理竞赛重庆二等奖</li>
-                <li>大学生物理学术竞赛吉林大学一等奖</li>
-                <li>大学生物理学术竞赛东北赛区一等奖</li>
-                <li>中国大学生物理学术竞赛全国决赛二等奖</li>
-            </ul>
-            <p><strong>学习成绩：</strong></p>
-            <ul>
-                <li>本科绩点：91.16/100</li>
-                <li>硕士绩点：94.33/100</li>
-                <li>数学类：微积分A1 92，微积分A2 95，线性代数96，概率论与数理统计94，数学物理方法I 96</li>
-                <li>物理类：力学 93，理论力学 97，光学 94，电磁学 90，原子物理 90，量子力学 95，量子场论 98，广义相对论 97</li>
-                <li>英语类：托福 96</li>
-            </ul>
-            <p><strong>爱好特长：</strong></p>
-            <p>爱好讲课，喜欢给别人科普物理，bilibili有一万粉丝。(点击我查看)</p>
-            <p><a href="https://link3.cc/jiayue" target="_blank">个人主页</a></p>
-        </div>
-        <div id="content-en" style="display: none;">
-            <h1>Welcome to My Personal Homepage</h1>
-            <img src="888.jpg" alt="Jiayue Yang" class="profile-img">
-            <p>Ph.D. student in Physics and Mathematics, passionate about teaching and science communication.</p>
-            <p><strong>Education:</strong></p>
-            <ul>
-                <li>Ph.D. in Physics and Mathematics, University of Waterloo (Full Scholarship, CAD 50,800*4 years, Sep 2024 - Aug 2028)</li>
-                <li>M.Sc. in Physics, University of Waterloo (Full Scholarship, CAD 77,280, Sep 2022 - Aug 2024)</li>
-                <li>B.Sc. in Physics, Tang Aoqing Honors Program, Jilin University (Sep 2018 - Jun 2022)</li>
-                <li>High School, Hechuan High School (Sep 2015 - Jun 2018)</li>
-            </ul>
-            <p><strong>Awards:</strong></p>
-            <ul>
-                <li>Dean's Scholarship, CNY 8000</li>
-                <li>Outstanding Student, School of Physics, Jilin University</li>
-                <li>Champion, Astronomy Knowledge Contest, Jilin University</li>
-                <li>Certificate, Summer School of Outstanding Students, Peking University</li>
-                <li>Certificate, Academic Exchange Program, University of Cambridge</li>
-                <li>Certificate, Academic Exchange Program, Nagoya University</li>
-                <li>Certificate, Winter School, Institute of High Energy Physics, CAS</li>
-                <li>Team Second Prize, Research Practice Scholarship, Jilin University, CNY 10000</li>
-                <li>Mitacs Globalink Graduate Fellowship, CAD 15,000</li>
-                <li>Mitacs Globalink Undergraduate Research Award, CAD 1200</li>
-                <li>Full Scholarship, Exchange Program, Stony Brook University, USD 50,782</li>
-                <li>Second Prize, 33rd National High School Physics Competition, Chongqing</li>
-                <li>First Prize, University Physics Competition, Jilin University</li>
-                <li>First Prize, University Physics Competition, Northeast Region</li>
-                <li>Second Prize, National Finals, University Physics Competition</li>
-            </ul>
-            <p><strong>Academic Performance:</strong></p>
-            <ul>
-                <li>Bachelor GPA: 91.16/100</li>
-                <li>Master GPA: 94.33/100</li>
-                <li>Math Courses: Calculus A1 92, Calculus A2 95, Linear Algebra 96, Probability and Statistics 94, Mathematical Physics Methods I 96</li>
-                <li>Physics Courses: Mechanics 93, Theoretical Mechanics 97, Optics 94, Electromagnetism 90, Atomic Physics 90, Quantum Mechanics 95, Quantum Field Theory 98, General Relativity 97</li>
-                <li>English: TOEFL 96</li>
-            </ul>
-            <p><strong>Interests and Skills:</strong></p>
-            <p>Enjoy teaching and science communication, over 10,000 followers on Bilibili. (Click to view)</p>
-            <p><a href="https://link3.cc/jiayue" target="_blank">Personal Webpage</a></p>
-        </div>
+    <div class="nav">
+        <a href="#about">关于我</a>
+        <a href="#education">教育背景</a>
+        <a href="#awards">获奖情况</a>
+        <a href="#grades">学习成绩</a>
+        <a href="#interests">兴趣爱好</a>
+    </div>
+    <div class="lang-switch">
+        <button onclick="switchLang('zh')">中文</button>
+        <button onclick="switchLang('en')">English</button>
+    </div>
+    <div class="container" id="content-zh">
+        <img src="888.jpg" alt="杨佳悦">
+        <h1>欢迎来到我的个人主页</h1>
+        <p id="about">物理学和数学的博士生，喜欢讲课和科普。</p>
+        <h2 id="education">教育背景</h2>
+        <p>本科：北京大学物理学学士（2014-2018）</p>
+        <p>硕士：北京大学物理学硕士（2018-2021）</p>
+        <p>博士：滑铁卢大学物理学博士（2021-至今）</p>
+        <h2 id="awards">获奖情况</h2>
+        <p>国家奖学金（2016, 2018）</p>
+        <p>北京大学优秀毕业生（2018）</p>
+        <h2 id="grades">学习成绩</h2>
+        <ul>
+            <li>本科 GPA: 3.90/4.00</li>
+            <li>硕士 GPA: 94.33/100</li>
+            <li>数学课程: 高等数学A1 92, 高等数学A2 95, 线性代数 96, 概率论与数理统计 94, 数理方程I 96</li>
+            <li>物理课程: 力学 93, 理论力学 97, 光学 94, 电磁学 90, 原子物理 90, 量子力学 95, 量子场论 98, 广义相对论 97</li>
+            <li>英语: TOEFL 96</li>
+        </ul>
+        <h2 id="interests">兴趣爱好</h2>
+        <p>喜欢讲课和科普，在 Bilibili 拥有超过 10,000 名粉丝。（<a href="https://link3.cc/jiayue" target="_blank">点击查看</a>）</p>
+    </div>
+    <div class="container" id="content-en" style="display:none;">
+        <img src="888.jpg" alt="Jiayue Yang">
+        <h1>Welcome to My Personal Homepage</h1>
+        <p id="about">PhD student in Physics and Mathematics, passionate about teaching and science communication.</p>
+        <h2 id="education">Education</h2>
+        <p>Bachelor: Bachelor of Science in Physics, Peking University (2014-2018)</p>
+        <p>Master: Master of Science in Physics, Peking University (2018-2021)</p>
+        <p>PhD: PhD in Physics, University of Waterloo (2021-present)</p>
+        <h2 id="awards">Awards</h2>
+        <p>National Scholarship (2016, 2018)</p>
+        <p>Outstanding Graduate of Peking University (2018)</p>
+        <h2 id="grades">Grades</h2>
+        <ul>
+            <li>Undergraduate GPA: 3.90/4.00</li>
+            <li>Master GPA: 94.33/100</li>
+            <li>Math Courses: Calculus A1 92, Calculus A2 95, Linear Algebra 96, Probability and Statistics 94, Mathematical Physics Methods I 96</li>
+            <li>Physics Courses: Mechanics 93, Theoretical Mechanics 97, Optics 94, Electromagnetism 90, Atomic Physics 90, Quantum Mechanics 95, Quantum Field Theory 98, General Relativity 97</li>
+            <li>English: TOEFL 96</li>
+        </ul>
+        <h2 id="interests">Interests and Skills</h2>
+        <p>Enjoy teaching and science communication, over 10,000 followers on Bilibili. (<a href="https://link3.cc/jiayue" target="_blank">Click to view</a>)</p>
     </div>
     <script>
         function switchLang(lang) {
