@@ -24,6 +24,7 @@
             padding-top: 30px;
             min-height: 70px;
             border-bottom: #77a8d9 3px solid;
+            position: relative;
         }
         header a {
             color: #fff;
@@ -59,9 +60,24 @@
             background: url('showcase.jpg') no-repeat 0 -400px;
             text-align: center;
             color: #fff;
+            position: relative;
         }
-        #showcase .highlight-text {
+        #showcase h1 {
+            margin-top: 100px;
+            font-size: 55px;
+            margin-bottom: 10px;
+           color: #00BFFF; /* 天蓝色 */
+        }
+        #showcase p {
+            font-size: 30px;
             color: #00BFFF; /* 天蓝色 */
+        }
+        #showcase img {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            max-width: 150px;
+            border-radius: 50%;
         }
         section {
             padding: 20px;
@@ -83,16 +99,25 @@
             text-decoration: none;
             border-radius: 5px;
         }
+        .language-toggle {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
         .hidden {
             display: none;
         }
     </style>
     <script>
         function toggleLanguage() {
-            const zhElements = document.querySelectorAll('.zh');
-            const enElements = document.querySelectorAll('.en');
-            zhElements.forEach(el => el.classList.toggle('hidden'));
-            enElements.forEach(el => el.classList.toggle('hidden'));
+            var zhSections = document.querySelectorAll('.zh');
+            var enSections = document.querySelectorAll('.en');
+            zhSections.forEach(function(section) {
+                section.classList.toggle('hidden');
+            });
+            enSections.forEach(function(section) {
+                section.classList.toggle('hidden');
+            });
         }
     </script>
 </head>
@@ -110,17 +135,25 @@
                     <li><a href="#awards">获奖情况</a></li>
                     <li><a href="#grades">学习成绩</a></li>
                     <li><a href="#hobbies">兴趣爱好</a></li>
+                    <li><a href="#research">科研经历</a></li>
+                    <li><a href="#teaching">教学课程</a></li>
+                    <li><a href="#notes">笔记整理</a></li>
+                    <li><a href="#resources">资源工具</a></li>
+                    <li><a href="#social">社交媒体</a></li>
                 </ul>
-                <button onclick="toggleLanguage()">中/EN</button>
+                <div class="language-toggle">
+                    <button onclick="toggleLanguage()">中文/English</button>
+                </div>
             </nav>
         </div>
     </header>
+    
 
     <section id="showcase">
         <div class="container">
-            <h1 class="highlight-text">欢迎来到我的个人主页</h1>
-            <p class="highlight-text">物理学和数学的博士生，喜欢讲课和科普。</p>
-            <img src="888.jpg" alt="Profile Picture" style="max-width: 100%; height: auto;">
+            <h1>欢迎来到我的个人主页</h1>
+            <p>物理学和数学的博士生，喜欢讲课和科普。</p>
+            <img src="888.jpg" alt="Profile Photo">
         </div>
     </section>
 
@@ -166,7 +199,7 @@
         <h2>学习成绩</h2>
         <p><strong>本科绩点：</strong>91.16/100</p>
         <p><strong>硕士绩点：</strong>94.33/100</p>
-        <h3>数学类</h3>
+        <h4>数学类</h4>
         <ul>
             <li>微积分A1 92</li>
             <li>微积分A2 95</li>
@@ -174,7 +207,7 @@
             <li>概率论与数理统计94</li>
             <li>数学物理方法I 96</li>
         </ul>
-        <h3>物理类</h3>
+        <h4>物理类</h4>
         <ul>
             <li>力学 93</li>
             <li>理论力学 97</li>
@@ -185,7 +218,7 @@
             <li>量子场论 98</li>
             <li>广义相对论 97</li>
         </ul>
-        <h3>英语类</h3>
+        <h4>英语类</h4>
         <ul>
             <li>托福 96</li>
         </ul>
@@ -201,52 +234,55 @@
         <h2>科研经历</h2>
         <ul>
             <li><strong>滑铁卢大学物理学系</strong> - 研究助理（2022-至今）</li>
-            <li><strong>吉林大学物理学系</strong> - 本科生研究员（2020-2022）</li>
+            <li><strong>吉林大学物理学系</strong> - 本科生研究员（2018-2022）</li>
         </ul>
     </section>
 
     <section id="teaching" class="container zh">
         <h2>教学课程</h2>
         <ul>
-            <li>《量子力学导论》 - 教学助理</li>
-            <li>《电动力学》 - 教学助理</li>
+            <li>本科生物理学教程</li>
+            <li>量子力学基础</li>
         </ul>
     </section>
 
     <section id="notes" class="container zh">
         <h2>笔记整理</h2>
-        <p>我喜欢整理学习笔记，并分享给同学们。这些笔记涵盖了广泛的物理和数学知识。</p>
-        <p><a href="https://link3.cc/jiayue" class="button">访问我的笔记</a></p>
+        <ul>
+            <li><a href="https://link3.cc/jiayue/notes1">量子力学笔记</a></li>
+            <li><a href="https://link3.cc/jiayue/notes2">广义相对论笔记</a></li>
+        </ul>
     </section>
 
     <section id="resources" class="container zh">
         <h2>资源工具</h2>
-        <p>我收集和使用各种学习和科研工具，帮助我更高效地完成工作。</p>
-        <p><a href="https://link3.cc/jiayue" class="button">访问我的资源工具</a></p>
+        <ul>
+            <li><a href="https://link3.cc/jiayue/resources1">物理学资源</a></li>
+            <li><a href="https://link3.cc/jiayue/resources2">数学工具</a></li>
+        </ul>
     </section>
 
     <section id="social" class="container zh">
         <h2>社交媒体</h2>
-        <p>你可以通过以下平台找到我：</p>
         <ul>
-            <li><a href="https://space.bilibili.com/87652178?spm_id_from=333.1007.0.0">Bilibili</a></li>
-            <li><a href="https://link3.cc/jiayue">Link3</a></li>
+            <li><a href="https://link3.cc/jiayue/bilibili">Bilibili</a></li>
+            <li><a href="https://link3.cc/jiayue/twitter">Twitter</a></li>
         </ul>
     </section>
 
     <!-- English Sections -->
     <section id="about" class="container en hidden">
         <h2>About Me</h2>
-        <p>My name is Jiayue Yang, currently pursuing a Ph.D. in Physics and Mathematics at the University of Waterloo, Canada. I am passionate about scientific research and teaching, and I enjoy popularizing physics on the Bilibili platform.</p>
+        <p>My name is Jiayue Yang, currently pursuing a Ph.D. in Physics and Mathematics at the University of Waterloo, Canada. I am passionate about scientific research and teaching, and I enjoy popularizing physics through the Bilibili platform.</p>
         <p>Contact: <a href="mailto:j43yang@uwaterloo.ca">j43yang@uwaterloo.ca</a></p>
     </section>
 
     <section id="education" class="container en hidden">
         <h2>Education</h2>
         <ul>
-            <li><strong>Ph.D. Student:</strong> University of Waterloo, Canada (Full Scholarship CAD 50,800*4 years, Sep 2024 - Aug 2028), Mathematics and Physics</li>
-            <li><strong>Master's Student:</strong> University of Waterloo, Canada (Full Scholarship CAD 77,280, Sep 2022 - Aug 2024), Physics</li>
-            <li><strong>Bachelor's Student:</strong> Jilin University, Tang Aoqing Class (Sep 2018 - Jun 2022), Physics</li>
+            <li><strong>Ph.D.:</strong> University of Waterloo (Full scholarship 50,800 CAD * 4 years, Sep 2024 - Aug 2028), Mathematics and Physics</li>
+            <li><strong>M.Sc.:</strong> University of Waterloo (Full scholarship 77,280 CAD, Sep 2022 - Aug 2024), Physics</li>
+            <li><strong>B.Sc.:</strong> Jilin University Tang Aoqing Class (Sep 2018 - Jun 2022), Physics</li>
             <li><strong>High School:</strong> Hechuan High School, Chongqing (Sep 2015 - Jun 2018)</li>
         </ul>
     </section>
@@ -254,21 +290,21 @@
     <section id="awards" class="container en hidden">
         <h2>Awards</h2>
         <ul>
-            <li>Dean's Scholarship CNY 8000</li>
-            <li>Excellent Student of Jilin University, School of Physics</li>
-            <li>Champion of Astronomy Knowledge Contest, Jilin University</li>
-            <li>Certificate of Outstanding Undergraduate Summer School, School of Physics, Peking University</li>
-            <li>Academic Exchange Program Certificate, University of Cambridge, UK</li>
+            <li>Dean's Scholarship 8000 RMB</li>
+            <li>Outstanding Student, Jilin University School of Physics</li>
+            <li>Champion of the Jilin University Astronomy Knowledge Competition</li>
+            <li>Certificate of Excellent University Student Summer School at Peking University School of Physics</li>
+            <li>Academic Exchange Program Certificate, University of Cambridge</li>
             <li>Academic Exchange Program Certificate, Nagoya University, Japan</li>
             <li>Winter School Certificate, Institute of High Energy Physics, Chinese Academy of Sciences</li>
-            <li>Team Second Prize of Scientific Research Practice Scholarship, Jilin University, CNY 10,000</li>
-            <li>Mitacs Globalink Graduate Fellowship, Canada, CAD 15,000</li>
-            <li>Mitacs Globalink Undergraduate Research Scholarship, Canada, CAD 1200</li>
-            <li>Full Scholarship Exchange Program, Stony Brook University, USA, USD 50,782</li>
-            <li>Second Prize in the 33rd National Physics Competition for High School Students, Chongqing</li>
-            <li>First Prize in the Physics Academic Competition, Jilin University</li>
-            <li>First Prize in the Northeast China Division of the National Physics Academic Competition for College Students</li>
-            <li>Second Prize in the National Final of the National Physics Academic Competition for College Students</li>
+            <li>Second Prize, Jilin University Scientific Research Practice Scholarship Team, 10,000 RMB</li>
+            <li>Mitacs Globalink Graduate Scholarship, Canada 15,000 CAD</li>
+            <li>Mitacs Globalink Undergraduate Research Scholarship, Canada 1,200 CAD</li>
+            <li>Full Scholarship Exchange Program, Stony Brook University, New York, USA 50,782 USD</li>
+            <li>Second Prize, 33rd High School Physics Competition in Chongqing</li>
+            <li>First Prize, Jilin University Undergraduate Physics Academic Competition</li>
+            <li>First Prize, Northeast Regional Undergraduate Physics Academic Competition</li>
+            <li>Second Prize, National Finals of the China Undergraduate Physics Academic Competition</li>
         </ul>
     </section>
 
@@ -276,15 +312,15 @@
         <h2>Grades</h2>
         <p><strong>Undergraduate GPA:</strong> 91.16/100</p>
         <p><strong>Master's GPA:</strong> 94.33/100</p>
-        <h3>Mathematics</h3>
+        <h4>Mathematics</h4>
         <ul>
             <li>Calculus A1 92</li>
             <li>Calculus A2 95</li>
             <li>Linear Algebra 96</li>
-            <li>Probability and Statistics 94</li>
-            <li>Mathematical Methods in Physics I 96</li>
+            <li>Probability Theory and Mathematical Statistics 94</li>
+            <li>Mathematical Methods for Physics I 96</li>
         </ul>
-        <h3>Physics</h3>
+        <h4>Physics</h4>
         <ul>
             <li>Mechanics 93</li>
             <li>Theoretical Mechanics 97</li>
@@ -295,7 +331,7 @@
             <li>Quantum Field Theory 98</li>
             <li>General Relativity 97</li>
         </ul>
-        <h3>English</h3>
+        <h4>English</h4>
         <ul>
             <li>TOEFL 96</li>
         </ul>
@@ -303,49 +339,52 @@
 
     <section id="hobbies" class="container en hidden">
         <h2>Hobbies</h2>
-        <p>I love teaching and enjoy popularizing physics. I have ten thousand followers on Bilibili. Welcome to follow my channel.</p>
-        <p><a href="https://space.bilibili.com/87652178?spm_id_from=333.1007.0.0" class="button">Visit my Bilibili homepage</a></p>
+        <p>I love teaching and enjoy popularizing physics to others. I have ten thousand followers on Bilibili, and I welcome you to follow my channel.</p>
+        <p><a href="https://space.bilibili.com/87652178?spm_id_from=333.1007.0.0" class="button">Visit my Bilibili Page</a></p>
     </section>
 
     <section id="research" class="container en hidden">
         <h2>Research Experience</h2>
         <ul>
             <li><strong>Department of Physics, University of Waterloo</strong> - Research Assistant (2022-present)</li>
-            <li><strong>Department of Physics, Jilin University</strong> - Undergraduate Researcher (2020-2022)</li>
+            <li><strong>Department of Physics, Jilin University</strong> - Undergraduate Researcher (2018-2022)</li>
         </ul>
     </section>
 
     <section id="teaching" class="container en hidden">
         <h2>Teaching Courses</h2>
         <ul>
-            <li>Introduction to Quantum Mechanics - Teaching Assistant</li>
-            <li>Electrodynamics - Teaching Assistant</li>
+            <li>Undergraduate Physics Course</li>
+            <li>Introduction to Quantum Mechanics</li>
         </ul>
     </section>
 
     <section id="notes" class="container en hidden">
         <h2>Notes</h2>
-        <p>I enjoy organizing study notes and sharing them with classmates. These notes cover a wide range of physics and mathematics knowledge.</p>
-        <p><a href="https://link3.cc/jiayue" class="button">Visit my notes</a></p>
+        <ul>
+            <li><a href="https://link3.cc/jiayue/notes1">Quantum Mechanics Notes</a></li>
+            <li><a href="https://link3.cc/jiayue/notes2">General Relativity Notes</a></li>
+        </ul>
     </section>
 
     <section id="resources" class="container en hidden">
-        <h2>Resources</h2>
-        <p>I collect and use various learning and research tools to help me work more efficiently.</p>
-        <p><a href="https://link3.cc/jiayue" class="button">Visit my resources</a></p>
+        <h2>Resources & Tools</h2>
+        <ul>
+            <li><a href="https://link3.cc/jiayue/resources1">Physics Resources</a></li>
+            <li><a href="https://link3.cc/jiayue/resources2">Mathematical Tools</a></li>
+        </ul>
     </section>
 
     <section id="social" class="container en hidden">
         <h2>Social Media</h2>
-        <p>You can find me on the following platforms:</p>
         <ul>
-            <li><a href="https://space.bilibili.com/87652178?spm_id_from=333.1007.0.0">Bilibili</a></li>
-            <li><a href="https://link3.cc/jiayue">Link3</a></li>
+            <li><a href="https://link3.cc/jiayue/bilibili">Bilibili</a></li>
+            <li><a href="https://link3.cc/jiayue/twitter">Twitter</a></li>
         </ul>
     </section>
 
     <footer>
-        <p>杨佳悦 &copy; 2024</p>
+        <p>Jiayue Yang &copy; 2024</p>
     </footer>
 </body>
 </html>
