@@ -3,121 +3,251 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>杨佳悦 | Jiayue Yang — Cosmic Academic Homepage</title>
-  <meta name="description" content="杨佳悦（Jiayue Yang）个人学术主页 · 量子信息、引力、黑洞热力学、相对论量子信息。" />
-  <meta name="color-scheme" content="light dark" />
+  <title>杨佳悦 | Jiayue Yang — Personal Homepage</title>
+  <meta name="description" content="杨佳悦（Jiayue Yang），滑铁卢大学与量子计算研究所博士生。研究方向：量子信息、引力、黑洞热力学、相对论量子信息。" />
+  <meta name="color-scheme" content="light dark">
+  <meta property="og:title" content="杨佳悦 | Jiayue Yang — Personal Homepage" />
+  <meta property="og:description" content="PhD student at the University of Waterloo & IQC. Research: QIQC, QIQG, RQI, black hole thermodynamics." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/profile.jpg" />
   <link rel="icon" href="assets/favicon.ico" />
   <style>
-    /* --------- Cosmic Multi-Theme --------- */
-    :root{
-      --bg:#070812; --fg:#eaf0ff; --muted:#9fb0d4; --card:#0b0f24; --border:#1b2150; --brand:#6bc9ff;
-      --accent:#a78bfa; --accent2:#22d3ee; --accent3:#f472b6; --glow:#6bc9ff;
+    :root {
+      --bg: #0b1324;
+      --fg: #e8ecf1;
+      --muted: #9fb3c8;
+      --brand: #77a8d9;
+      --card: #121b33;
+      --border: #223154;
+      --link: #7cc7ff;
+      --accent: #26d4c3;
     }
-    .theme-aurora{ --brand:#7cf6e6; --accent:#60a5fa; --accent2:#a78bfa; --accent3:#34d399; --glow:#7cf6e6; }
-    .theme-nebula{ --brand:#ff7cfb; --accent:#a78bfa; --accent2:#f472b6; --accent3:#f59e0b; --glow:#ff7cfb; }
-    .theme-solar{ --brand:#ffd166; --accent:#06b6d4; --accent2:#f97316; --accent3:#ef4444; --glow:#ffd166; }
-
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0;font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Noto Sans","PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--fg);}
-    a{color:var(--brand);text-decoration:none}
-    a:hover{text-decoration:underline}
-    .container{width:min(1100px,92%);margin:0 auto}
-
-    /* Header */
-    header{position:sticky;top:0;z-index:40;background:color-mix(in srgb, var(--bg) 82%, transparent);backdrop-filter:blur(8px) saturate(140%);border-bottom:1px solid var(--border)}
-    .nav{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
-    .brand{display:flex;align-items:center;gap:12px}
-    .brand img{width:42px;height:42px;border-radius:50%;object-fit:cover;border:1px solid var(--border);box-shadow:0 0 12px color-mix(in srgb, var(--glow) 45%, transparent)}
-    .menu{display:flex;gap:14px;flex-wrap:wrap}
-    .menu a{padding:6px 10px;border-radius:999px;border:1px solid transparent}
-    .menu a.active,.menu a:hover{background:color-mix(in srgb, var(--card) 88%, transparent);border-color:var(--border);text-decoration:none}
-    .lang button,.theme button{cursor:pointer;border:1px solid var(--border);background:color-mix(in srgb, var(--card) 92%, transparent);color:var(--fg);border-radius:10px;padding:6px 10px}
-    .lang button.active,.theme button.active{outline:2px solid var(--brand)}
-
-    /* Cosmic background layers */
-    #starfield{position:fixed;inset:0;z-index:-2;background:#000}
-    .nebula{position:fixed;inset:0;z-index:-3;pointer-events:none;}
-    .nebula::before,.nebula::after{content:"";position:absolute;inset:-20%;filter:blur(60px);opacity:.35;}
-    .nebula::before{background:radial-gradient(600px 600px at 20% 30%, var(--accent) 0%, transparent 60%),
-                               radial-gradient(700px 700px at 80% 70%, var(--accent2) 0%, transparent 60%)}
-    .nebula::after{background:radial-gradient(500px 500px at 70% 20%, var(--accent3) 0%, transparent 60%)}
-
-    /* Sections */
-    section{padding:28px 0;border-top:1px solid var(--border)}
-    h1{font-size:clamp(28px,5vw,44px);margin:0 0 6px}
-    h2{font-size:clamp(22px,3.2vw,28px);margin:0 0 12px}
-    h3{font-size:18px;margin:14px 0 6px}
-
-    /* Cards + grid */
-    .grid{display:grid;gap:16px}
-    .cols-2{grid-template-columns:1fr 1fr}
-    .cols-3{grid-template-columns:repeat(3,1fr)}
-    @media (max-width:900px){ .cols-2,.cols-3{grid-template-columns:1fr}}
-    .card{background:linear-gradient(180deg, color-mix(in srgb, var(--card) 95%, transparent), color-mix(in srgb, var(--card) 85%, transparent));border:1px solid var(--border);border-radius:16px;padding:14px 16px;box-shadow:0 0 0 1px color-mix(in srgb, var(--glow) 12%, transparent), 0 10px 40px -20px #000}
-
-    .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-    .chip{display:inline-block;padding:.2rem .6rem;border:1px solid var(--border);border-radius:999px;color:var(--muted);font-size:.85rem}
-    .muted{color:var(--muted)}
-    .btn{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;border:1px solid var(--border);background:color-mix(in srgb, var(--card) 92%, transparent);color:var(--fg);cursor:pointer}
-    .btn:hover{border-color:var(--brand)}
-
-    /* Publication item */
-    .pub{display:flex;justify-content:space-between;gap:12px}
-    .pub .left{flex:1}
-    .badge{background:color-mix(in srgb, var(--brand) 20%, transparent);border:1px solid var(--border);padding:2px 8px;border-radius:999px;font-size:.8rem}
-
-    /* Hero */
-    .hero{display:grid;grid-template-columns:1.2fr .9fr;gap:22px;align-items:center;padding:40px 0 8px}
-    @media (max-width:900px){ .hero{grid-template-columns:1fr}}
-    .hero-card{position:relative;overflow:hidden}
-    .orbit{position:absolute;inset:-20px;border-radius:20px;pointer-events:none;background:
-      radial-gradient(120px 120px at 15% 30%, color-mix(in srgb, var(--glow) 25%, transparent), transparent 60%),
-      radial-gradient(160px 160px at 85% 80%, color-mix(in srgb, var(--accent2) 25%, transparent), transparent 60%),
-      radial-gradient(180px 180px at 70% 10%, color-mix(in srgb, var(--accent3) 16%, transparent), transparent 60%);
-      filter:blur(40px);opacity:.55
+    @media (prefers-color-scheme: light) {
+      :root { --bg:#f6f8fb; --fg:#222; --muted:#516173; --card:#fff; --border:#dbe3ef; --link:#0066cc; --accent:#0aa; }
     }
-
-    /* Footer */
-    footer{border-top:1px solid var(--border);padding:26px 0 40px;color:var(--muted)}
-
-    /* Small helpers */
-    .kbd{padding:.1rem .35rem;border:1px solid var(--border);border-bottom:2px solid color-mix(in srgb, var(--border) 80%, black);border-radius:6px;background:color-mix(in srgb, var(--card) 88%, transparent);font-size:.8rem}
+    * { box-sizing: border-box; }
+    html, body { margin:0; padding:0; background:var(--bg); color:var(--fg); font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Noto Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { width:min(1100px, 92%); margin: 0 auto; }
+    header { position:sticky; top:0; z-index:10; backdrop-filter:saturate(140%) blur(6px); background: color-mix(in srgb, var(--bg) 82%, transparent); border-bottom:1px solid var(--border); }
+    .nav { display:flex; align-items:center; justify-content:space-between; padding:12px 0; }
+    .brand { display:flex; align-items:center; gap:12px; font-weight:700; letter-spacing:.2px; }
+    .brand img { width:40px; height:40px; border-radius:50%; object-fit:cover; border:1px solid var(--border); }
+    .menu { display:flex; gap:16px; flex-wrap:wrap; align-items:center; }
+    .menu a { padding:6px 10px; border-radius:999px; }
+    .menu a.active, .menu a:hover { background:var(--card); border:1px solid var(--border); text-decoration:none; }
+    .chip { display:inline-block; font-size:.875rem; padding:.2rem .6rem; border:1px solid var(--border); border-radius:999px; color:var(--muted); }
+    .hero { display:grid; grid-template-columns: 1.3fr .9fr; gap:28px; align-items:center; padding:42px 0 10px; }
+    .hero h1 { font-size: clamp(28px, 5vw, 44px); margin:0 0 8px; line-height:1.15; }
+    .hero p { margin:.25rem 0 .75rem; color:var(--muted); }
+    .hero-card { background:linear-gradient(135deg, color-mix(in srgb, var(--card) 92%, transparent), color-mix(in srgb, var(--card) 85%, transparent)); border:1px solid var(--border); border-radius:18px; padding:18px; }
+    .grid { display:grid; gap:18px; }
+    .grid.cols-2 { grid-template-columns: 1fr 1fr; }
+    .grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+    @media (max-width: 880px){ .hero { grid-template-columns: 1fr; } .grid.cols-2, .grid.cols-3{ grid-template-columns: 1fr; } }
+    section { padding: 28px 0; border-top:1px solid var(--border); }
+    h2 { margin: 0 0 12px; font-size: clamp(22px, 3.2vw, 28px); }
+    h3 { margin: 18px 0 6px; font-size: 18px; }
+    .card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:14px 16px; }
+    .muted { color: var(--muted); }
+    .row { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+    .btn { display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:10px; border:1px solid var(--border); background:var(--card); color:var(--fg); cursor:pointer; }
+    .btn:hover { border-color:var(--brand); }
+    .lang-switch { display:flex; gap:10px; }
+    .lang-switch button.active { outline: 2px solid var(--brand); }
+    details { border:1px dashed var(--border); border-radius:10px; padding:10px 12px; background: color-mix(in srgb, var(--card) 92%, transparent); }
+    details + details { margin-top:10px; }
+    summary { cursor:pointer; }
+    footer { padding: 28px 0 44px; border-top:1px solid var(--border); color:var(--muted); }
+    .badge { background: color-mix(in srgb, var(--brand) 24%, transparent); color: var(--fg); border: 1px solid var(--border); padding:2px 8px; border-radius: 999px; font-size: .8rem; }
+    .list { padding-left: 18px; }
+    .list li { margin:.25rem 0; }
   </style>
+  <script>
+    // Minimal i18n toggling
+    const text = {
+      zh: {
+        role: "滑铁卢大学 应用数学 / 量子计算研究所 博士生 | 外围研究员（PI）",
+        tagline: "研究兴趣：量子信息与计算、引力中的量子信息、相对论量子信息、黑洞热力学",
+        nav: ["关于我","发表成果","研究","教学","报告与海报","获奖","服务与志愿","联系"],
+        about: {
+          title: "关于我",
+          p1: "我叫杨佳悦（Jiayue Yang）。目前在加拿大滑铁卢大学攻读应用数学与量子计算联合博士，并在外周研究所（Perimeter Institute）担任联合研究生。导师：Robert B. Mann（滑铁卢），Niayesh Afshordi（PI）。",
+          p2: "教育背景：2024–至今 博士（UWaterloo & IQC）；2022–2024 物理学硕士（UWaterloo，均分94.3/100）；2018–2022 吉林大学唐敖庆班（均分91.16/100）。",
+          p3: "研究领域：QIQC, QIQG, RQI, 黑洞热力学, hep-th, gr-qc。"
+        },
+        pubs: "发表成果",
+        research: "研究",
+        teaching: "教学",
+        talks: "报告与海报",
+        awards: "获奖与荣誉",
+        service: "学术服务与志愿",
+        contact: "联系我",
+        last: "最后更新：2025-08-07"
+      },
+      en: {
+        role: "PhD Student, Applied Math & IQC (University of Waterloo) | Associate Graduate Student (Perimeter Institute)",
+        tagline: "Interests: QIQC, QIQG, RQI, black hole thermodynamics",
+        nav: ["About","Publications","Research","Teaching","Talks & Posters","Awards","Service","Contact"],
+        about: {
+          title: "About",
+          p1: "I'm Jiayue Yang, a PhD student in Applied Mathematics and at the Institute for Quantum Computing, University of Waterloo, and an Associate Graduate Student at Perimeter Institute. Supervisors: Robert B. Mann (UWaterloo) and Niayesh Afshordi (PI).",
+          p2: "Education: PhD (2024–present), MSc in Physics (UWaterloo, average 94.3/100), BSc at Jilin University Tang Aoqing Honors (average 91.16/100).",
+          p3: "Areas: QIQC, QIQG, RQI, black hole thermodynamics, hep-th, gr-qc."
+        },
+        pubs: "Publications",
+        research: "Research",
+        teaching: "Teaching",
+        talks: "Talks & Posters",
+        awards: "Awards & Honors",
+        service: "Service & Outreach",
+        contact: "Contact",
+        last: "Last updated: 2025-08-07"
+      }
+    };
+    let lang = (localStorage.getItem('lang')||'zh');
+    function setLang(l){ lang = l; localStorage.setItem('lang', l); render(); }
+
+    const pubs = [
+      {year:2025, title:"On thermodynamics of charged and accelerating black holes", authors:"Hale, Kubizňák, Menšíková, Mann, Yang", venue:"arXiv:2501.13679 (submitted to PRD)", link:"https://arxiv.org/abs/2501.13679"},
+      {year:2024, title:"Smart Holes: Analogue black holes with the right temperature and entropy", authors:"Yang, Afshordi, Torabian, Jafari, Baskaran", venue:"arXiv:2412.08517 (submitted to JHEP)", link:"https://arxiv.org/abs/2412.08517"},
+      {year:2024, title:"Existence of Vacuum Wormholes in Einsteinian Cubic Gravity", authors:"Lu, Yang, Mann", venue:"JHEP (accepted), arXiv:2410.13996", link:"https://arxiv.org/abs/2410.13996"},
+      {year:2024, title:"Gravitational Wormholes", authors:"Lu, Yang, Mann", venue:"Universe 10(6):257", link:"https://doi.org/10.3390/universe10060257"},
+      {year:2023, title:"Dynamic behaviours of black hole phase transitions near quadruple points", authors:"Yang, Mann", venue:"JHEP 08 (2023) 028", link:"https://doi.org/10.1007/JHEP08(2023)028"},
+      {year:2023, title:"Complexity, scaling, and a phase transition", authors:"Yang, Frey", venue:"JHEP 09 (2023) 029", link:"https://doi.org/10.1007/JHEP09(2023)029"}
+    ];
+
+    const presentations = [
+      {date:"2025-06-27", name:"QIQG 2025: Quantum Information in Quantum Gravity (Poster)", where:"Perimeter Institute", link:"https://events.perimeterinstitute.ca/event/968/"},
+      {date:"2025-06-06", name:"Lee’s Fest: Quantum Gravity and the Nature of Time (Poster)", where:"Perimeter Institute", link:"https://events.perimeterinstitute.ca/event/937/"},
+      {date:"2025-03-14", name:"Emmy Noether Workshop: Quantum Spacetime (Poster)", where:"Perimeter Institute", link:"https://events.perimeterinstitute.ca/event/928/overview"},
+      {date:"2025-01-24", name:"From Black Hole Thermodynamics to Black Hole Chemistry (Talk)", where:"UWaterloo AMATH Mini-Conference"},
+      {date:"2024-12-24", name:"Complexity, Scaling, and a Phase Transition (Talk)", where:"Jiangxi Normal University"},
+      {date:"2024-10-04", name:"Dynamic Behaviours... (Talk)", where:"HKUST", link:"https://ias.hkust.edu.hk/events/dynamic-behaviours-of-black-hole-phase-transitions-near-quadruple-points"}
+    ];
+
+    const awards = [
+      {year:"2025", name:"Alan George Student Leadership Award (only recipient at UWaterloo)", note:"CAD 2,500"},
+      {year:"2024", name:"David Johnston International Student Entrance Scholarship", note:"CAD 5,000"},
+      {year:"2024", name:"IQC Entrance Award", note:"CAD 5,000"},
+      {year:"2024", name:"Provost Doctoral Entrance Award for Women", note:"CAD 5,000"},
+      {year:"2024", name:"Graduate Student Research Dissemination Award", note:"CAD 500"},
+      {year:"2022", name:"Mitacs Globalink Graduate Fellowship", note:"CAD 15,000"},
+      {year:"2021", name:"Mitacs Globalink Research Internship Award", note:"CAD 1,200"},
+      {year:"2020", name:"Stony Brook University Tuition Scholarship for Honor Students", note:"USD 24,740"}
+    ];
+
+    const teaching = [
+      {when:"2025 W24", what:"Quantum Theory 3 (AMATH)", role:"Teaching Assistant", where:"University of Waterloo"},
+      {when:"2023–present", what:"Quantum Field Theory (free online)", role:"Instructor", link:"https://www.youtube.com/playlist?list=PL3Gqxj0as8XvAKaTx4wamIf2Yq_eiBAiC"},
+      {when:"2023–present", what:"General Relativity (free online)", role:"Instructor", link:"https://www.bilibili.com/video/BV1qv411w72a"},
+      {when:"2023", what:"SCI 238 Introductory Astronomy", role:"Teaching Assistant", where:"University of Waterloo"}
+    ];
+
+    const service = [
+      {when:"2025", what:"Organizer, IQC Student Summer Conference 2025", where:"University of Waterloo", link:"https://uwaterloo.ca/institute-for-quantum-computing/events/iqc-student-summer-conference"},
+      {when:"2024–present", what:"Science outreach book drives & public talks", where:"China/Canada"},
+      {when:"2024-04-08", what:"Total Solar Eclipse outreach", where:"Waterloo, Canada"},
+      {when:"2023–present", what:"Organizer, Quantum Information in Gravity Seminar (weekly)"}
+    ];
+
+    function el(tag, attrs={}, children=[]) {
+      const d = document.createElement(tag);
+      for (const k in attrs) (k === 'class') ? d.className = attrs[k] : d.setAttribute(k, attrs[k]);
+      (Array.isArray(children)?children:[children]).filter(Boolean).forEach(c => d.append(c.nodeType?c:document.createTextNode(c)));
+      return d;
+    }
+
+    function renderPubs() {
+      const list = el('div', {class:'grid'});
+      pubs.sort((a,b)=> b.year-a.year).forEach(p=>{
+        const item = el('div', {class:'card'} , [
+          el('div', {class:'row'}, [ el('span', {class:'badge'}, p.year), el('strong',{}, p.title) ]),
+          el('div', {class:'muted'}, p.authors),
+          el('div', {}, [ p.venue, ' · ', el('a', {href:p.link, target:'_blank', rel:'noopener'}, 'link') ])
+        ]);
+        list.append(item);
+      });
+      return list;
+    }
+
+    function renderList(items, fmt) {
+      const box = el('div', {class:'grid'});
+      items.forEach(x=> box.append(el('div', {class:'card'}, fmt(x))));
+      return box;
+    }
+
+    function render() {
+      // nav texts
+      const t = text[lang];
+      document.querySelectorAll('[data-i18n="role"]').forEach(n=> n.textContent = t.role);
+      document.querySelector('[data-i18n="tagline"]').textContent = t.tagline;
+      document.querySelector('[data-i18n="about-title"]').textContent = t.about.title;
+      document.querySelector('[data-i18n="about-p1"]').textContent = t.about.p1;
+      document.querySelector('[data-i18n="about-p2"]').textContent = t.about.p2;
+      document.querySelector('[data-i18n="about-p3"]').textContent = t.about.p3;
+      document.querySelectorAll('[data-i18n="nav"] a').forEach((a,i)=> a.textContent = t.nav[i]);
+      document.querySelector('[data-i18n="section-pubs"]').textContent = t.pubs;
+      document.querySelector('[data-i18n="section-research"]').textContent = t.research;
+      document.querySelector('[data-i18n="section-teaching"]').textContent = t.teaching;
+      document.querySelector('[data-i18n="section-talks"]').textContent = t.talks;
+      document.querySelector('[data-i18n="section-awards"]').textContent = t.awards;
+      document.querySelector('[data-i18n="section-service"]').textContent = t.service;
+      document.querySelector('[data-i18n="section-contact"]').textContent = t.contact;
+      document.querySelector('[data-i18n="last"]').textContent = t.last;
+
+      document.querySelector('#pubs-list').replaceChildren(renderPubs());
+      document.querySelector('#teach-list').replaceChildren(renderList(teaching, x=>[
+        el('div', {class:'row'}, [ el('span',{class:'badge'}, x.when), el('strong',{}, x.what) ]),
+        el('div', {class:'muted'}, x.role + (x.where?` · ${x.where}`:'')),
+        x.link ? el('a', {href:x.link, target:'_blank', rel:'noopener'}, 'link') : null
+      ]));
+      document.querySelector('#talks-list').replaceChildren(renderList(presentations, x=>[
+        el('div', {class:'row'}, [ el('span',{class:'badge'}, x.date), el('strong',{}, x.name) ]),
+        el('div', {class:'muted'}, x.where || ''),
+        x.link ? el('a', {href:x.link, target:'_blank', rel:'noopener'}, 'details') : null
+      ]));
+      document.querySelector('#awards-list').replaceChildren(renderList(awards, x=>[
+        el('div', {class:'row'}, [ el('span',{class:'badge'}, x.year), el('strong',{}, x.name) ]),
+        el('div', {class:'muted'}, x.note || '')
+      ]));
+      document.querySelector('#service-list').replaceChildren(renderList(service, x=>[
+        el('div', {class:'row'}, [ el('span',{class:'badge'}, x.when), el('strong',{}, x.what) ]),
+        el('div', {class:'muted'}, x.where || ''),
+        x.link ? el('a', {href:x.link, target:'_blank', rel:'noopener'}, 'details') : null
+      ]));
+
+      document.querySelectorAll('[data-lang]').forEach(b=> b.classList.toggle('active', b.dataset.lang===lang));
+      document.documentElement.lang = (lang==='zh'? 'zh-CN':'en');
+    }
+
+    document.addEventListener('DOMContentLoaded', render);
+  </script>
 </head>
 <body>
-  <!-- Cosmic layers -->
-  <canvas id="starfield"></canvas>
-  <div class="nebula"></div>
-
   <header>
     <div class="container nav">
       <div class="brand">
-        <img src="assets/profile.jpg" alt="profile" />
+        <img src="assets/profile.jpg" alt="Jiayue Yang profile" />
         <div>
-          <div style="font-weight:700">杨佳悦 | Jiayue Yang</div>
-          <div class="muted" id="role"></div>
+          <div style="font-size:1.05rem">杨佳悦 | Jiayue Yang</div>
+          <div class="muted" data-i18n="role"></div>
         </div>
       </div>
-      <nav class="menu">
-        <a href="#about" class="active" data-nav>关于我</a>
-        <a href="#pubs" data-nav>论文</a>
-        <a href="#research" data-nav>研究</a>
-        <a href="#talks" data-nav>报告</a>
-        <a href="#teaching" data-nav>教学</a>
-        <a href="#awards" data-nav>获奖</a>
-        <a href="#contact" data-nav>联系</a>
+      <nav class="menu" data-i18n="nav">
+        <a href="#about" class="active">关于我</a>
+        <a href="#pubs">发表成果</a>
+        <a href="#research">研究</a>
+        <a href="#teaching">教学</a>
+        <a href="#talks">报告与海报</a>
+        <a href="#awards">获奖</a>
+        <a href="#service">服务与志愿</a>
+        <a href="#contact">联系</a>
       </nav>
-      <div class="row">
-        <div class="theme">
-          <button id="t-default" class="active">✨ 默认</button>
-          <button id="t-aurora">🧊 极光</button>
-          <button id="t-nebula">🌌 星云</button>
-          <button id="t-solar">☀️ 日冕</button>
-        </div>
-        <div class="lang">
-          <button id="zh" class="active">中文</button>
-          <button id="en">EN</button>
-        </div>
+      <div class="lang-switch">
+        <button class="btn" data-lang="zh" onclick="setLang('zh')">中文</button>
+        <button class="btn" data-lang="en" onclick="setLang('en')">English</button>
       </div>
     </div>
   </header>
@@ -126,21 +256,19 @@
     <section class="hero">
       <div>
         <h1>Hi, I'm Jiayue <span class="chip">杨佳悦</span></h1>
-        <p class="muted" id="tagline"></p>
-        <div class="row" style="gap:12px;margin-top:8px">
+        <p class="muted" data-i18n="tagline"></p>
+        <div class="row" style="gap:12px; margin-top:8px; flex-wrap:wrap;">
           <a class="btn" href="mailto:j43yang@uwaterloo.ca">✉️ j43yang@uwaterloo.ca</a>
-          <a class="btn" target="_blank" rel="noopener" href="https://inspirehep.net/authors/2679717?ui-citation-summary=true">📚 InspireHEP</a>
-          <a class="btn" target="_blank" rel="noopener" href="https://link3.cc/jiayue">🌐 Link Hub</a>
-          <a class="btn" target="_blank" rel="noopener" href="https://space.bilibili.com/87652178">📺 Bilibili</a>
+          <a class="btn" href="https://link3.cc/jiayue" target="_blank" rel="noopener">🌐 Personal page hub</a>
+          <a class="btn" href="https://inspirehep.net/authors/2679717?ui-citation-summary=true" target="_blank" rel="noopener">📚 InspireHEP</a>
           <a class="btn" href="#pubs">📝 Publications</a>
         </div>
       </div>
-      <div class="card hero-card">
-        <div class="orbit"></div>
-        <div class="row" style="justify-content:space-between;align-items:flex-start">
+      <div class="hero-card">
+        <div class="row" style="justify-content:space-between; align-items:flex-start;">
           <div>
             <div class="muted">Degrees</div>
-            <ul>
+            <ul class="list">
               <li>PhD (Applied Math, IQC) — University of Waterloo (2024–)</li>
               <li>MSc (Physics) — University of Waterloo (2022–2024, avg 94.3/100)</li>
               <li>BSc (Tang Aoqing Honors, Physics) — Jilin University (avg 91.16/100)</li>
@@ -154,70 +282,73 @@
             </div>
           </div>
         </div>
-        <div style="margin-top:8px" class="muted">CV: <a id="cv-en" href="CV_Jiayue_Yang_Waterloo_and_PI.pdf" download>Waterloo & PI (PDF)</a> · <a id="cv-zh" href="简历.pdf" download>中文简历 (PDF)</a></div>
+        <details style="margin-top:10px">
+          <summary>Recent highlights</summary>
+          <ul class="list">
+            <li>JHEP accepted: <em>Existence of Vacuum Wormholes in ECG</em>.</li>
+            <li>Preprint: <em>On thermodynamics of charged and accelerating black holes</em> (to PRD).</li>
+            <li>Preprint: <em>Smart Holes</em> (to JHEP).</li>
+          </ul>
+        </details>
       </div>
     </section>
 
     <section id="about">
-      <h2 id="about-title">关于我</h2>
-      <p id="about-p1"></p>
-      <p id="about-p2"></p>
-      <p id="about-p3"></p>
+      <h2 data-i18n="about-title">关于我</h2>
+      <p data-i18n="about-p1"></p>
+      <p data-i18n="about-p2"></p>
+      <p data-i18n="about-p3"></p>
     </section>
 
     <section id="pubs">
-      <h2>发表成果 / Publications</h2>
-      <div class="row" style="justify-content:space-between;align-items:center;margin-bottom:8px">
-        <div class="row" style="gap:6px">
-          <span class="muted">年份筛选:</span>
-          <div id="year-filters" class="row"></div>
-        </div>
-        <div>
-          <input id="q" class="kbd" placeholder="搜索题目/作者/期刊… Search title/author/venue…" style="width:280px"/>
-        </div>
-      </div>
-      <div id="pubs-list" class="grid"></div>
+      <h2 data-i18n="section-pubs">发表成果</h2>
+      <div id="pubs-list"></div>
     </section>
 
     <section id="research">
-      <h2>研究 / Research</h2>
+      <h2 data-i18n="section-research">研究</h2>
       <div class="grid cols-2">
         <div class="card">
           <h3>Charged & Accelerating Black Holes</h3>
-          <div class="muted">Thermodynamics of C-metric spacetimes (Maxwell, ModMax, RegMax), holographic vs topological renormalization, electrostatic potential shifts.</div>
+          <p class="muted">Thermodynamics of C-metric spacetimes (Maxwell, ModMax, RegMax), holographic vs topological renormalization, electrostatic potential shifts.</p>
         </div>
         <div class="card">
           <h3>Analogue Gravity: Smart Holes</h3>
-          <div class="muted">Tilted Dirac cones as analogue black holes with matching temperature and entropy; entropy localized near analogue horizons.</div>
+          <p class="muted">Tilted Dirac cones on honeycomb lattices as black-hole analogues with matching temperature and entropy; entropy localized near analogue horizons.</p>
         </div>
         <div class="card">
           <h3>Wormholes in Einsteinian Cubic Gravity</h3>
-          <div class="muted">Purely gravitational AdS traversable wormholes without exotic matter; global monopole deficit at infinity.</div>
+          <p class="muted">Purely gravitational, asymptotically AdS traversable wormholes without exotic matter; global monopole deficit at infinity.</p>
         </div>
         <div class="card">
           <h3>Holographic Complexity</h3>
-          <div class="muted">CV/CA proposals, scaling laws, and confinement–deconfinement transitions with Wilson lines.</div>
+          <p class="muted">Complexity–volume/action proposals, scaling laws, and confinement–deconfinement transitions with Wilson lines.</p>
         </div>
       </div>
     </section>
 
-    <section id="talks">
-      <h2>报告与海报 / Talks & Posters</h2>
-      <div id="talks-list" class="grid"></div>
+    <section id="teaching">
+      <h2 data-i18n="section-teaching">教学</h2>
+      <div id="teach-list"></div>
     </section>
 
-    <section id="teaching">
-      <h2>教学 / Teaching</h2>
-      <div id="teach-list" class="grid cols-2"></div>
+    <section id="talks">
+      <h2 data-i18n="section-talks">报告与海报</h2>
+      <div id="talks-list"></div>
     </section>
 
     <section id="awards">
-      <h2>获奖与荣誉 / Awards</h2>
-      <div id="awards-list" class="grid cols-2"></div>
+      <h2 data-i18n="section-awards">获奖与荣誉</h2>
+      <div id="awards-list"></div>
+    </section>
+
+    <section id="service">
+      <h2 data-i18n="section-service">学术服务与志愿</h2>
+      <div id="service-list"></div>
     </section>
 
     <section id="contact">
-      <h2>联系 / Contact</h2>
+      <h2 data-i18n="section-contact">联系我</h2>
       <div class="grid cols-3">
         <div class="card">
           <h3>Email</h3>
@@ -225,244 +356,30 @@
         </div>
         <div class="card">
           <h3>Links</h3>
-          <ul>
+          <ul class="list">
             <li><a target="_blank" rel="noopener" href="https://link3.cc/jiayue">Link3 / Personal hub</a></li>
             <li><a target="_blank" rel="noopener" href="https://inspirehep.net/authors/2679717?ui-citation-summary=true">InspireHEP</a></li>
             <li><a target="_blank" rel="noopener" href="https://space.bilibili.com/87652178">Bilibili</a></li>
+            <li><a target="_blank" rel="noopener" href="#pubs">Publications</a></li>
           </ul>
         </div>
         <div class="card">
-          <h3>Affiliations</h3>
-          <div class="muted">University of Waterloo · Institute for Quantum Computing · Perimeter Institute (Associate Graduate Student)</div>
+          <h3>Office / Affiliation</h3>
+          <p class="muted">University of Waterloo · Institute for Quantum Computing · Perimeter Institute (Associate Graduate Student)</p>
         </div>
       </div>
-      <p class="muted" style="margin-top:10px" id="last">最后更新：2025-08-07</p>
+      <p class="muted" style="margin-top:10px" data-i18n="last">最后更新：2025-08-07</p>
     </section>
   </main>
 
   <footer>
-    <div class="container">© <span id="year"></span> Jiayue Yang — CC BY-NC 4.0 · Built for GitHub Pages</div>
+    <div class="container">
+      © <span id="year"></span> Jiayue Yang — CC BY-NC 4.0. Built for GitHub Pages.
+    </div>
   </footer>
 
   <script>
-    // ---------- Content (easy to maintain) ----------
-    const TEXT={
-      zh:{
-        role:"滑铁卢大学 应用数学 / 量子计算 博士生 · PI 联合研究生",
-        tagline:"研究兴趣：量子信息与计算、引力中的量子信息、相对论量子信息、黑洞热力学、全息复杂度",
-        about:{
-          p1:"我叫杨佳悦（Jiayue Yang），目前在加拿大滑铁卢大学攻读应用数学与量子计算联合博士，并在 Perimeter Institute 担任联合研究生。导师：Robert B. Mann（UWaterloo），Niayesh Afshordi（PI）。",
-          p2:"教育背景：2024–至今 博士（UWaterloo & IQC）；2022–2024 物理学硕士（UWaterloo，均分94.3/100）；2018–2022 吉林大学唐敖庆班（均分91.16/100）。",
-          p3:"研究领域：QIQC, QIQG, RQI, 黑洞热力学, hep-th, gr-qc。"
-        },
-        nav:["关于我","论文","研究","报告","教学","获奖","联系"],
-        last:"最后更新：2025-08-07"
-      },
-      en:{
-        role:"PhD Student, Applied Math & IQC (UWaterloo) · Associate Graduate Student (PI)",
-        tagline:"Interests: QIQC, QIQG, RQI, black hole thermodynamics, holographic complexity",
-        about:{
-          p1:"I'm Jiayue Yang, a PhD student in Applied Mathematics and at the Institute for Quantum Computing, University of Waterloo, and an Associate Graduate Student at Perimeter Institute. Supervisors: Robert B. Mann and Niayesh Afshordi.",
-          p2:"Education: PhD (2024– ), MSc in Physics (UWaterloo, avg 94.3/100), BSc at Jilin University Tang Aoqing Honors (avg 91.16/100).",
-          p3:"Areas: QIQC, QIQG, RQI, black hole thermodynamics, hep-th, gr-qc."
-        },
-        nav:["About","Publications","Research","Talks","Teaching","Awards","Contact"],
-        last:"Last updated: 2025-08-07"
-      }
-    };
-
-    const PUBS=[
-      {year:2025,title:"On thermodynamics of charged and accelerating black holes",authors:"Hale, Kubizňák, Menšíková, Mann, Yang",venue:"arXiv:2501.13679 (submitted to PRD)",link:"https://arxiv.org/abs/2501.13679"},
-      {year:2024,title:"Smart Holes: Analogue black holes with the right temperature and entropy",authors:"Yang, Afshordi, Torabian, Jafari, Baskaran",venue:"arXiv:2412.08517 (submitted to JHEP)",link:"https://arxiv.org/abs/2412.08517"},
-      {year:2024,title:"Existence of Vacuum Wormholes in Einsteinian Cubic Gravity",authors:"Lu, Yang, Mann",venue:"JHEP (accepted), arXiv:2410.13996",link:"https://arxiv.org/abs/2410.13996"},
-      {year:2024,title:"Gravitational Wormholes",authors:"Lu, Yang, Mann",venue:"Universe 10(6):257",link:"https://doi.org/10.3390/universe10060257"},
-      {year:2023,title:"Dynamic behaviours of black hole phase transitions near quadruple points",authors:"Yang, Mann",venue:"JHEP 08 (2023) 028",link:"https://doi.org/10.1007/JHEP08(2023)028"},
-      {year:2023,title:"Complexity, scaling, and a phase transition",authors:"Yang, Frey",venue:"JHEP 09 (2023) 029",link:"https://doi.org/10.1007/JHEP09(2023)029"}
-    ];
-
-    const TALKS=[
-      {date:"2025-06-27",name:"QIQG 2025: Quantum Information in Quantum Gravity (Poster)",where:"Perimeter Institute",link:"https://events.perimeterinstitute.ca/event/968/"},
-      {date:"2025-06-06",name:"Lee’s Fest: Quantum Gravity and the Nature of Time (Poster)",where:"Perimeter Institute",link:"https://events.perimeterinstitute.ca/event/937/"},
-      {date:"2025-03-14",name:"Emmy Noether Workshop: Quantum Spacetime (Poster)",where:"Perimeter Institute",link:"https://events.perimeterinstitute.ca/event/928/overview"},
-      {date:"2025-01-24",name:"From Black Hole Thermodynamics to Black Hole Chemistry (Talk)",where:"UWaterloo AMATH Mini-Conference"},
-      {date:"2024-12-24",name:"Complexity, Scaling, and a Phase Transition (Talk)",where:"Jiangxi Normal University"},
-      {date:"2024-10-04",name:"Dynamic Behaviours... (Talk)",where:"HKUST",link:"https://ias.hkust.edu.hk/events/dynamic-behaviours-of-black-hole-phase-transitions-near-quadruple-points"}
-    ];
-
-    const TEACH=[
-      {when:"2025 W24",what:"Quantum Theory 3 (AMATH)",role:"Teaching Assistant",where:"UWaterloo"},
-      {when:"2023–present",what:"Quantum Field Theory (online)",role:"Instructor",link:"https://www.youtube.com/playlist?list=PL3Gqxj0as8XvAKaTx4wamIf2Yq_eiBAiC"},
-      {when:"2023–present",what:"General Relativity (online)",role:"Instructor",link:"https://www.bilibili.com/video/BV1qv411w72a"},
-      {when:"2023",what:"SCI 238 Introductory Astronomy",role:"Teaching Assistant",where:"UWaterloo"}
-    ];
-
-    const AWARDS=[
-      {year:"2025",name:"Alan George Student Leadership Award (only recipient at UWaterloo)",note:"CAD 2,500"},
-      {year:"2024",name:"David Johnston International Student Entrance Scholarship",note:"CAD 5,000"},
-      {year:"2024",name:"IQC Entrance Award",note:"CAD 5,000"},
-      {year:"2024",name:"Provost Doctoral Entrance Award for Women",note:"CAD 5,000"},
-      {year:"2024",name:"Graduate Student Research Dissemination Award",note:"CAD 500"},
-      {year:"2022",name:"Mitacs Globalink Graduate Fellowship",note:"CAD 15,000"},
-      {year:"2021",name:"Mitacs Globalink Undergraduate Research Award",note:"CAD 1,200"},
-      {year:"2020",name:"Stony Brook University Tuition Scholarship for Honor Students",note:"USD 24,740"}
-    ];
-
-    // ---------- Render helpers ----------
-    const $ = (q)=> document.querySelector(q);
-    const $$ = (q)=> Array.from(document.querySelectorAll(q));
-
-    function setLang(lang){ localStorage.setItem('lang', lang); render(); }
-    function setTheme(name){ localStorage.setItem('theme', name); applyTheme();}
-
-    function applyTheme(){
-      const name = localStorage.getItem('theme')||'default';
-      document.body.classList.remove('theme-aurora','theme-nebula','theme-solar');
-      if(name==='aurora') document.body.classList.add('theme-aurora');
-      if(name==='nebula') document.body.classList.add('theme-nebula');
-      if(name==='solar') document.body.classList.add('theme-solar');
-      $$('#t-default, #t-aurora, #t-nebula, #t-solar').forEach(b=> b.classList.remove('active'));
-      if(name==='default') $('#t-default').classList.add('active');
-      if(name==='aurora') $('#t-aurora').classList.add('active');
-      if(name==='nebula') $('#t-nebula').classList.add('active');
-      if(name==='solar') $('#t-solar').classList.add('active');
-    }
-
-    function render(){
-      const lang = localStorage.getItem('lang')||'zh';
-      $$('#zh,#en').forEach(b=> b.classList.remove('active'));
-      $('#' + (lang==='zh'?'zh':'en')).classList.add('active');
-      const T = TEXT[lang];
-      $('#role').textContent = T.role;
-      $('#tagline').textContent = T.tagline;
-      $('#about-title').textContent = lang==='zh'? '关于我' : 'About';
-      $('#about-p1').textContent = T.about.p1;
-      $('#about-p2').textContent = T.about.p2;
-      $('#about-p3').textContent = T.about.p3;
-      $('#last').textContent = T.last;
-
-      // nav labels
-      $$('[data-nav]').forEach((a,i)=> a.textContent = T.nav[i]);
-
-      // pubs filters
-      const years = [...new Set(PUBS.map(p=>p.year))].sort((a,b)=>b-a);
-      const yf = $('#year-filters'); yf.innerHTML='';
-      const selected = new Set(JSON.parse(localStorage.getItem('yf')||'[]')); if(!selected.size){ years.forEach(y=>selected.add(y)); }
-      years.forEach(y=>{
-        const btn = document.createElement('button');
-        btn.className = 'btn'; btn.textContent = y;
-        if(selected.has(y)) btn.style.outline = `2px solid var(--brand)`;
-        btn.onclick = ()=>{ selected.has(y) ? selected.delete(y) : selected.add(y); localStorage.setItem('yf', JSON.stringify([...selected])); renderPubs(); btn.style.outline = selected.has(y)? `2px solid var(--brand)` : 'none'; };
-        yf.append(btn);
-      });
-
-      renderPubs(); renderTalks(); renderTeach(); renderAwards();
-    }
-
-    function renderPubs(){
-      const list = $('#pubs-list'); list.innerHTML='';
-      const q = ($('#q').value||'').toLowerCase();
-      const yearsOn = new Set(JSON.parse(localStorage.getItem('yf')||'[]'));
-      PUBS.filter(p=> (yearsOn.size? yearsOn.has(p.year):true) && (!q || (p.title+" "+p.authors+" "+p.venue).toLowerCase().includes(q)))
-          .sort((a,b)=> b.year-a.year)
-          .forEach(p=>{
-            const item = document.createElement('div'); item.className='card pub';
-            const bib = `@article{${p.authors.split(',')[0].split(' ')[0].toLowerCase()}${p.year},\n  title={${p.title}},\n  author={${p.authors}},\n  year={${p.year}},\n  note={${p.venue}},\n  url={${p.link}}\n}`;
-            item.innerHTML = `
-              <div class="left">
-                <div class="row"><span class="badge">${p.year}</span><strong>${p.title}</strong></div>
-                <div class="muted">${p.authors}</div>
-                <div>${p.venue} · <a href="${p.link}" target="_blank" rel="noopener">link</a></div>
-                <div class="row" style="margin-top:6px">
-                  <button class="btn copy-bib">复制 BibTeX / Copy BibTeX</button>
-                  <button class="btn copy-apa">复制 APA</button>
-                </div>
-              </div>`;
-            item.querySelector('.copy-bib').onclick=()=>{ navigator.clipboard.writeText(bib); toast('BibTeX copied ✅'); };
-            item.querySelector('.copy-apa').onclick=()=>{ navigator.clipboard.writeText(`${p.authors} (${p.year}). ${p.title}. ${p.venue}. ${p.link}`); toast('APA copied ✅'); };
-            list.append(item);
-          });
-      if(!list.children.length){ const n=document.createElement('div'); n.className='muted'; n.textContent='No items match filters.'; list.append(n); }
-    }
-
-    function renderTalks(){
-      const box = $('#talks-list'); box.innerHTML='';
-      TALKS.forEach(x=>{
-        const c=document.createElement('div'); c.className='card';
-        c.innerHTML = `<div class="row"><span class="badge">${x.date}</span><strong>${x.name}</strong></div><div class="muted">${x.where||''}</div>${x.link? `<a class="btn" style="margin-top:6px" target="_blank" rel="noopener" href="${x.link}">details</a>`:''}`;
-        box.append(c);
-      })
-    }
-
-    function renderTeach(){
-      const box = $('#teach-list'); box.innerHTML='';
-      TEACH.forEach(x=>{
-        const c=document.createElement('div'); c.className='card';
-        c.innerHTML = `<div class="row"><span class="badge">${x.when}</span><strong>${x.what}</strong></div><div class="muted">${x.role}${x.where? ` · ${x.where}`:''}</div>${x.link? `<a class="btn" style="margin-top:6px" target="_blank" rel="noopener" href="${x.link}">open</a>`:''}`;
-        box.append(c);
-      })
-    }
-
-    function renderAwards(){
-      const box = $('#awards-list'); box.innerHTML='';
-      AWARDS.forEach(x=>{
-        const c=document.createElement('div'); c.className='card';
-        c.innerHTML = `<div class="row"><span class="badge">${x.year}</span><strong>${x.name}</strong></div><div class="muted">${x.note||''}</div>`;
-        box.append(c);
-      })
-    }
-
-    // ---------- UI events ----------
-    $('#zh').onclick=()=> setLang('zh');
-    $('#en').onclick=()=> setLang('en');
-    $('#q').oninput=()=> renderPubs();
-
-    $('#t-default').onclick=()=> setTheme('default');
-    $('#t-aurora').onclick=()=> setTheme('aurora');
-    $('#t-nebula').onclick=()=> setTheme('nebula');
-    $('#t-solar').onclick=()=> setTheme('solar');
-
     document.getElementById('year').textContent = new Date().getFullYear();
-
-    // ---------- Tiny toast ----------
-    function toast(msg){ const d=document.createElement('div'); d.textContent=msg; d.style.cssText='position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.6);color:#fff;padding:8px 12px;border-radius:10px;z-index:50;backdrop-filter:blur(4px)'; document.body.append(d); setTimeout(()=>d.remove(),1400); }
-
-    // ---------- Starfield Animation ----------
-    const canvas = document.getElementById('starfield');
-    const ctx = canvas.getContext('2d');
-    let w,h,stars=[]; const N=220;
-    function resize(){ w=canvas.width=innerWidth; h=canvas.height=innerHeight; }
-    addEventListener('resize', resize); resize();
-    function makeStars(){
-      stars = Array.from({length:N}, ()=>({
-        x: Math.random()*w,
-        y: Math.random()*h,
-        z: Math.random()*1.2 + .2,
-        r: Math.random()*1.4 + .2,
-        vx: (Math.random()-.5)*.05,
-        vy: (Math.random()-.5)*.05,
-        tw: Math.random()*360
-      }));
-    }
-    makeStars();
-    function step(){
-      ctx.clearRect(0,0,w,h);
-      for(const s of stars){
-        s.x += s.vx; s.y += s.vy; s.tw += 0.8;
-        if(s.x<0) s.x=w; if(s.x>w) s.x=0; if(s.y<0) s.y=h; if(s.y>h) s.y=0;
-        const alpha = 0.6 + 0.4*Math.sin(s.tw*Math.PI/180);
-        ctx.beginPath();
-        const g = ctx.createRadialGradient(s.x,s.y,0,s.x,s.y,s.r*3);
-        g.addColorStop(0, `rgba(255,255,255,${.9*alpha})`);
-        g.addColorStop(1, `rgba(255,255,255,0)`);
-        ctx.fillStyle=g; ctx.arc(s.x,s.y,s.r*3,0,Math.PI*2); ctx.fill();
-      }
-      requestAnimationFrame(step);
-    }
-    step();
-
-    // ---------- Init ----------
-    applyTheme();
-    render();
   </script>
 </body>
 </html>
