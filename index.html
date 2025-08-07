@@ -1,361 +1,385 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>杨佳悦的个人主页 | Jiayue Yang's Personal Homepage</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-        .container {
-            width: 80%;
-            margin: 0 auto;
-            overflow: hidden;
-        }
-        header {
-            background: #333;
-            color: #fff;
-            padding-top: 30px;
-            min-height: 70px;
-            border-bottom: #77a8d9 3px solid;
-            position: relative;
-        }
-        header a {
-            color: #fff;
-            text-decoration: none;
-            text-transform: uppercase;
-            font-size: 16px;
-        }
-        header ul {
-            padding: 0;
-            list-style: none;
-        }
-        header li {
-            float: left;
-            display: inline;
-            padding: 0 20px 0 20px;
-        }
-        header #branding {
-            float: left;
-        }
-        header #branding h1 {
-            margin: 0;
-        }
-        header nav {
-            float: right;
-            margin-top: 10px;
-        }
-        header .highlight, header .current a {
-            color: #77a8d9;
-            font-weight: bold;
-        }
-        #showcase {
-            min-height: 400px;
-            background: url('showcase.jpg') no-repeat 0 -400px;
-            text-align: center;
-            color: #fff;
-            position: relative;
-        }
-        #showcase h1 {
-            margin-top: 20px;
-            font-size: 55px;
-            margin-bottom: 10px;
-            color: #00BFFF; /* 天蓝色 */
-        }
-        #showcase p {
-            font-size: 20px;
-            color: #00BFFF; /* 天蓝色 */
-        }
-        #showcase img {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            max-width: 150px;
-            border-radius: 50%;
-        }
-        section {
-            padding: 20px;
-            margin: 20px 0;
-            background: #fff;
-            border-top: 3px solid #333; /* Section divider */
-        }
-        footer {
-            padding: 20px;
-            margin-top: 20px;
-            color: #fff;
-            background-color: #333;
-            text-align: center;
-        }
-        .button {
-            display: inline-block;
-            color: #fff;
-            background: #333;
-            padding: 7px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-        .language-toggle {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-        }
-        .hidden {
-            display: none;
-        }
-        h2 {
-            font-size: 28px;
-            color: #333;
-            border-bottom: 2px solid #333;
-            padding-bottom: 10px;
-        }
-        h4 {
-            font-size: 24px;
-            color: #555;
-        }
-    </style>
-    <script>
-        function toggleLanguage(lang) {
-            var zhSections = document.querySelectorAll('.zh');
-            var enSections = document.querySelectorAll('.en');
-            if (lang === 'zh') {
-                zhSections.forEach(function(section) {
-                    section.classList.remove('hidden');
-                });
-                enSections.forEach(function(section) {
-                    section.classList.add('hidden');
-                });
-                document.getElementById('zh-btn').classList.add('highlight');
-                document.getElementById('en-btn').classList.remove('highlight');
-            } else {
-                zhSections.forEach(function(section) {
-                    section.classList.add('hidden');
-                });
-                enSections.forEach(function(section) {
-                    section.classList.remove('hidden');
-                });
-                document.getElementById('zh-btn').classList.remove('highlight');
-                document.getElementById('en-btn').classList.add('highlight');
-            }
-        }
-    </script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>杨佳悦 | Jiayue Yang — Personal Homepage</title>
+  <meta name="description" content="杨佳悦（Jiayue Yang），滑铁卢大学与量子计算研究所博士生。研究方向：量子信息、引力、黑洞热力学、相对论量子信息。" />
+  <meta name="color-scheme" content="light dark">
+  <meta property="og:title" content="杨佳悦 | Jiayue Yang — Personal Homepage" />
+  <meta property="og:description" content="PhD student at the University of Waterloo & IQC. Research: QIQC, QIQG, RQI, black hole thermodynamics." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/profile.jpg" />
+  <link rel="icon" href="assets/favicon.ico" />
+  <style>
+    :root {
+      --bg: #0b1324;
+      --fg: #e8ecf1;
+      --muted: #9fb3c8;
+      --brand: #77a8d9;
+      --card: #121b33;
+      --border: #223154;
+      --link: #7cc7ff;
+      --accent: #26d4c3;
+    }
+    @media (prefers-color-scheme: light) {
+      :root { --bg:#f6f8fb; --fg:#222; --muted:#516173; --card:#fff; --border:#dbe3ef; --link:#0066cc; --accent:#0aa; }
+    }
+    * { box-sizing: border-box; }
+    html, body { margin:0; padding:0; background:var(--bg); color:var(--fg); font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Noto Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { width:min(1100px, 92%); margin: 0 auto; }
+    header { position:sticky; top:0; z-index:10; backdrop-filter:saturate(140%) blur(6px); background: color-mix(in srgb, var(--bg) 82%, transparent); border-bottom:1px solid var(--border); }
+    .nav { display:flex; align-items:center; justify-content:space-between; padding:12px 0; }
+    .brand { display:flex; align-items:center; gap:12px; font-weight:700; letter-spacing:.2px; }
+    .brand img { width:40px; height:40px; border-radius:50%; object-fit:cover; border:1px solid var(--border); }
+    .menu { display:flex; gap:16px; flex-wrap:wrap; align-items:center; }
+    .menu a { padding:6px 10px; border-radius:999px; }
+    .menu a.active, .menu a:hover { background:var(--card); border:1px solid var(--border); text-decoration:none; }
+    .chip { display:inline-block; font-size:.875rem; padding:.2rem .6rem; border:1px solid var(--border); border-radius:999px; color:var(--muted); }
+    .hero { display:grid; grid-template-columns: 1.3fr .9fr; gap:28px; align-items:center; padding:42px 0 10px; }
+    .hero h1 { font-size: clamp(28px, 5vw, 44px); margin:0 0 8px; line-height:1.15; }
+    .hero p { margin:.25rem 0 .75rem; color:var(--muted); }
+    .hero-card { background:linear-gradient(135deg, color-mix(in srgb, var(--card) 92%, transparent), color-mix(in srgb, var(--card) 85%, transparent)); border:1px solid var(--border); border-radius:18px; padding:18px; }
+    .grid { display:grid; gap:18px; }
+    .grid.cols-2 { grid-template-columns: 1fr 1fr; }
+    .grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+    @media (max-width: 880px){ .hero { grid-template-columns: 1fr; } .grid.cols-2, .grid.cols-3{ grid-template-columns: 1fr; } }
+    section { padding: 28px 0; border-top:1px solid var(--border); }
+    h2 { margin: 0 0 12px; font-size: clamp(22px, 3.2vw, 28px); }
+    h3 { margin: 18px 0 6px; font-size: 18px; }
+    .card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:14px 16px; }
+    .muted { color: var(--muted); }
+    .row { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+    .btn { display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:10px; border:1px solid var(--border); background:var(--card); color:var(--fg); cursor:pointer; }
+    .btn:hover { border-color:var(--brand); }
+    .lang-switch { display:flex; gap:10px; }
+    .lang-switch button.active { outline: 2px solid var(--brand); }
+    details { border:1px dashed var(--border); border-radius:10px; padding:10px 12px; background: color-mix(in srgb, var(--card) 92%, transparent); }
+    details + details { margin-top:10px; }
+    summary { cursor:pointer; }
+    footer { padding: 28px 0 44px; border-top:1px solid var(--border); color:var(--muted); }
+    .badge { background: color-mix(in srgb, var(--brand) 24%, transparent); color: var(--fg); border: 1px solid var(--border); padding:2px 8px; border-radius: 999px; font-size: .8rem; }
+    .list { padding-left: 18px; }
+    .list li { margin:.25rem 0; }
+  </style>
+  <script>
+    // Minimal i18n toggling
+    const text = {
+      zh: {
+        role: "滑铁卢大学 应用数学 / 量子计算研究所 博士生 | 外围研究员（PI）",
+        tagline: "研究兴趣：量子信息与计算、引力中的量子信息、相对论量子信息、黑洞热力学",
+        nav: ["关于我","发表成果","研究","教学","报告与海报","获奖","服务与志愿","联系"],
+        about: {
+          title: "关于我",
+          p1: "我叫杨佳悦（Jiayue Yang）。目前在加拿大滑铁卢大学攻读应用数学与量子计算联合博士，并在外周研究所（Perimeter Institute）担任联合研究生。导师：Robert B. Mann（滑铁卢），Niayesh Afshordi（PI）。",
+          p2: "教育背景：2024–至今 博士（UWaterloo & IQC）；2022–2024 物理学硕士（UWaterloo，均分94.3/100）；2018–2022 吉林大学唐敖庆班（均分91.16/100）。",
+          p3: "研究领域：QIQC, QIQG, RQI, 黑洞热力学, hep-th, gr-qc。"
+        },
+        pubs: "发表成果",
+        research: "研究",
+        teaching: "教学",
+        talks: "报告与海报",
+        awards: "获奖与荣誉",
+        service: "学术服务与志愿",
+        contact: "联系我",
+        last: "最后更新：2025-08-07"
+      },
+      en: {
+        role: "PhD Student, Applied Math & IQC (University of Waterloo) | Associate Graduate Student (Perimeter Institute)",
+        tagline: "Interests: QIQC, QIQG, RQI, black hole thermodynamics",
+        nav: ["About","Publications","Research","Teaching","Talks & Posters","Awards","Service","Contact"],
+        about: {
+          title: "About",
+          p1: "I'm Jiayue Yang, a PhD student in Applied Mathematics and at the Institute for Quantum Computing, University of Waterloo, and an Associate Graduate Student at Perimeter Institute. Supervisors: Robert B. Mann (UWaterloo) and Niayesh Afshordi (PI).",
+          p2: "Education: PhD (2024–present), MSc in Physics (UWaterloo, average 94.3/100), BSc at Jilin University Tang Aoqing Honors (average 91.16/100).",
+          p3: "Areas: QIQC, QIQG, RQI, black hole thermodynamics, hep-th, gr-qc."
+        },
+        pubs: "Publications",
+        research: "Research",
+        teaching: "Teaching",
+        talks: "Talks & Posters",
+        awards: "Awards & Honors",
+        service: "Service & Outreach",
+        contact: "Contact",
+        last: "Last updated: 2025-08-07"
+      }
+    };
+    let lang = (localStorage.getItem('lang')||'zh');
+    function setLang(l){ lang = l; localStorage.setItem('lang', l); render(); }
+
+    const pubs = [
+      {year:2025, title:"On thermodynamics of charged and accelerating black holes", authors:"Hale, Kubizňák, Menšíková, Mann, Yang", venue:"arXiv:2501.13679 (submitted to PRD)", link:"https://arxiv.org/abs/2501.13679"},
+      {year:2024, title:"Smart Holes: Analogue black holes with the right temperature and entropy", authors:"Yang, Afshordi, Torabian, Jafari, Baskaran", venue:"arXiv:2412.08517 (submitted to JHEP)", link:"https://arxiv.org/abs/2412.08517"},
+      {year:2024, title:"Existence of Vacuum Wormholes in Einsteinian Cubic Gravity", authors:"Lu, Yang, Mann", venue:"JHEP (accepted), arXiv:2410.13996", link:"https://arxiv.org/abs/2410.13996"},
+      {year:2024, title:"Gravitational Wormholes", authors:"Lu, Yang, Mann", venue:"Universe 10(6):257", link:"https://doi.org/10.3390/universe10060257"},
+      {year:2023, title:"Dynamic behaviours of black hole phase transitions near quadruple points", authors:"Yang, Mann", venue:"JHEP 08 (2023) 028", link:"https://doi.org/10.1007/JHEP08(2023)028"},
+      {year:2023, title:"Complexity, scaling, and a phase transition", authors:"Yang, Frey", venue:"JHEP 09 (2023) 029", link:"https://doi.org/10.1007/JHEP09(2023)029"}
+    ];
+
+    const presentations = [
+      {date:"2025-06-27", name:"QIQG 2025: Quantum Information in Quantum Gravity (Poster)", where:"Perimeter Institute", link:"https://events.perimeterinstitute.ca/event/968/"},
+      {date:"2025-06-06", name:"Lee’s Fest: Quantum Gravity and the Nature of Time (Poster)", where:"Perimeter Institute", link:"https://events.perimeterinstitute.ca/event/937/"},
+      {date:"2025-03-14", name:"Emmy Noether Workshop: Quantum Spacetime (Poster)", where:"Perimeter Institute", link:"https://events.perimeterinstitute.ca/event/928/overview"},
+      {date:"2025-01-24", name:"From Black Hole Thermodynamics to Black Hole Chemistry (Talk)", where:"UWaterloo AMATH Mini-Conference"},
+      {date:"2024-12-24", name:"Complexity, Scaling, and a Phase Transition (Talk)", where:"Jiangxi Normal University"},
+      {date:"2024-10-04", name:"Dynamic Behaviours... (Talk)", where:"HKUST", link:"https://ias.hkust.edu.hk/events/dynamic-behaviours-of-black-hole-phase-transitions-near-quadruple-points"}
+    ];
+
+    const awards = [
+      {year:"2025", name:"Alan George Student Leadership Award (only recipient at UWaterloo)", note:"CAD 2,500"},
+      {year:"2024", name:"David Johnston International Student Entrance Scholarship", note:"CAD 5,000"},
+      {year:"2024", name:"IQC Entrance Award", note:"CAD 5,000"},
+      {year:"2024", name:"Provost Doctoral Entrance Award for Women", note:"CAD 5,000"},
+      {year:"2024", name:"Graduate Student Research Dissemination Award", note:"CAD 500"},
+      {year:"2022", name:"Mitacs Globalink Graduate Fellowship", note:"CAD 15,000"},
+      {year:"2021", name:"Mitacs Globalink Research Internship Award", note:"CAD 1,200"},
+      {year:"2020", name:"Stony Brook University Tuition Scholarship for Honor Students", note:"USD 24,740"}
+    ];
+
+    const teaching = [
+      {when:"2025 W24", what:"Quantum Theory 3 (AMATH)", role:"Teaching Assistant", where:"University of Waterloo"},
+      {when:"2023–present", what:"Quantum Field Theory (free online)", role:"Instructor", link:"https://www.youtube.com/playlist?list=PL3Gqxj0as8XvAKaTx4wamIf2Yq_eiBAiC"},
+      {when:"2023–present", what:"General Relativity (free online)", role:"Instructor", link:"https://www.bilibili.com/video/BV1qv411w72a"},
+      {when:"2023", what:"SCI 238 Introductory Astronomy", role:"Teaching Assistant", where:"University of Waterloo"}
+    ];
+
+    const service = [
+      {when:"2025", what:"Organizer, IQC Student Summer Conference 2025", where:"University of Waterloo", link:"https://uwaterloo.ca/institute-for-quantum-computing/events/iqc-student-summer-conference"},
+      {when:"2024–present", what:"Science outreach book drives & public talks", where:"China/Canada"},
+      {when:"2024-04-08", what:"Total Solar Eclipse outreach", where:"Waterloo, Canada"},
+      {when:"2023–present", what:"Organizer, Quantum Information in Gravity Seminar (weekly)"}
+    ];
+
+    function el(tag, attrs={}, children=[]) {
+      const d = document.createElement(tag);
+      for (const k in attrs) (k === 'class') ? d.className = attrs[k] : d.setAttribute(k, attrs[k]);
+      (Array.isArray(children)?children:[children]).filter(Boolean).forEach(c => d.append(c.nodeType?c:document.createTextNode(c)));
+      return d;
+    }
+
+    function renderPubs() {
+      const list = el('div', {class:'grid'});
+      pubs.sort((a,b)=> b.year-a.year).forEach(p=>{
+        const item = el('div', {class:'card'} , [
+          el('div', {class:'row'}, [ el('span', {class:'badge'}, p.year), el('strong',{}, p.title) ]),
+          el('div', {class:'muted'}, p.authors),
+          el('div', {}, [ p.venue, ' · ', el('a', {href:p.link, target:'_blank', rel:'noopener'}, 'link') ])
+        ]);
+        list.append(item);
+      });
+      return list;
+    }
+
+    function renderList(items, fmt) {
+      const box = el('div', {class:'grid'});
+      items.forEach(x=> box.append(el('div', {class:'card'}, fmt(x))));
+      return box;
+    }
+
+    function render() {
+      // nav texts
+      const t = text[lang];
+      document.querySelectorAll('[data-i18n="role"]').forEach(n=> n.textContent = t.role);
+      document.querySelector('[data-i18n="tagline"]').textContent = t.tagline;
+      document.querySelector('[data-i18n="about-title"]').textContent = t.about.title;
+      document.querySelector('[data-i18n="about-p1"]').textContent = t.about.p1;
+      document.querySelector('[data-i18n="about-p2"]').textContent = t.about.p2;
+      document.querySelector('[data-i18n="about-p3"]').textContent = t.about.p3;
+      document.querySelectorAll('[data-i18n="nav"] a').forEach((a,i)=> a.textContent = t.nav[i]);
+      document.querySelector('[data-i18n="section-pubs"]').textContent = t.pubs;
+      document.querySelector('[data-i18n="section-research"]').textContent = t.research;
+      document.querySelector('[data-i18n="section-teaching"]').textContent = t.teaching;
+      document.querySelector('[data-i18n="section-talks"]').textContent = t.talks;
+      document.querySelector('[data-i18n="section-awards"]').textContent = t.awards;
+      document.querySelector('[data-i18n="section-service"]').textContent = t.service;
+      document.querySelector('[data-i18n="section-contact"]').textContent = t.contact;
+      document.querySelector('[data-i18n="last"]').textContent = t.last;
+
+      document.querySelector('#pubs-list').replaceChildren(renderPubs());
+      document.querySelector('#teach-list').replaceChildren(renderList(teaching, x=>[
+        el('div', {class:'row'}, [ el('span',{class:'badge'}, x.when), el('strong',{}, x.what) ]),
+        el('div', {class:'muted'}, x.role + (x.where?` · ${x.where}`:'')),
+        x.link ? el('a', {href:x.link, target:'_blank', rel:'noopener'}, 'link') : null
+      ]));
+      document.querySelector('#talks-list').replaceChildren(renderList(presentations, x=>[
+        el('div', {class:'row'}, [ el('span',{class:'badge'}, x.date), el('strong',{}, x.name) ]),
+        el('div', {class:'muted'}, x.where || ''),
+        x.link ? el('a', {href:x.link, target:'_blank', rel:'noopener'}, 'details') : null
+      ]));
+      document.querySelector('#awards-list').replaceChildren(renderList(awards, x=>[
+        el('div', {class:'row'}, [ el('span',{class:'badge'}, x.year), el('strong',{}, x.name) ]),
+        el('div', {class:'muted'}, x.note || '')
+      ]));
+      document.querySelector('#service-list').replaceChildren(renderList(service, x=>[
+        el('div', {class:'row'}, [ el('span',{class:'badge'}, x.when), el('strong',{}, x.what) ]),
+        el('div', {class:'muted'}, x.where || ''),
+        x.link ? el('a', {href:x.link, target:'_blank', rel:'noopener'}, 'details') : null
+      ]));
+
+      document.querySelectorAll('[data-lang]').forEach(b=> b.classList.toggle('active', b.dataset.lang===lang));
+      document.documentElement.lang = (lang==='zh'? 'zh-CN':'en');
+    }
+
+    document.addEventListener('DOMContentLoaded', render);
+  </script>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div id="branding">
-                <h1>杨佳悦 | Jiayue Yang</h1>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <img src="assets/profile.jpg" alt="Jiayue Yang profile" />
+        <div>
+          <div style="font-size:1.05rem">杨佳悦 | Jiayue Yang</div>
+          <div class="muted" data-i18n="role"></div>
+        </div>
+      </div>
+      <nav class="menu" data-i18n="nav">
+        <a href="#about" class="active">关于我</a>
+        <a href="#pubs">发表成果</a>
+        <a href="#research">研究</a>
+        <a href="#teaching">教学</a>
+        <a href="#talks">报告与海报</a>
+        <a href="#awards">获奖</a>
+        <a href="#service">服务与志愿</a>
+        <a href="#contact">联系</a>
+      </nav>
+      <div class="lang-switch">
+        <button class="btn" data-lang="zh" onclick="setLang('zh')">中文</button>
+        <button class="btn" data-lang="en" onclick="setLang('en')">English</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <h1>Hi, I'm Jiayue <span class="chip">杨佳悦</span></h1>
+        <p class="muted" data-i18n="tagline"></p>
+        <div class="row" style="gap:12px; margin-top:8px; flex-wrap:wrap;">
+          <a class="btn" href="mailto:j43yang@uwaterloo.ca">✉️ j43yang@uwaterloo.ca</a>
+          <a class="btn" href="https://link3.cc/jiayue" target="_blank" rel="noopener">🌐 Personal page hub</a>
+          <a class="btn" href="https://inspirehep.net/authors/2679717?ui-citation-summary=true" target="_blank" rel="noopener">📚 InspireHEP</a>
+          <a class="btn" href="#pubs">📝 Publications</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="row" style="justify-content:space-between; align-items:flex-start;">
+          <div>
+            <div class="muted">Degrees</div>
+            <ul class="list">
+              <li>PhD (Applied Math, IQC) — University of Waterloo (2024–)</li>
+              <li>MSc (Physics) — University of Waterloo (2022–2024, avg 94.3/100)</li>
+              <li>BSc (Tang Aoqing Honors, Physics) — Jilin University (avg 91.16/100)</li>
+            </ul>
+          </div>
+          <div>
+            <div class="muted">Keywords</div>
+            <div class="row" style="max-width:360px">
+              <span class="chip">QIQC</span><span class="chip">QIQG</span><span class="chip">RQI</span>
+              <span class="chip">Black hole thermodynamics</span><span class="chip">AdS/CFT</span>
             </div>
-            <nav>
-                <ul>
-                    <li class="current zh"><a href="#">主页</a></li>
-                    <li class="zh"><a href="#about">关于我</a></li>
-                    <li class="zh"><a href="#research">科研经历</a></li>
-                    <li class="zh"><a href="#teaching">教学课程</a></li>
-                    <li class="zh"><a href="#notes">笔记整理</a></li>
-                    <li class="zh"><a href="#resources">资源工具</a></li>
-                    <li class="zh"><a href="#social">社交媒体</a></li>
-                    
-                    <li class="current en hidden"><a href="#">Home</a></li>
-                    <li class="en hidden"><a href="#about">About Me</a></li>
-                    <li class="en hidden"><a href="#research">Research</a></li>
-                    <li class="en hidden"><a href="#teaching">Teaching</a></li>
-                    <li class="en hidden"><a href="#notes">Notes</a></li>
-                    <li class="en hidden"><a href="#resources">Resources</a></li>
-                    <li class="en hidden"><a href="#social">Social</a></li>
-                </ul>
-                <div class="language-toggle">
-                    <button id="zh-btn" class="highlight" onclick="toggleLanguage('zh')">中文</button> / 
-                    <button id="en-btn" onclick="toggleLanguage('en')">English</button>
-                </div>
-            </nav>
+          </div>
         </div>
-    </header>
+        <details style="margin-top:10px">
+          <summary>Recent highlights</summary>
+          <ul class="list">
+            <li>JHEP accepted: <em>Existence of Vacuum Wormholes in ECG</em>.</li>
+            <li>Preprint: <em>On thermodynamics of charged and accelerating black holes</em> (to PRD).</li>
+            <li>Preprint: <em>Smart Holes</em> (to JHEP).</li>
+          </ul>
+        </details>
+      </div>
+    </section>
 
-    <section id="showcase" class="zh">
-        <div class="container">
-            <h1>欢迎来到我的个人主页</h1>
-            <p>我爱看星星, 研究理论物理，喜欢讲课和科普，跟我一起探索宇宙吧！</p>
-            <img src="888.jpg" alt="Profile Photo">
+    <section id="about">
+      <h2 data-i18n="about-title">关于我</h2>
+      <p data-i18n="about-p1"></p>
+      <p data-i18n="about-p2"></p>
+      <p data-i18n="about-p3"></p>
+    </section>
+
+    <section id="pubs">
+      <h2 data-i18n="section-pubs">发表成果</h2>
+      <div id="pubs-list"></div>
+    </section>
+
+    <section id="research">
+      <h2 data-i18n="section-research">研究</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>Charged & Accelerating Black Holes</h3>
+          <p class="muted">Thermodynamics of C-metric spacetimes (Maxwell, ModMax, RegMax), holographic vs topological renormalization, electrostatic potential shifts.</p>
         </div>
-    </section>
-
-    <section id="showcase" class="en hidden">
-        <div class="container">
-            <h1>Welcome to My Personal Homepage</h1>
-            <p>I love stargazing, studying theoretical physics, and sharing popular science. Join me in exploring the universe!</p>
-            <img src="888.jpg" alt="Profile Photo">
+        <div class="card">
+          <h3>Analogue Gravity: Smart Holes</h3>
+          <p class="muted">Tilted Dirac cones on honeycomb lattices as black-hole analogues with matching temperature and entropy; entropy localized near analogue horizons.</p>
         </div>
+        <div class="card">
+          <h3>Wormholes in Einsteinian Cubic Gravity</h3>
+          <p class="muted">Purely gravitational, asymptotically AdS traversable wormholes without exotic matter; global monopole deficit at infinity.</p>
+        </div>
+        <div class="card">
+          <h3>Holographic Complexity</h3>
+          <p class="muted">Complexity–volume/action proposals, scaling laws, and confinement–deconfinement transitions with Wilson lines.</p>
+        </div>
+      </div>
     </section>
 
-    <!-- Chinese Sections -->
-    <section id="about" class="container zh">
-        <h2>关于我 | About Me</h2>
-        <p>我叫杨佳悦，目前在加拿大滑铁卢大学攻读物理学和数学博士学位。我热衷于科学研究和教学，喜欢通过Bilibili平台进行物理科普。</p>
-        <p><strong>教育背景：</strong></p>
-        <ul>
-            <li><strong>博士生：</strong>加拿大滑铁卢大学（全额奖学金 50800加元*4年, 2024年9月-2028年8月），数学和物理</li>
-            <li><strong>硕士生：</strong>加拿大滑铁卢大学（全额奖学金 77280加元, 2022年9月-2024年8月），物理</li>
-            <li><strong>本科生：</strong>吉林大学唐敖庆班（2018年9月-2022年6月），物理</li>
-            <li><strong>高中：</strong>重庆市合川中学（2015年9月-2018年6月）</li>
-        </ul>
-        <p><strong>获奖情况：</strong></p>
-        <ul>
-            <li>院长奖学金 8000元</li>
-            <li>吉林大学物理学院优秀学生</li>
-            <li>吉林大学天文知识竞赛冠军</li>
-            <li>北京大学物理学院优秀大学生暑期学校证书</li>
-            <li>英国剑桥大学学术交流项目证书</li>
-            <li>日本名古屋大学学术交流项目证书</li>
-            <li>中国科学院高能物理研究所冬季学校证书</li>
-            <li>吉林大学科研实践奖学金团队二等奖 10000元</li>
-            <li>加拿大Mitacs Globalink研究生奖学金 15000加元</li>
-            <li>加拿大Mitacs Globalink本科研究奖学金 1200加元</li>
-            <li>美国纽约大学石溪分校全额奖学金交流项目 50782美元</li>
-            <li>第33届中学生物理竞赛重庆二等奖</li>
-            <li>大学生物理学术竞赛吉林大学二等奖</li>
-        </ul>
-        <p><strong>科研经历：</strong></p>
-        <ul>
-            <li>中国科学院高能物理研究所，硕士课题，量子引力</li>
-            <li>吉林大学物理学院，本科课题，黑洞热力学</li>
-            <li>中国科学院物理研究所，科研助理，材料物理</li>
-            <li>加拿大滑铁卢大学，科研助理，量子信息</li>
-        </ul>
-        <p><strong>教学经历：</strong></p>
-        <ul>
-            <li>吉林大学物理学院，助教</li>
-            <li>加拿大滑铁卢大学，助教</li>
-        </ul>
+    <section id="teaching">
+      <h2 data-i18n="section-teaching">教学</h2>
+      <div id="teach-list"></div>
     </section>
 
-    <!-- English Sections -->
-    <section id="about" class="container en hidden">
-        <h2>About Me | 关于我</h2>
-        <p>My name is Jiayue Yang, and I am currently pursuing a Ph.D. in Physics and Mathematics at the University of Waterloo, Canada. I am passionate about scientific research and teaching, and I enjoy popularizing physics through the Bilibili platform.</p>
-        <p><strong>Educational Background:</strong></p>
-        <ul>
-            <li><strong>Ph.D. Student:</strong> University of Waterloo, Canada (Full Scholarship 50,800 CAD*4 years, Sep 2024 - Aug 2028), Mathematics and Physics</li>
-            <li><strong>Master’s Student:</strong> University of Waterloo, Canada (Full Scholarship 77,280 CAD, Sep 2022 - Aug 2024), Physics</li>
-            <li><strong>Bachelor’s Student:</strong> Tang Aoqing Class, Jilin University (Sep 2018 - Jun 2022), Physics</li>
-            <li><strong>High School:</strong> Hechuan High School, Chongqing (Sep 2015 - Jun 2018)</li>
-        </ul>
-        <p><strong>Awards:</strong></p>
-        <ul>
-            <li>Dean’s Scholarship 8,000 RMB</li>
-            <li>Outstanding Student, School of Physics, Jilin University</li>
-            <li>Champion, Astronomy Knowledge Competition, Jilin University</li>
-            <li>Certificate of Outstanding Student in Summer School, Peking University</li>
-            <li>Academic Exchange Program Certificate, University of Cambridge, UK</li>
-            <li>Academic Exchange Program Certificate, Nagoya University, Japan</li>
-            <li>Winter School Certificate, Institute of High Energy Physics, Chinese Academy of Sciences</li>
-            <li>Second Prize in Team of Scientific Research Practice Scholarship, Jilin University 10,000 RMB</li>
-            <li>Mitacs Globalink Graduate Scholarship, Canada 15,000 CAD</li>
-            <li>Mitacs Globalink Undergraduate Research Award, Canada 1,200 CAD</li>
-            <li>Full Scholarship Exchange Program, Stony Brook University, USA 50,782 USD</li>
-            <li>Second Prize in the 33rd National High School Physics Competition, Chongqing</li>
-            <li>Second Prize in University Physics Academic Competition, Jilin University</li>
-        </ul>
-        <p><strong>Research Experience:</strong></p>
-        <ul>
-            <li>Institute of High Energy Physics, Chinese Academy of Sciences, Master’s Thesis, Quantum Gravity</li>
-            <li>School of Physics, Jilin University, Bachelor’s Thesis, Black Hole Thermodynamics</li>
-            <li>Institute of Physics, Chinese Academy of Sciences, Research Assistant, Materials Physics</li>
-            <li>University of Waterloo, Canada, Research Assistant, Quantum Information</li>
-        </ul>
-        <p><strong>Teaching Experience:</strong></p>
-        <ul>
-            <li>School of Physics, Jilin University, Teaching Assistant</li>
-            <li>University of Waterloo, Canada, Teaching Assistant</li>
-        </ul>
+    <section id="talks">
+      <h2 data-i18n="section-talks">报告与海报</h2>
+      <div id="talks-list"></div>
     </section>
 
-    <!-- More sections here -->
-    <section id="research" class="container zh">
-        <h2>科研经历 | Research Experience</h2>
-        <h4>量子引力研究</h4>
-        <p>目前在中国科学院高能物理研究所进行关于量子引力的研究，主要研究方向为...</p>
-        <h4>黑洞热力学</h4>
-        <p>在本科期间，我的毕业论文题目是黑洞热力学，主要研究了...</p>
-        <!-- More research details here -->
+    <section id="awards">
+      <h2 data-i18n="section-awards">获奖与荣誉</h2>
+      <div id="awards-list"></div>
     </section>
 
-    <section id="research" class="container en hidden">
-        <h2>Research Experience | 科研经历</h2>
-        <h4>Quantum Gravity Research</h4>
-        <p>Currently conducting research on quantum gravity at the Institute of High Energy Physics, Chinese Academy of Sciences, focusing on...</p>
-        <h4>Black Hole Thermodynamics</h4>
-        <p>During my undergraduate studies, my thesis focused on black hole thermodynamics, where I studied...</p>
-        <!-- More research details here -->
+    <section id="service">
+      <h2 data-i18n="section-service">学术服务与志愿</h2>
+      <div id="service-list"></div>
     </section>
 
-    <section id="teaching" class="container zh">
-        <h2>教学课程 | Teaching Courses</h2>
-        <h4>物理学基础</h4>
-        <p>在吉林大学，我担任了物理学基础课程的助教...</p>
-        <h4>量子力学</h4>
-        <p>在加拿大滑铁卢大学，我担任了量子力学课程的助教...</p>
-        <!-- More teaching details here -->
+    <section id="contact">
+      <h2 data-i18n="section-contact">联系我</h2>
+      <div class="grid cols-3">
+        <div class="card">
+          <h3>Email</h3>
+          <p><a href="mailto:j43yang@uwaterloo.ca">j43yang@uwaterloo.ca</a></p>
+        </div>
+        <div class="card">
+          <h3>Links</h3>
+          <ul class="list">
+            <li><a target="_blank" rel="noopener" href="https://link3.cc/jiayue">Link3 / Personal hub</a></li>
+            <li><a target="_blank" rel="noopener" href="https://inspirehep.net/authors/2679717?ui-citation-summary=true">InspireHEP</a></li>
+            <li><a target="_blank" rel="noopener" href="https://space.bilibili.com/87652178">Bilibili</a></li>
+            <li><a target="_blank" rel="noopener" href="#pubs">Publications</a></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Office / Affiliation</h3>
+          <p class="muted">University of Waterloo · Institute for Quantum Computing · Perimeter Institute (Associate Graduate Student)</p>
+        </div>
+      </div>
+      <p class="muted" style="margin-top:10px" data-i18n="last">最后更新：2025-08-07</p>
     </section>
+  </main>
 
-    <section id="teaching" class="container en hidden">
-        <h2>Teaching Courses | 教学课程</h2>
-        <h4>Fundamentals of Physics</h4>
-        <p>At Jilin University, I served as a teaching assistant for the Fundamentals of Physics course...</p>
-        <h4>Quantum Mechanics</h4>
-        <p>At the University of Waterloo, Canada, I served as a teaching assistant for the Quantum Mechanics course...</p>
-        <!-- More teaching details here -->
-    </section>
+  <footer>
+    <div class="container">
+      © <span id="year"></span> Jiayue Yang — CC BY-NC 4.0. Built for GitHub Pages.
+    </div>
+  </footer>
 
-    <section id="notes" class="container zh">
-        <h2>笔记整理 | Notes</h2>
-        <h4>物理笔记</h4>
-        <p>在学习过程中，我整理了大量的物理笔记，涵盖了经典力学、量子力学、热力学等多个领域...</p>
-        <!-- More notes details here -->
-    </section>
-
-    <section id="notes" class="container en hidden">
-        <h2>Notes | 笔记整理</h2>
-        <h4>Physics Notes</h4>
-        <p>Throughout my studies, I have compiled extensive notes on various topics in physics, including classical mechanics, quantum mechanics, thermodynamics, and more...</p>
-        <!-- More notes details here -->
-    </section>
-
-    <section id="resources" class="container zh">
-        <h2>资源工具 | Resources</h2>
-        <h4>学习资源</h4>
-        <p>我推荐了一些优秀的学习资源，包括书籍、在线课程和科研工具...</p>
-        <!-- More resources details here -->
-    </section>
-
-    <section id="resources" class="container en hidden">
-        <h2>Resources | 资源工具</h2>
-        <h4>Study Resources</h4>
-        <p>I have recommended some excellent study resources, including books, online courses, and research tools...</p>
-        <!-- More resources details here -->
-    </section>
-
-    <section id="social" class="container zh">
-        <h2>社交媒体 | Social Media</h2>
-        <h4>我的Bilibili频道</h4>
-        <p>欢迎关注我的Bilibili频道，了解更多物理学科普内容...</p>
-        <!-- More social media details here -->
-    </section>
-
-    <section id="social" class="container en hidden">
-        <h2>Social Media | 社交媒体</h2>
-        <h4>My Bilibili Channel</h4>
-        <p>Follow my Bilibili channel for more popular science content in physics...</p>
-        <!-- More social media details here -->
-    </section>
-
-    <footer>
-        <p>杨佳悦的个人主页 | Jiayue Yang's Personal Homepage &copy; 2024</p>
-    </footer>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
