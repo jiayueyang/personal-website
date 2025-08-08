@@ -157,7 +157,7 @@
       const isMobile = matchMedia('(pointer:coarse)').matches || Math.min(screen.width, window.innerWidth) < 600;
 
       // 不卡策略：限制 DPR（桌面≤1.25；移动≤1.0）——保持你原始的更保守设置
-      const DPR = Math.min(window.devicePixelRatio || 1, isMobile ? 0.4 : 0.7);
+      const DPR = Math.min(window.devicePixelRatio || 1, isMobile ? 0.4 : 0.8);
 
       const starCanvas = document.getElementById('star-canvas');
       const bhCanvas = document.getElementById('bh-canvas');
@@ -1085,6 +1085,7 @@
   </script>
 </body>
 </html>
+
 
 
 
