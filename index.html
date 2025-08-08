@@ -158,7 +158,7 @@
 
       const isMobile = matchMedia('(pointer:coarse)').matches || Math.min(screen.width, window.innerWidth) < 600;
       // 不卡策略：限制 DPR（桌面≤1.25；移动≤1.0）
-      const DPR = Math.min(window.devicePixelRatio || 1, isMobile ? 1.0 : 1.25);
+      const DPR = Math.min(window.devicePixelRatio || 1, isMobile ? 0.8 : 0.9);
 
       const starCanvas = document.getElementById('star-canvas');
       const nebulaCanvas = document.getElementById('nebula-canvas');
@@ -183,15 +183,15 @@
       const T_TWINKLE_EASE = 3500; // ms
 
       // 每帧上限（不卡策略）
-      const MAX_PARTICLES = isMobile ? 600 : 1200;
-      const MAX_METEORS   = isMobile ? 12  : 20;
+      const MAX_PARTICLES = isMobile ? 350 : 700;
+      const MAX_METEORS   = isMobile ? 6  : 10;
 
       const cfg = {
-        star: { density: 0.00020, min: 110, max: 200, twinkle: 0.008 }, // 降密度&基础闪烁速度变慢
+        star: { density: 0.00010, min: 70, max: 150, twinkle: 0.006 }, // 降密度&基础闪烁速度变慢
         meteor: { baseRate: 0.18, speedMin: 6, speedVar: 6, lenMin: 100, lenVar: 150, angle: Math.PI/4 },
         trail: { life: 620 },
         burst: { count: 85, speed: [2.2, 7.5], life: [600, 1400] },
-        nebula: { blobs: 6, drift: 0.015, skip: isMobile ? 3 : 2 } // 雾层降频
+        nebula: { blobs: 6, drift: 0.012, skip: isMobile ?  5 : 4 } // 雾层降频
       };
 
       function fit(canvas, ctx){
@@ -1104,3 +1104,4 @@
   </script>
 </body>
 </html>
+
