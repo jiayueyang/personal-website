@@ -53,12 +53,11 @@
     }
     #home::before{content:''; position:absolute; inset:0; background:rgba(0,0,0,.22); z-index:0}
 
-    /* Triple canvas */
-    #star-canvas, #nebula-canvas, #bh-canvas{
+    /* Double canvas (nebula removed) */
+    #star-canvas, #bh-canvas{
       position:absolute; inset:0; width:100%; height:100%; display:block; pointer-events:none;
     }
     #star-canvas{z-index:1}
-    #nebula-canvas{z-index:2; mix-blend-mode:screen; opacity:.55; filter: blur(1px); transition:opacity .2s ease}
     #bh-canvas{z-index:3}
 
     #home .content{position:relative; z-index:4; animation:fadeInUp .9s ease-out both}
@@ -131,7 +130,7 @@
     }
     @media (prefers-reduced-motion: reduce){
       #home .content, #home h1{animation:none!important}
-      #nebula-canvas{opacity:.15}
+      /* nebula styles removed */
     }
   </style>
 
@@ -152,24 +151,19 @@
       }
     }
 
-    /* ==================== Cosmos FX ==================== */
+    /* ==================== Cosmos FX (nebula removed) ==================== */
     function cosmosFX(){
       const prefersReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
       const isMobile = matchMedia('(pointer:coarse)').matches || Math.min(screen.width, window.innerWidth) < 600;
 
-      // ★ 关掉星云层（要开回去改成 true）
-      const NEBULA = false;
-
-      // 不卡策略：限制 DPR（桌面≤1.25；移动≤1.0）——你这里设得更保守
+      // 不卡策略：限制 DPR（桌面≤1.25；移动≤1.0）——保持你原始的更保守设置
       const DPR = Math.min(window.devicePixelRatio || 1, isMobile ? 0.3 : 0.5);
 
       const starCanvas = document.getElementById('star-canvas');
-      const nebulaCanvas = document.getElementById('nebula-canvas');
       const bhCanvas = document.getElementById('bh-canvas');
-      if(!starCanvas || !nebulaCanvas || !bhCanvas) return;
+      if(!starCanvas || !bhCanvas) return;
 
       const sctx = starCanvas.getContext('2d');
-      const nctx = NEBULA ? nebulaCanvas.getContext('2d') : null; // ★ 仅启用时取上下文
       const bctx = bhCanvas.getContext('2d');
 
       let stars=[], meteors=[], particles=[];
@@ -185,7 +179,7 @@
       let twinkleGlobal = 0; // 缓启动 [0,1]
       const T_TWINKLE_EASE = 3500; // ms
 
-      // 每帧上限（不卡策略）——可按需再降
+      // 每帧上限（不卡策略）
       const MAX_PARTICLES = isMobile ? 200 : 300;
       const MAX_METEORS   = isMobile ? 3  : 6;
 
@@ -193,8 +187,7 @@
         star: { density: 0.00005, min: 30, max: 60, twinkle: 0.004 },
         meteor: { baseRate: 0.18, speedMin: 6, speedVar: 6, lenMin: 100, lenVar: 150, angle: Math.PI/4 },
         trail: { life: 620 },
-        burst: { count: 55, speed: [2.2, 7.5], life: [600, 1400] },
-        nebula: { blobs: 6, drift: 0.012, skip: isMobile ?  7 : 6 } // 雾层降频
+        burst: { count: 55, speed: [2.2, 7.5], life: [600, 1400] }
       };
 
       function fit(canvas, ctx){
@@ -204,40 +197,8 @@
       }
       function resizeAll(){
         fit(starCanvas, sctx);
-        if(NEBULA){
-          fit(nebulaCanvas, nctx);
-          nebulaCanvas.style.display = 'block';
-          drawNebula(true);
-        }else{
-          // ★ 彻底隐藏星云画布，避免样式与合成开销
-          nebulaCanvas.style.display = 'none';
-        }
         fit(bhCanvas, bctx);
         resetStars();
-      }
-
-      /* ===== Nebula ===== */
-      let nebulaT = 0;
-      function drawNebula(init=false){
-        if(!NEBULA) return; // ★ 关时直接早退
-        const w = nebulaCanvas.clientWidth, h = nebulaCanvas.clientHeight;
-        nctx.clearRect(0,0,w,h);
-        nctx.globalCompositeOperation='lighter';
-        const cx = w*0.55, cy = h*0.5;
-        for(let i=0;i<cfg.nebula.blobs;i++){
-          const r = Math.min(w,h)*(0.35 + i*0.07);
-          const ang = i*1.1 + nebulaT*cfg.nebula.drift;
-          const x = cx + Math.cos(ang)*(w*0.08 + i*12);
-          const y = cy + Math.sin(ang)*(h*0.06 + i*8);
-          const hue = (210 + i*18 + nebulaT*8) % 360;
-          const grad = nctx.createRadialGradient(x,y,0, x,y,r);
-          grad.addColorStop(0, `hsla(${hue}, 85%, 65%, ${init?0.35:0.22})`);
-          grad.addColorStop(1, `hsla(${(hue+40)%360}, 90%, 10%, 0)`);
-          nctx.fillStyle = grad;
-          nctx.beginPath(); nctx.arc(x,y,r,0,Math.PI*2); nctx.fill();
-        }
-        nctx.globalCompositeOperation='source-over';
-        nebulaT += 1;
       }
 
       /* ===== Stars ===== */
@@ -288,8 +249,8 @@
       }
       function drawStars(){
         const w = starCanvas.clientWidth, h = starCanvas.clientHeight;
-        const twinkleBoost = 1; // 不被BH或滚动额外加速
-        const reduce = (BH.active?0.2:1.0); // 黑洞出现时再降一档密度
+        const twinkleBoost = 1;
+        const reduce = (BH.active?0.2:1.0);
 
         for(const s of stars){
           if(Math.random()>reduce) continue;
@@ -611,11 +572,7 @@
         for(const p of particles){ updateSpiral(p, now); }
         drawParticles(now);
 
-        // ★ 只有开启星云时才绘制；否则完全跳过
-        if(NEBULA){
-          const skip = cfg.nebula.skip + (BH.active?1:0);
-          if(tick%skip===0) drawNebula(false);
-        }
+        // nebula drawing removed
 
         drawBH(now);
 
@@ -659,10 +616,8 @@
       }
       function onKey(e){
         const k = e.key.toLowerCase();
-        if(k==='g'){
-          const cur = parseFloat(getComputedStyle(nebulaCanvas).opacity) || 0.55;
-          nebulaCanvas.style.opacity = (cur>0.1) ? '0' : '0.55';
-        }else if(k==='m'){ storm = !storm; }
+        // 'g' (nebula toggle) removed
+        if(k==='m'){ storm = !storm; }
         else if(k==='b'){
           if(BH.active) killBH();
           else{
@@ -743,7 +698,7 @@
   <!-- ===== HOME ===== -->
   <section id="home">
     <canvas id="star-canvas"></canvas>
-    <canvas id="nebula-canvas"></canvas>
+    <!-- nebula-canvas removed -->
     <canvas id="bh-canvas"></canvas>
 
     <div class="content zh hidden">
