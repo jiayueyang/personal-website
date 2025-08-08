@@ -55,7 +55,7 @@
       box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
     }
 
-    /* Home (was #showcase) */
+    /* Home (with stars & meteors) */
     #home {
       min-height: 70vh;
       padding-top: 120px;
@@ -66,12 +66,22 @@
       align-items: center;
       justify-content: center;
       scroll-margin-top: 120px;
+      overflow: hidden;
     }
+    /* 背景微暗层放在最底层，避免盖住星星 */
     #home::before {
       content: '';
       position: absolute; inset: 0;
-      background: rgba(0, 0, 0, 0.3);
+      background: rgba(0, 0, 0, 0.28);
+      z-index: 0;
+    }
+    /* 星空画布占满首页，位于暗层之上、内容之下 */
+    #star-canvas {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
       z-index: 1;
+      display: block;
+      pointer-events: none; /* 不挡按钮点击 */
     }
     #home .content { position: relative; z-index: 2; animation: fadeInUp 1s ease-out; }
     #home h1 {
@@ -195,11 +205,116 @@
       }
     }
 
+    // ===== 星光 + 流星雨（高分屏自适应） =====
+    function initStarsAndMeteors() {
+      const canvas = document.getElementById('star-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+
+      function fitToContainer() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2); // 限制到2防止超耗
+        const cssW = canvas.clientWidth;
+        const cssH = canvas.clientHeight;
+        canvas.width = Math.floor(cssW * dpr);
+        canvas.height = Math.floor(cssH * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0); // 把绘图坐标系映射回CSS像素
+      }
+
+      // 根据面积调节星星数量
+      let stars = [];
+      let meteors = [];
+      function resetStars() {
+        stars = [];
+        const area = canvas.clientWidth * canvas.clientHeight;
+        const baseDensity = 0.00025; // 每像素密度（可微调）
+        const count = Math.max(120, Math.min(240, Math.floor(area * baseDensity)));
+        for (let i = 0; i < count; i++) {
+          stars.push({
+            x: Math.random() * canvas.clientWidth,
+            y: Math.random() * canvas.clientHeight,
+            r: Math.random() * 1.2 + 0.2,
+            alpha: Math.random(),
+            speed: 0.005 + Math.random() * 0.015
+          });
+        }
+      }
+
+      function drawStars() {
+        ctx.fillStyle = "white";
+        stars.forEach(star => {
+          ctx.globalAlpha = star.alpha;
+          ctx.beginPath();
+          ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
+          ctx.fill();
+          star.alpha += star.speed;
+          if (star.alpha > 1) { star.speed *= -1; }
+          else if (star.alpha < 0) {
+            star.x = Math.random() * canvas.clientWidth;
+            star.y = Math.random() * canvas.clientHeight;
+            star.speed *= -1;
+          }
+        });
+        ctx.globalAlpha = 1;
+      }
+
+      function createMeteor() {
+        const startX = Math.random() * canvas.clientWidth * 0.8; // 避免太靠右生成
+        meteors.push({
+          x: startX,
+          y: -20,
+          length: 120 + Math.random() * 120,
+          speed: 6 + Math.random() * 5,
+          angle: Math.PI / 4, // 45°
+          opacity: 0.9
+        });
+      }
+
+      function drawMeteors() {
+        meteors.forEach((m, idx) => {
+          ctx.strokeStyle = `rgba(255,255,255,${m.opacity})`;
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.moveTo(m.x, m.y);
+          ctx.lineTo(m.x - m.length * Math.cos(m.angle), m.y - m.length * Math.sin(m.angle));
+          ctx.stroke();
+
+          m.x += m.speed;
+          m.y += m.speed;
+          m.opacity -= 0.012;
+
+          if (m.opacity <= 0 || m.x > canvas.clientWidth + 200 || m.y > canvas.clientHeight + 200) {
+            meteors.splice(idx, 1);
+          }
+        });
+      }
+
+      function render() {
+        ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
+        drawStars();
+        drawMeteors();
+        requestAnimationFrame(render);
+      }
+
+      function onResize() {
+        fitToContainer();
+        resetStars();
+      }
+
+      window.addEventListener('resize', onResize);
+      onResize();
+      render();
+
+      // 随机生成流星
+      setInterval(() => {
+        if (Math.random() < 0.35) createMeteor();
+      }, 1000);
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
       // 默认英文
       toggleLanguage('en');
 
-      // 滚动时头部微变
+      // 头部微变
       window.addEventListener('scroll', function() {
         const header = document.querySelector('header');
         if (window.scrollY > 50) header.style.background = 'rgba(255,255,255,0.98)';
@@ -223,6 +338,9 @@
         section.style.transition = 'all 0.6s ease';
         observer.observe(section);
       });
+
+      // 初始化星空
+      initStarsAndMeteors();
     });
   </script>
 </head>
@@ -262,9 +380,12 @@
 
   <!-- HOME -->
   <section id="home">
+    <!-- 星空背景画布 -->
+    <canvas id="star-canvas"></canvas>
+
     <div class="content zh hidden">
       <h1>欢迎来到我的个人主页</h1>
-      <p>滑铁卢大学应用数学博士生 • 量子信息与量子引力研究者</p>
+      <p>滑铁卢大学数学与物理博士 • 量子信息与量子引力研究者</p>
       <p>探索宇宙奥秘，传播科学之美 🌟</p>
       <a href="#about" class="button">了解更多</a>
       <a href="https://link3.cc/jiayue" class="button" target="_blank">个人网站</a>
@@ -275,7 +396,7 @@
     </div>
     <div class="content en">
       <h1>Welcome to My Homepage</h1>
-      <p>PhD student in Applide Math @ University of Waterloo • Quantum Information & Gravity Researcher</p>
+      <p>PhD in Math & Physics @ University of Waterloo • Quantum Information & Gravity Researcher</p>
       <p>Exploring the mysteries of the universe, sharing the beauty of science 🌟</p>
       <a href="#about" class="button">Learn More</a>
       <a href="https://link3.cc/jiayue" class="button" target="_blank">Personal Website</a>
@@ -287,7 +408,7 @@
     <img src="888.jpg" alt="Profile Photo">
   </section>
 
-  <!-- STATS (no anchor in menu; keep separate zh/en blocks) -->
+  <!-- STATS -->
   <section class="container zh hidden">
     <h2>学术成果一览 | Academic Achievements</h2>
     <div class="stats-grid">
@@ -494,17 +615,17 @@
       </ul>
       <h3>📺 在线教学课程 (B站免费课程)</h3>
       <ul>
-        <li><strong>量子场论</strong> (2023年11月至今) - 物理与天文学系</li>
-        <li><strong>广义相对论</strong> (2023年9月至今) - 物理与天文学系</li>
-        <li><strong>分析力学</strong> (2020年3月-2021年1月) - 吉林大学物理学院</li>
-        <li><strong>数学物理方法</strong> (2020年1月-2021年1月) - 吉林大学物理学院</li>
+        <li><strong>量子场论</strong> (2023年11月至今)</li>
+        <li><strong>广义相对论</strong> (2023年9月至今)</li>
+        <li><strong>分析力学</strong> (2020年3月-2021年1月)</li>
+        <li><strong>数学物理方法</strong> (2020年1月-2021年1月)</li>
       </ul>
       <h3>🎤 学术报告与演讲 (近期)</h3>
       <ul>
         <li><strong>从黑洞热力学到黑洞化学</strong> - 滑铁卢大学AMATH研究生小型会议 (2025年1月)</li>
         <li><strong>从黑洞热力学到黑洞化学</strong> - 南科大第二届研讨会 (2025年1月)</li>
-        <li><strong>复杂度、标度和相变</strong> - 江西师范大学研讨会 (2024年12月)</li>
-        <li><strong>黑洞四重点附近的相变动力学行为</strong> - 多所大学巡回报告 (2024年10月-12月)</li>
+        <li><strong>复杂度、标度和相变</strong> - 江西师范大学 (2024年12月)</li>
+        <li><strong>黑洞四重点附近的相变动力学行为</strong> - 巡回报告 (2024年10月-12月)</li>
       </ul>
       <h3>📚 科普教育工作</h3>
       <ul>
@@ -516,22 +637,22 @@
       <h2>Teaching Experience | 教学经历</h2>
       <h3>🎓 University Teaching Assistant</h3>
       <ul>
-        <li><strong>Quantum Theory 3</strong> (Jan-Apr 2025) - Dept. of Applied Math, University of Waterloo</li>
-        <li><strong>Introductory Astronomy</strong> (May-Dec 2023) - SCI 238, University of Waterloo</li>
+        <li><strong>Quantum Theory 3</strong> (Jan-Apr 2025)</li>
+        <li><strong>Introductory Astronomy</strong> (May-Dec 2023)</li>
       </ul>
       <h3>📺 Online Teaching Courses (Free Bilibili Courses)</h3>
       <ul>
-        <li><strong>Quantum Field Theory</strong> (Nov 2023-Present) - Dept. of Physics and Astronomy</li>
-        <li><strong>General Relativity</strong> (Sep 2023-Present) - Dept. of Physics and Astronomy</li>
-        <li><strong>Analytical Mechanics</strong> (Mar 2020-Jan 2021) - College of Physics, Jilin University</li>
-        <li><strong>Methods of Mathematical Physics</strong> (Jan 2020-Jan 2021) - College of Physics, Jilin University</li>
+        <li><strong>Quantum Field Theory</strong> (Nov 2023-Present)</li>
+        <li><strong>General Relativity</strong> (Sep 2023-Present)</li>
+        <li><strong>Analytical Mechanics</strong> (Mar 2020-Jan 2021)</li>
+        <li><strong>Methods of Mathematical Physics</strong> (Jan 2020-Jan 2021)</li>
       </ul>
       <h3>🎤 Recent Academic Presentations</h3>
       <ul>
-        <li><strong>From Black Hole Thermodynamics to Black Hole Chemistry</strong> - UWaterloo AMATH Graduate Mini-Conference (Jan 2025)</li>
-        <li><strong>From Black Hole Thermodynamics to Black Hole Chemistry</strong> - SUSTech 2nd Workshop (Jan 2025)</li>
-        <li><strong>Complexity, Scaling, and a Phase Transition</strong> - Jiangxi Normal University (Dec 2024)</li>
-        <li><strong>Dynamic Behaviours of Black Hole Phase Transitions</strong> - Multi-university tour (Oct-Dec 2024)</li>
+        <li><strong>From Black Hole Thermodynamics to Black Hole Chemistry</strong> (Jan 2025)</li>
+        <li><strong>From Black Hole Thermodynamics to Black Hole Chemistry</strong> (Jan 2025)</li>
+        <li><strong>Complexity, Scaling, and a Phase Transition</strong> (Dec 2024)</li>
+        <li><strong>Dynamic Behaviours of Black Hole Phase Transitions</strong> (Oct-Dec 2024)</li>
       </ul>
       <h3>📚 Science Outreach</h3>
       <ul>
@@ -546,54 +667,28 @@
     <div class="zh hidden">
       <h2>获奖荣誉 | Awards & Honors</h2>
       <h3>🏆 最新获奖 (2024-2025)</h3>
-      <div class="award"><strong>Alan George学生领导力奖</strong> - 2500加元 (滑铁卢大学2025年唯一获得者)</div>
-      <div class="award"><strong>David Johnston国际学生入学奖学金</strong> - 5000加元 (2024-2025)</div>
-      <div class="award"><strong>量子计算研究所入学奖</strong> - 5000加元 (2024)</div>
-      <div class="award"><strong>教务长博士入学奖学金(女性)</strong> - 5000加元 (2024)</div>
+      <div class="award"><strong>Alan George学生领导力奖</strong> - 2500加元</div>
+      <div class="award"><strong>David Johnston国际学生入学奖学金</strong> - 5000加元</div>
+      <div class="award"><strong>量子计算研究所入学奖</strong> - 5000加元</div>
+      <div class="award"><strong>教务长博士入学奖学金(女性)</strong> - 5000加元</div>
       <h3>💰 奖学金类</h3>
-      <div class="award"><strong>Mitacs Globalink研究生奖学金</strong> - 15000加元 (2022-2023)</div>
-      <div class="award"><strong>院长奖学金</strong> - 1600加元 (2022)</div>
-      <div class="award"><strong>石溪大学优秀学生学费奖学金</strong> - 24740美元 (2020年，273人中排名第2)</div>
-      <div class="award"><strong>Mitacs Globalink本科研究奖学金</strong> - 1200加元 (2021)</div>
-      <h3>🥇 竞赛类荣誉</h3>
-      <div class="award"><strong>中国大学生物理学术竞赛全国决赛二等奖</strong> (2019年8月)</div>
-      <div class="award"><strong>东北地区大学生物理学术竞赛一等奖</strong> (2019年5月)</div>
-      <div class="award"><strong>吉林大学大学生物理学术竞赛一等奖</strong> (2019年3月)</div>
-      <div class="award"><strong>吉林大学2018天文知识竞赛冠军</strong> (2018年12月)</div>
-      <h3>📜 学术荣誉</h3>
-      <div class="award"><strong>Wolfram Technology认证</strong> - Mathematica一级认证 (2021年2月)</div>
-      <div class="award"><strong>唐敖庆荣誉班科研实践二等奖</strong> - 团队奖 (2020年6月)</div>
-      <div class="award"><strong>学院优秀学生奖学金</strong> - 前10% (2020年4月)</div>
-      <h3>🌟 国际交流经历</h3>
-      <div class="award"><strong>剑桥大学学术项目证书</strong> - 统计物理 (2021年7月)</div>
-      <div class="award"><strong>北京大学理论物理与粒子物理暑期学校</strong> (2021年8月)</div>
-      <div class="award"><strong>四川大学时空与几何项目</strong> (2021年5月-6月)</div>
+      <div class="award"><strong>Mitacs Globalink研究生奖学金</strong> - 15000加元</div>
+      <div class="award"><strong>院长奖学金</strong> - 1600加元</div>
+      <div class="award"><strong>石溪大学优秀学生学费奖学金</strong> - 24740美元</div>
+      <div class="award"><strong>Mitacs Globalink本科研究奖学金</strong> - 1200加元</div>
     </div>
     <div class="en">
       <h2>Awards & Honors | 获奖荣誉</h2>
       <h3>🏆 Recent Awards (2024-2025)</h3>
-      <div class="award"><strong>Alan George Student Leadership Award</strong> - 2500 CAD (Only recipient at UWaterloo 2025)</div>
-      <div class="award"><strong>David Johnston International Student Entrance Scholarship</strong> - 5000 CAD (2024-2025)</div>
-      <div class="award"><strong>Institute for Quantum Computing Entrance Award</strong> - 5000 CAD (2024)</div>
-      <div class="award"><strong>Provost Doctoral Entrance Award for Women</strong> - 5000 CAD (2024)</div>
+      <div class="award"><strong>Alan George Student Leadership Award</strong> - 2500 CAD</div>
+      <div class="award"><strong>David Johnston International Student Entrance Scholarship</strong> - 5000 CAD</div>
+      <div class="award"><strong>Institute for Quantum Computing Entrance Award</strong> - 5000 CAD</div>
+      <div class="award"><strong>Provost Doctoral Entrance Award for Women</strong> - 5000 CAD</div>
       <h3>💰 Scholarships</h3>
-      <div class="award"><strong>Mitacs Globalink Graduate Fellowship</strong> - 15000 CAD (2022-2023)</div>
-      <div class="award"><strong>Dean's Scholarship</strong> - 1600 CAD (2022)</div>
-      <div class="award"><strong>Stony Brook University Tuition Scholarship</strong> - $24740 USD (2020, 2/273)</div>
-      <div class="award"><strong>Mitacs Globalink Research Internship Award</strong> - 1200 CAD (2021)</div>
-      <h3>🥇 Competition Honors</h3>
-      <div class="award"><strong>Second Prize, China Undergraduate Physics Tournament (National Finals)</strong> (Aug 2019)</div>
-      <div class="award"><strong>First Prize, Northeast China Undergraduate Physics Tournament</strong> (May 2019)</div>
-      <div class="award"><strong>First Prize, Jilin University Physics Tournament</strong> (Mar 2019)</div>
-      <div class="award"><strong>Champion, Astronomy Knowledge Competition, Jilin University</strong> (Dec 2018)</div>
-      <h3>📜 Academic Honors</h3>
-      <div class="award"><strong>Wolfram Technology Certified Level 1</strong> - Mathematica (Feb 2021)</div>
-      <div class="award"><strong>Second Team Prize, Tang Aoqing Honors Program Research</strong> - Team Award (Jun 2020)</div>
-      <div class="award"><strong>College Excellent Student Scholarship</strong> - Top 10% (Apr 2020)</div>
-      <h3>🌟 International Exchange</h3>
-      <div class="award"><strong>Cambridge Academic Programme Certificate</strong> - Statistical Physics (Jul 2021)</div>
-      <div class="award"><strong>Peking University Summer School in Theoretical Physics</strong> (Aug 2021)</div>
-      <div class="award"><strong>Sichuan University Spacetime and Geometry Program</strong> (May-Jun 2021)</div>
+      <div class="award"><strong>Mitacs Globalink Graduate Fellowship</strong> - 15000 CAD</div>
+      <div class="award"><strong>Dean's Scholarship</strong> - 1600 CAD</div>
+      <div class="award"><strong>Stony Brook University Tuition Scholarship</strong> - $24740 USD</div>
+      <div class="award"><strong>Mitacs Globalink Research Internship Award</strong> - 1200 CAD</div>
     </div>
   </section>
 
@@ -619,8 +714,6 @@
       <h3>🏛️ 工作地址</h3>
       <p><strong>滑铁卢大学应用数学系</strong><br>200 University Avenue West<br>Waterloo, ON, Canada N2L 3G1</p>
       <p><strong>周界理论物理研究所</strong><br>31 Caroline Street North<br>Waterloo, ON, Canada N2L 2Y5</p>
-      <h3>🤝 学术合作</h3>
-      <p>欢迎与我讨论量子信息、量子引力、黑洞物理等相关研究课题。也欢迎对科普教育和学术交流感兴趣的同行联系！</p>
     </div>
     <div class="en">
       <h2>Contact Information | 联系方式</h2>
@@ -642,8 +735,6 @@
       <h3>🏛️ Office Address</h3>
       <p><strong>Department of Applied Mathematics, University of Waterloo</strong><br>200 University Avenue West<br>Waterloo, ON, Canada N2L 3G1</p>
       <p><strong>Perimeter Institute for Theoretical Physics</strong><br>31 Caroline Street North<br>Waterloo, ON, Canada N2L 2Y5</p>
-      <h3>🤝 Academic Collaboration</h3>
-      <p>I welcome discussions on quantum information, quantum gravity, black hole physics, and related research topics. Also feel free to contact me if you're interested in science education and academic exchange!</p>
     </div>
   </section>
 
@@ -656,5 +747,3 @@
   </footer>
 </body>
 </html>
-
-
