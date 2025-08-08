@@ -187,10 +187,10 @@
       const MAX_METEORS   = isMobile ? 6  : 10;
 
       const cfg = {
-        star: { density: 0.00010, min: 70, max: 150, twinkle: 0.006 }, // 降密度&基础闪烁速度变慢
+        star: { density: 0.00008, min: 50, max: 120, twinkle: 0.005 }, // 降密度&基础闪烁速度变慢
         meteor: { baseRate: 0.18, speedMin: 6, speedVar: 6, lenMin: 100, lenVar: 150, angle: Math.PI/4 },
         trail: { life: 620 },
-        burst: { count: 85, speed: [2.2, 7.5], life: [600, 1400] },
+        burst: { count: 55, speed: [2.2, 7.5], life: [600, 1400] },
         nebula: { blobs: 6, drift: 0.012, skip: isMobile ?  5 : 4 } // 雾层降频
       };
 
@@ -283,7 +283,7 @@
         const w = starCanvas.clientWidth, h = starCanvas.clientHeight;
         // 滚动强度用 EMA，黑洞不改星星闪烁频率（你的要求），只影响流星量
         const twinkleBoost = 1; // 固定，不被BH或滚动额外加速
-        const reduce = (BH.active?0.5:1.0); // 黑洞出现时再降一档密度
+        const reduce = (BH.active?0.2:1.0); // 黑洞出现时再降一档密度
         const cx = w/2, cy = h/2;
 
         for(const s of stars){
@@ -1104,4 +1104,5 @@
   </script>
 </body>
 </html>
+
 
