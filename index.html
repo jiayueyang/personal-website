@@ -18,7 +18,6 @@
       min-height:100vh;
       background: linear-gradient(135deg, var(--accent-a) 0%, var(--accent-b) 100%);
     }
-
     .container{width:85%; max-width:1200px; margin:0 auto; overflow:hidden}
 
     /* ===== Header ===== */
@@ -54,14 +53,15 @@
     }
     #home::before{content:''; position:absolute; inset:0; background:rgba(0,0,0,.22); z-index:0}
 
-    /* Dual canvas */
-    #star-canvas, #nebula-canvas{
+    /* Triple canvas */
+    #star-canvas, #nebula-canvas, #bh-canvas{
       position:absolute; inset:0; width:100%; height:100%; display:block; pointer-events:none;
     }
     #star-canvas{z-index:1}
     #nebula-canvas{z-index:2; mix-blend-mode:screen; opacity:.55; filter: blur(1px); transition:opacity .2s ease}
+    #bh-canvas{z-index:3}
 
-    #home .content{position:relative; z-index:3; animation:fadeInUp .9s ease-out both}
+    #home .content{position:relative; z-index:4; animation:fadeInUp .9s ease-out both}
     #home h1{
       font-size:3.4rem; margin:0 0 14px; text-shadow:2px 2px 4px rgba(0,0,0,.5);
       animation:glow 2s ease-in-out infinite alternate
@@ -70,7 +70,7 @@
     #home img{
       position:absolute; top:20px; right:20px; width:170px; max-width:40vw; aspect-ratio:1/1; object-fit:cover;
       border-radius:50%; border:5px solid rgba(255,255,255,.3);
-      animation:float 3s ease-in-out infinite; z-index:3; filter:saturate(1.05)
+      animation:float 3s ease-in-out infinite; z-index:4; filter:saturate(1.05)
     }
     #home img:hover{transform: scale(1.06); border-color: rgba(255,255,255,.85); transition:.25s}
 
@@ -81,7 +81,7 @@
     }
     @keyframes float{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
 
-    /* ===== Sections ===== */
+    /* ===== Sections / Cards ===== */
     section{
       padding:40px 20px; margin:30px 0; background: var(--glass);
       backdrop-filter: blur(10px); border-radius:20px; box-shadow: var(--shadow);
@@ -93,61 +93,34 @@
     }
     section:hover::before{left:100%}
     section:hover{transform: translateY(-5px); box-shadow:0 20px 60px rgba(0,0,0,.14)}
-    h2{
-      font-size:2.1rem; margin:0 0 18px; display:inline-block; border-bottom:3px solid var(--accent-a); padding-bottom:12px;
-    }
+    h2{font-size:2.1rem; margin:0 0 18px; display:inline-block; border-bottom:3px solid var(--accent-a); padding-bottom:12px}
     h3{font-size:1.25rem; color:var(--accent-a); margin:22px 0 12px}
     h4{font-size:1.1rem; color:#555; margin:14px 0 8px}
 
-    .publication, .award, .research-item, .contact-card, .stat-card{
-      border-radius:16px; transition:.25s
-    }
-    .publication{
-      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-      padding:16px; margin:12px 0; border-left:5px solid var(--accent-a)
-    }
+    .publication, .award, .research-item, .contact-card, .stat-card{border-radius:16px; transition:.25s}
+    .publication{background: linear-gradient(135deg, #f5f7fa, #c3cfe2); padding:16px; margin:12px 0; border-left:5px solid var(--accent-a)}
     .publication:hover{transform: translateX(8px); box-shadow:0 6px 20px rgba(102,126,234,.22)}
-    .award{
-      background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
-      padding:14px; margin:10px 0; border-left:4px solid #e17055
-    }
+    .award{background: linear-gradient(135deg, #ffeaa7, #fab1a0); padding:14px; margin:10px 0; border-left:4px solid #e17055}
     .award:hover{transform:scale(1.015)}
-    .research-item{
-      background: linear-gradient(135deg, #a8e6cf 0%, #88d8a3 100%);
-      padding:18px; margin:16px 0; border-left:5px solid #00b894
-    }
+    .research-item{background: linear-gradient(135deg, #a8e6cf, #88d8a3); padding:18px; margin:16px 0; border-left:5px solid #00b894}
     .research-item:hover{transform: translateY(-3px); box-shadow:0 10px 26px rgba(0,184,148,.22)}
 
-    .stats-grid{
-      display:grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap:18px; margin:22px 0
-    }
-    .stat-card{
-      background: linear-gradient(135deg, var(--accent-a) 0%, var(--accent-b) 100%);
-      color:#fff; padding:24px; text-align:center;
-    }
+    .stats-grid{display:grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap:18px; margin:22px 0}
+    .stat-card{background: linear-gradient(135deg, var(--accent-a), var(--accent-b)); color:#fff; padding:24px; text-align:center}
     .stat-card:hover{transform: translateY(-4px) scale(1.03); box-shadow:0 14px 28px rgba(102,126,234,.28)}
     .stat-number{font-size:2.2rem; font-weight:800; margin-bottom:6px}
 
     .contact-info{display:flex; flex-wrap:wrap; gap:16px; justify-content:space-around; margin:18px 0}
-    .contact-card{
-      background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
-      padding:18px; min-width:220px; text-align:center; flex:1;
-    }
+    .contact-card{background: linear-gradient(135deg, #84fab0, #8fd3f4); padding:18px; min-width:220px; text-align:center; flex:1}
     .contact-card:hover{transform: translateY(-5px); box-shadow:0 10px 25px rgba(132,250,176,.28)}
 
-    .button{
-      display:inline-block; color:#fff; background: linear-gradient(135deg, var(--accent-a) 0%, var(--accent-b) 100%);
-      padding:10px 22px; text-decoration:none; border-radius:999px; font-weight:600; margin:10px 6px; transition:.2s
-    }
+    .button{display:inline-block; color:#fff; background: linear-gradient(135deg, var(--accent-a), var(--accent-b)); padding:10px 22px; text-decoration:none; border-radius:999px; font-weight:600; margin:10px 6px; transition:.2s}
     .button:hover{transform: translateY(-2px); box-shadow:0 10px 20px rgba(102,126,234,.28)}
 
     ul{padding-left:22px} li{margin:7px 0; transition:.15s} li:hover{color:var(--accent-a); transform:translateX(4px)}
     .hidden{display:none}
 
-    footer{
-      padding:36px 20px; margin-top:48px; color:#fff;
-      background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); text-align:center; border-radius:20px 20px 0 0;
-    }
+    footer{padding:36px 20px; margin-top:48px; color:#fff; background: linear-gradient(135deg, #2c3e50, #34495e); text-align:center; border-radius:20px 20px 0 0}
 
     @media (max-width:768px){
       .container{width:94%}
@@ -156,8 +129,6 @@
       #home img{position:static; margin:18px auto 0; display:block; width:160px}
       .stats-grid{grid-template-columns:1fr}
     }
-
-    /* Reduced motion support */
     @media (prefers-reduced-motion: reduce){
       #home .content, #home h1{animation:none!important}
       #nebula-canvas{opacity:.15}
@@ -165,7 +136,7 @@
   </style>
 
   <script>
-    /* ---------------- Language Toggle ---------------- */
+    /* ---------- Language Toggle ---------- */
     function toggleLanguage(lang){
       const zh = document.querySelectorAll('.zh');
       const en = document.querySelectorAll('.en');
@@ -181,27 +152,34 @@
       }
     }
 
-    /* --------------- Cosmos FX (Stars + Meteors + Nebula) --------------- */
+    /* ==================== Cosmos FX (Stars + Meteors + Nebula + BlackHole) ==================== */
     function cosmosFX(){
       const prefersReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
       const DPR = Math.min(window.devicePixelRatio || 1, 2);
 
       const starCanvas = document.getElementById('star-canvas');
       const nebulaCanvas = document.getElementById('nebula-canvas');
-      if(!starCanvas || !nebulaCanvas) return;
+      const bhCanvas = document.getElementById('bh-canvas');
+      if(!starCanvas || !nebulaCanvas || !bhCanvas) return;
 
       const sctx = starCanvas.getContext('2d');
       const nctx = nebulaCanvas.getContext('2d');
+      const bctx = bhCanvas.getContext('2d');
 
       let stars=[], meteors=[], particles=[];
       let lastRAF = performance.now(), lastScrollY = window.scrollY, scrollSpeed = 0;
       let paused = false, storm = false, tick=0;
 
+      // ---- Black hole state ----
+      const BH = { active:false, x:0, y:0, r:90, born:0, life:12000, cool:8000, lastGone: -1e9, eht:false, rippleT:0 };
+      const CLICK = { chanceBH:0.30, nearFactor:1.5 };
+
       const cfg = {
-        star: { density: 0.00028, min: 140, max: 280, twinkle: 0.0105 },
-        meteor: { baseRate: 0.26, speedMin: 6, speedVar: 6, lenMin: 100, lenVar: 150, angle: Math.PI/4 },
+        // 星点：默认密度减少，黑洞时再下调
+        star: { density: 0.00022, min: 120, max: 220, twinkle: 0.010 },
+        meteor: { baseRate: 0.22, speedMin: 6, speedVar: 6, lenMin: 100, lenVar: 150, angle: Math.PI/4 },
         trail: { life: 620 },
-        burst: { count: 90, speed: [2.2, 7.5], life: [600, 1400] },
+        burst: { count: 85, speed: [2.2, 7.5], life: [600, 1400] },
         nebula: { blobs: 6, drift: 0.015 }
       };
 
@@ -213,6 +191,7 @@
       function resizeAll(){
         fit(starCanvas, sctx);
         fit(nebulaCanvas, nctx);
+        fit(bhCanvas, bctx);
         resetStars();
         drawNebula(true);
       }
@@ -244,43 +223,80 @@
       function resetStars(){
         stars.length = 0;
         const area = starCanvas.clientWidth * starCanvas.clientHeight;
-        const count = Math.max(cfg.star.min, Math.min(cfg.star.max, Math.floor(area * cfg.star.density)));
+        const baseCount = Math.floor(area * cfg.star.density);
+        const count = Math.max(cfg.star.min, Math.min(cfg.star.max, baseCount));
         for(let i=0;i<count;i++){
+          const tier = Math.random();
+          let r = tier<0.8 ? (Math.random()*0.9 + 0.2) : (tier<0.95 ? (Math.random()*1.4 + 0.6) : (Math.random()*1.8 + 1.0));
           stars.push({
             x: Math.random()*starCanvas.clientWidth,
             y: Math.random()*starCanvas.clientHeight,
-            r: Math.random()*1.35 + 0.25,
+            r,
             alpha: Math.random(),
             tw: (Math.random()*0.012 + cfg.star.twinkle)*(Math.random()<.5?-1:1),
-            hue: 200 + Math.random()*80,            // 蓝紫到青白区间
-            hueShift: (Math.random()*0.22 + 0.06)*(Math.random()<.5?-1:1)
+            hue: 200 + Math.random()*80,            // 蓝紫到青白
+            hueShift: (Math.random()*0.22 + 0.06)*(Math.random()<.5?-1:1),
+            tier
           });
         }
       }
+      function drawStarGlow(x,y,r,hue,alpha){
+        const g = sctx.createRadialGradient(x,y,0, x,y, r*3.2);
+        g.addColorStop(0, `hsla(${hue}, 90%, 85%, ${0.85*alpha})`);
+        g.addColorStop(1, `hsla(${hue}, 90%, 20%, 0)`);
+        sctx.fillStyle=g;
+        sctx.beginPath(); sctx.arc(x, y, r*2.2, 0, Math.PI*2); sctx.fill();
+      }
       function drawStars(){
         const w = starCanvas.clientWidth, h = starCanvas.clientHeight;
-        const twinkleBoost = 1 + Math.min(1.2, scrollSpeed/1400); // 滚动越快，闪烁更明显
+        const twinkleBoost = 1 + Math.min(1.2, scrollSpeed/1400);
+        const reduce = (BH.active?0.7:1.0); // 黑洞时少画一些星
         for(const s of stars){
+          if(Math.random()>reduce) continue;
+          // 轻微受引力偏折（假装透镜）
+          if(BH.active){
+            const dx = (s.x - BH.x), dy = (s.y - BH.y);
+            const d2 = dx*dx + dy*dy;
+            const rad = BH.r*BH.r*2.5;
+            if(d2 < rad*8){
+              const f = 0.00015 * (rad / Math.max(d2, 80));
+              s.x += dx * f; s.y += dy * f;
+            }
+          }
           s.alpha += s.tw * twinkleBoost;
           if(s.alpha>1){s.tw*=-1; s.alpha=1}
           if(s.alpha<0){s.tw*=-1; s.alpha=0; s.x=Math.random()*w; s.y=Math.random()*h}
           s.hue += s.hueShift;
           if(s.hue<180 || s.hue>265) s.hueShift*=-1;
 
-          // 星晕更柔
-          const g = sctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.r*3.2);
-          g.addColorStop(0, `hsla(${s.hue}, 90%, 85%, ${0.85*s.alpha})`);
-          g.addColorStop(1, `hsla(${s.hue}, 90%, 20%, 0)`);
-          sctx.fillStyle=g;
-          sctx.beginPath(); sctx.arc(s.x, s.y, s.r*2.2, 0, Math.PI*2); sctx.fill();
+          // 特亮星加星芒
+          if(s.tier>0.95){
+            drawStarGlow(s.x, s.y, s.r*1.6, s.hue, s.alpha);
+            drawStarSpikes(sctx, s.x, s.y, s.r*2.4, s.hue, 0.55*s.alpha, (tick%360)/180*Math.PI);
+          }else if(s.tier>0.8){
+            drawStarGlow(s.x, s.y, s.r*1.2, s.hue, 0.8*s.alpha);
+          }
 
           // 星核
           sctx.fillStyle = `hsla(${s.hue}, 80%, ${72 + Math.sin(s.hue*0.05)*10}%, ${0.9*s.alpha})`;
           sctx.beginPath(); sctx.arc(s.x, s.y, s.r, 0, Math.PI*2); sctx.fill();
         }
       }
+      function drawStarSpikes(ctx, x, y, size, hue, alpha, rot=0){
+        ctx.save(); ctx.translate(x,y); ctx.rotate(rot);
+        ctx.globalAlpha = alpha;
+        ctx.strokeStyle = `hsla(${hue}, 100%, 90%, ${alpha})`;
+        ctx.lineWidth = 1.2;
+        // 十字
+        ctx.beginPath(); ctx.moveTo(-size,0); ctx.lineTo(size,0); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(0,-size); ctx.lineTo(0,size); ctx.stroke();
+        // 斜十字
+        ctx.beginPath(); ctx.moveTo(-size*0.7,-size*0.7); ctx.lineTo(size*0.7,size*0.7); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(size*0.7,-size*0.7); ctx.lineTo(-size*0.7,size*0.7); ctx.stroke();
+        ctx.restore();
+      }
 
-      /* ===== Meteors & Trails ===== */
+      /* ===== Meteors (kept) ===== */
       function spawnMeteor(xStart){
         const w = starCanvas.clientWidth;
         const x = (typeof xStart==='number') ? xStart : (Math.random()*w*0.85);
@@ -296,10 +312,15 @@
       function drawMeteors(){
         for(let i=meteors.length-1;i>=0;i--){
           const m = meteors[i];
-
-          // 核心光迹（线）
-          sctx.lineCap='round';
-          sctx.lineWidth=2;
+          // 受引力轻微偏折
+          if(BH.active){
+            const dx = BH.x - m.x, dy = BH.y - m.y;
+            const dist = Math.hypot(dx,dy);
+            const pull = dist>60 ? 0.02*(BH.r/Math.max(dist,80)) : 0;
+            m.angle += pull * 0.03;
+          }
+          // 线性光迹
+          sctx.lineCap='round'; sctx.lineWidth=2;
           const grad = sctx.createLinearGradient(
             m.x, m.y,
             m.x - m.len*Math.cos(m.angle),
@@ -313,69 +334,225 @@
           sctx.lineTo(m.x - m.len*Math.cos(m.angle), m.y - m.len*Math.sin(m.angle));
           sctx.stroke();
 
-          // 粒子尾迹+余辉
-          for(let p=0;p<3;p++){
-            particles.push({
-              x: m.x - Math.random()*6,
-              y: m.y - Math.random()*6,
-              vx: -Math.cos(m.angle)*(m.speed*0.45) + (Math.random()-0.5)*1.5,
-              vy: -Math.sin(m.angle)*(m.speed*0.45) + (Math.random()-0.5)*1.5,
-              size: 1 + Math.random()*1.6,
-              life: cfg.trail.life*(0.8+Math.random()*0.4),
-              born: performance.now(),
-              hue: m.hue,
-              alpha: 0.65
-            });
+          // 粒子尾迹
+          const tailCount = BH.active ? 2 : 3;
+          for(let p=0;p<tailCount;p++){
+            particles.push(makeSparkleParticle(
+              m.x - Math.random()*6,
+              m.y - Math.random()*6,
+              -Math.cos(m.angle)*(m.speed*0.45) + (Math.random()-0.5)*1.5,
+              -Math.sin(m.angle)*(m.speed*0.45) + (Math.random()-0.5)*1.5,
+              1 + Math.random()*1.6,
+              cfg.trail.life*(0.8+Math.random()*0.4),
+              m.hue,
+              0.68
+            ));
           }
 
-          m.x += m.speed; m.y += m.speed;
-          m.opacity -= 0.0105;
-
+          m.x += m.speed; m.y += m.speed; m.opacity -= 0.0105;
           if(m.opacity<=0 || m.x>starCanvas.clientWidth+220 || m.y>starCanvas.clientHeight+220){
             meteors.splice(i,1);
           }
         }
       }
 
+      /* ===== Sparkle Particles (starry firework) ===== */
+      function makeSparkleParticle(x,y,vx,vy,size,life,hue,alpha){
+        return {x,y,vx,vy,size,life,born:performance.now(),hue,alpha,spin: Math.random()*Math.PI, shape:'star', jitter: 0.2+Math.random()*0.6};
+      }
       function drawParticles(now){
         for(let i=particles.length-1;i>=0;i--){
-          const p = particles[i], age = now - p.born, t = age / p.life;
+          const p = particles[i];
+          const age = now - p.born, t = age / p.life;
           if(t>=1){particles.splice(i,1); continue;}
           const fade = 1 - t;
-          // 轻微拖尾拉伸
+
+          // 受黑洞引力偏折
+          if(BH.active){
+            const dx = BH.x - p.x, dy = BH.y - p.y;
+            const dist = Math.hypot(dx,dy);
+            const g = (dist>40) ? 0.12 * (BH.r / Math.max(dist*1.6, 80)) : 0.0;
+            p.vx += dx/dist * g; p.vy += dy/dist * g;
+          }
+
+          // 闪烁抖动
+          const tw = 1 + (Math.sin((age*0.02 + i)%6.28)*0.12);
+          const a = p.alpha*fade*tw;
+
+          // 星芒形：十字+斜十字 + 高光
           sctx.save();
-          sctx.translate(p.x, p.y);
-          sctx.rotate(Math.atan2(p.vy, p.vx));
-          const grd = sctx.createRadialGradient(0,0,0, 0,0, p.size*3.2);
-          grd.addColorStop(0, `hsla(${p.hue}, 100%, ${65 + 20*(1-fade)}%, ${p.alpha*fade})`);
-          grd.addColorStop(1, `hsla(${p.hue}, 100%, 20%, 0)`);
-          sctx.fillStyle = grd;
-          sctx.beginPath();
-          sctx.ellipse(0,0, p.size*2.0*fade, p.size*0.9*fade, 0, 0, Math.PI*2);
-          sctx.fill();
+          sctx.translate(p.x, p.y); sctx.rotate(p.spin);
+          // 高光核
+          const core = Math.max(0.8, p.size*0.9)*fade;
+          const glow = sctx.createRadialGradient(0,0,0, 0,0, core*4);
+          glow.addColorStop(0, `hsla(${p.hue}, 100%, 95%, ${0.9*a})`);
+          glow.addColorStop(1, `hsla(${p.hue}, 100%, 30%, 0)`);
+          sctx.fillStyle = glow;
+          sctx.beginPath(); sctx.arc(0,0, core*2.2, 0, Math.PI*2); sctx.fill();
+
+          // 星芒线（镜头炫光风格）
+          sctx.globalAlpha = Math.min(1, a*1.2);
+          sctx.strokeStyle = `hsla(${p.hue},100%,88%,${Math.min(1,a)})`;
+          sctx.lineWidth = 1.1;
+          const L = p.size*3.2*fade;
+          // 十字
+          sctx.beginPath(); sctx.moveTo(-L,0); sctx.lineTo(L,0); sctx.stroke();
+          sctx.beginPath(); sctx.moveTo(0,-L); sctx.lineTo(0,L); sctx.stroke();
+          // 斜十字
+          sctx.beginPath(); sctx.moveTo(-L*0.7,-L*0.7); sctx.lineTo(L*0.7,L*0.7); sctx.stroke();
+          sctx.beginPath(); sctx.moveTo(L*0.7,-L*0.7); sctx.lineTo(-L*0.7,L*0.7); sctx.stroke();
+
           sctx.restore();
 
+          // 更新
           p.x += p.vx; p.y += p.vy;
-          p.vx *= 0.985; p.vy *= 0.985; // 阻尼
+          p.vx *= 0.985; p.vy *= 0.985;
+          p.spin += 0.02*(p.jitter);
         }
       }
 
-      /* ===== Click Burst ===== */
+      /* ===== Click Burst or Black Hole ===== */
       function burstAt(x,y){
-        for(let i=0;i<cfg.burst.count;i++){
-          const ang = (Math.PI*2)*(i/cfg.burst.count) + Math.random()*0.4;
+        // 普通星芒烟花（黑洞期间粒子稍减）
+        const count = Math.floor(cfg.burst.count * (BH.active?0.8:1));
+        for(let i=0;i<count;i++){
+          const ang = (Math.PI*2)*(i/count) + Math.random()*0.4;
           const sp = cfg.burst.speed[0] + Math.random()*(cfg.burst.speed[1]-cfg.burst.speed[0]);
-          particles.push({
+          particles.push(makeSparkleParticle(
             x, y,
-            vx: Math.cos(ang)*sp, vy: Math.sin(ang)*sp,
-            size: 1.2 + Math.random()*2.4,
-            life: cfg.burst.life[0] + Math.random()*(cfg.burst.life[1]-cfg.burst.life[0]),
-            born: performance.now(),
-            hue: 180 + Math.random()*120,
-            alpha: 0.92
+            Math.cos(ang)*sp, Math.sin(ang)*sp,
+            1.1 + Math.random()*2.6,
+            cfg.burst.life[0] + Math.random()*(cfg.burst.life[1]-cfg.burst.life[0]),
+            180 + Math.random()*120,
+            0.92
+          ));
+        }
+        // 加一条流星
+        spawnMeteor(Math.max(0, Math.min(x, starCanvas.clientWidth)));
+      }
+
+      /* ===== Black Hole rendering & logic ===== */
+      function spawnBH(x,y,force=false){
+        const now = performance.now();
+        if(!force){
+          if(BH.active) return false;
+          if(now - BH.lastGone < BH.cool) return false;
+        }
+        BH.active = true; BH.x = x; BH.y = y; BH.born = now; BH.rippleT = 0;
+        return true;
+      }
+      function killBH(){
+        if(!BH.active) return;
+        // 离场高光闪
+        for(let i=0;i<40;i++){
+          const ang = Math.random()*Math.PI*2;
+          const sp = 2 + Math.random()*4;
+          particles.push(makeSparkleParticle(BH.x, BH.y, Math.cos(ang)*sp, Math.sin(ang)*sp, 1+Math.random()*2, 500+Math.random()*500, 35+Math.random()*70, 0.95));
+        }
+        BH.active=false; BH.lastGone = performance.now();
+        bctx.clearRect(0,0,bhCanvas.clientWidth, bhCanvas.clientHeight);
+      }
+      function drawBH(now){
+        if(!BH.active) return;
+        const age = now - BH.born;
+        if(age > BH.life){ killBH(); return; }
+
+        bctx.clearRect(0,0,bhCanvas.clientWidth, bhCanvas.clientHeight);
+
+        // 入场涟漪
+        if(age < 700){
+          const t = age/700;
+          drawRipple(BH.x, BH.y, BH.r*(0.8+0.6*t), 0.35*(1-t));
+        }
+
+        // 黑洞影子（shadow）
+        bctx.save();
+        bctx.translate(BH.x, BH.y);
+        const R = BH.r;
+        // 影子
+        const shadow = bctx.createRadialGradient(0,0,0, 0,0,R*1.02);
+        shadow.addColorStop(0, 'rgba(0,0,0,0.92)');
+        shadow.addColorStop(1, 'rgba(0,0,0,0)');
+        bctx.fillStyle = shadow;
+        bctx.beginPath(); bctx.arc(0,0,R*1.02,0,Math.PI*2); bctx.fill();
+
+        // 光子环
+        bctx.lineWidth = 2.2;
+        bctx.strokeStyle = BH.eht ? 'rgba(255,180,60,0.85)' : 'rgba(200,230,255,0.9)';
+        bctx.beginPath(); bctx.arc(0,0,R*1.05,0,Math.PI*2); bctx.stroke();
+
+        // 吸积盘（近侧增亮；EHT配色可切）
+        const rot = (now*0.0005 + scrollSpeed*0.00005) % (Math.PI*2);
+        bctx.rotate(rot);
+        const grd = bctx.createLinearGradient(-R*2,0,R*2,0);
+        if(BH.eht){
+          grd.addColorStop(0, 'rgba(240,110,30,0.0)');
+          grd.addColorStop(0.35, 'rgba(250,150,50,0.35)');
+          grd.addColorStop(0.55, 'rgba(255,210,100,0.75)');
+          grd.addColorStop(0.9, 'rgba(220,80,20,0.2)');
+        }else{
+          grd.addColorStop(0, 'rgba(80,160,255,0.0)');
+          grd.addColorStop(0.35, 'rgba(120,200,255,0.35)');
+          grd.addColorStop(0.55, 'rgba(200,240,255,0.75)');
+          grd.addColorStop(0.9, 'rgba(100,180,255,0.2)');
+        }
+        bctx.fillStyle = grd;
+        bctx.beginPath();
+        bctx.ellipse(0,0, R*1.8, R*0.6, 0, 0, Math.PI*2);
+        bctx.fill();
+
+        // 近侧高光条（多普勒增亮假象）
+        bctx.globalAlpha = 0.8;
+        bctx.fillStyle = BH.eht ? 'rgba(255,220,140,0.95)' : 'rgba(220,250,255,0.95)';
+        bctx.beginPath();
+        bctx.ellipse(R*0.6, 0, R*0.7, R*0.16, 0, -0.3, 0.3);
+        bctx.fill();
+        bctx.restore();
+      }
+      function drawRipple(x,y,r,alpha){
+        bctx.save();
+        const g = bctx.createRadialGradient(x,y, r*0.7, x,y,r);
+        g.addColorStop(0, `rgba(200,220,255,${alpha*0.3})`);
+        g.addColorStop(1, `rgba(200,220,255,0)`);
+        bctx.fillStyle = g;
+        bctx.beginPath(); bctx.arc(x,y,r,0,Math.PI*2); bctx.fill();
+        bctx.restore();
+      }
+
+      /* ===== Feed star (spiral infall) ===== */
+      function feedBH(mx,my){
+        if(!BH.active) return;
+        const dx = mx - BH.x, dy = my - BH.y;
+        const dist = Math.hypot(dx,dy);
+        const ang0 = Math.atan2(dy,dx);
+        const T = 1400 + Math.random()*800;
+        const born = performance.now();
+        const hue = 40 + Math.random()*60;
+        // 用 param 粒子沿近似对数螺旋坠入
+        const N = 90; // 抛出若干“轨道粒子”
+        for(let i=0;i<N;i++){
+          const t0 = i*6;
+          particles.push({
+            x: mx, y: my, vx:0, vy:0,
+            size: 1.2 + Math.random()*2.2,
+            life: T + t0, born: born - t0,
+            hue, alpha: 0.95, spin: Math.random()*Math.PI, shape:'star', jitter:0.4,
+            spiral:true, r0: dist, ang0: ang0 + Math.random()*0.2-0.1
           });
         }
-        spawnMeteor(Math.max(0, Math.min(x, starCanvas.clientWidth)));
+      }
+      function updateSpiral(p, now){
+        // 若标记 spiral，则改写其运动，使其逐渐向 BH.x,BH.y 螺旋靠拢
+        if(!p.spiral || !BH.active) return;
+        const t = (now - p.born)/p.life;
+        const r = p.r0 * (1 - 0.9*t); // 半径收缩
+        const ang = p.ang0 + 10*t;    // 角度递增
+        p.x = BH.x + r*Math.cos(ang);
+        p.y = BH.y + r*Math.sin(ang);
+        // 临近视界时闪一次（高光）
+        if(t>0.88 && Math.random()<0.25){
+          particles.push(makeSparkleParticle(p.x, p.y, (Math.random()-0.5)*1, (Math.random()-0.5)*1, 1+Math.random()*2, 400, 50+Math.random()*70, 0.95));
+        }
       }
 
       /* ===== Loop ===== */
@@ -383,37 +560,72 @@
         if(paused){ requestAnimationFrame(loop); return; }
         tick++;
         sctx.clearRect(0,0,starCanvas.clientWidth, starCanvas.clientHeight);
-        drawStars(); drawMeteors(); drawParticles(now);
-        if(tick%2===0) drawNebula(false); // 降低刷新频率以省电
+        drawStars(); drawMeteors();
 
-        // 滚动强度驱动流星生成
+        // 更新螺旋粒子位置，然后统一绘制
+        for(const p of particles){ updateSpiral(p, now); }
+        drawParticles(now);
+
+        // 雾气降频
+        if(tick%2===0) drawNebula(false);
+
+        // BH 渲染
+        drawBH(now);
+
+        // 滚动强度驱动流星
         const rate = cfg.meteor.baseRate + Math.min(0.75, scrollSpeed/1200) + (storm?0.38:0);
         if(Math.random() < rate*0.016) spawnMeteor();
 
         requestAnimationFrame(loop);
       }
 
-      /* ===== Housekeeping & Interactions ===== */
+      /* ===== Interactions ===== */
       function onScroll(){
         const y = window.scrollY, now = performance.now();
         const dy = Math.abs(y - lastScrollY), dt = now - lastRAF || 16;
         scrollSpeed = (dy/dt) * 16.6 * 60; // 粗估 px/s
         lastScrollY = y; lastRAF = now;
       }
-      function onClick(e){
+      function inHomeRect(clientX, clientY){
         const home = document.getElementById('home');
         const rect = home.getBoundingClientRect();
+        return {rect, inside: clientX>=rect.left && clientX<=rect.right && clientY>=rect.top && clientY<=rect.bottom};
+      }
+      function onClick(e){
+        const {rect, inside} = inHomeRect(e.clientX, e.clientY);
+        if(!inside) return;
+
         const x = e.clientX - rect.left, y = e.clientY - rect.top;
-        if(x>=0 && y>=0 && x<=rect.width && y<=rect.height) burstAt(x, y);
+
+        // 若有BH且点击在近邻：喂食
+        if(BH.active){
+          const d = Math.hypot(x-BH.x,y-BH.y);
+          if(d < BH.r*CLICK.nearFactor){ feedBH(x,y); return; }
+        }
+
+        // 决定触发 BH 还是烟花（带冷却&单例）
+        const now = performance.now();
+        const canBH = (!BH.active) && (now - BH.lastGone >= BH.cool);
+        const roll = Math.random();
+        if(canBH && roll < CLICK.chanceBH){
+          if(!spawnBH(x,y,false)){ burstAt(x,y); } // 安全兜底
+        }else{
+          burstAt(x,y);
+        }
       }
       function onKey(e){
         const k = e.key.toLowerCase();
-        if(k==='g'){ // toggle nebula
+        if(k==='g'){
           const cur = parseFloat(getComputedStyle(nebulaCanvas).opacity) || 0.55;
           nebulaCanvas.style.opacity = (cur>0.1) ? '0' : '0.55';
-        }else if(k==='m'){
-          storm = !storm;
-        }
+        }else if(k==='m'){ storm = !storm; }
+        else if(k==='b'){ // 强制切换黑洞
+          if(BH.active) killBH();
+          else{
+            const home = document.getElementById('home').getBoundingClientRect();
+            spawnBH(home.width*0.5, home.height*0.48, true);
+          }
+        }else if(k==='e'){ BH.eht = !BH.eht; }
       }
 
       window.addEventListener('resize', resizeAll);
@@ -491,6 +703,7 @@
   <section id="home">
     <canvas id="star-canvas"></canvas>
     <canvas id="nebula-canvas"></canvas>
+    <canvas id="bh-canvas"></canvas>
 
     <div class="content zh hidden">
       <h1>欢迎来到我的个人主页</h1>
@@ -514,7 +727,6 @@
       <a href="https://efficacious-parcel-4e4.notion.site/My-Notes-1189102951c04e43894e851656b39290" class="button" target="_blank">My Notes</a>
       <a href="https://efficacious-parcel-4e4.notion.site/Physics-Tools-de45835163a64cb59f40a222b929a691" class="button" target="_blank">Physics Toolkit</a>
     </div>
-    <!-- 你的头像文件放到同目录，文件名 888.jpg -->
     <img src="888.jpg" alt="Profile Photo">
   </section>
 
@@ -727,13 +939,6 @@
       <ul>
         <li><strong>量子场论</strong> (2023年11月至今)</li>
         <li><strong>广义相对论</strong> (2023年9月至今)</li>
-        <li><strong>分析力学</strong> (2020年3月-2021年1月)</li>
-        <li><strong>数学物理方法</strong> (2020年1月-2021年1月)</li>
-      </ul>
-      <h3>🎤 学术报告与演讲 (近期)</h3>
-      <ul>
-        <li><strong>从黑洞热力学到黑洞化学</strong> - 滑铁卢大学AMATH研究生小型会议 (2025年1月)</li>
-        <li><strong>从黑洞热力学到黑洞化学</strong> - 南科大第二届研讨会 (2025年1月)</li>
       </ul>
     </div>
     <div class="en">
@@ -826,15 +1031,13 @@
   </footer>
 
   <script>
-    // 可选：在移动端长按也算点击爆裂
+    // 可选：移动端长按也算点击爆裂
     document.addEventListener('touchstart', (e)=>{
-      // 触摸也触发一次 click-burst（移动端更有趣）
       const home = document.getElementById('home');
       const rect = home.getBoundingClientRect();
       const t = e.touches[0];
       const x = t.clientX - rect.left, y = t.clientY - rect.top;
       if(x>=0 && y>=0 && x<=rect.width && y<=rect.height){
-        // 触发一次人工点击
         const clickEvent = new MouseEvent('click', {clientX:t.clientX, clientY:t.clientY, bubbles:true});
         document.dispatchEvent(clickEvent);
       }
