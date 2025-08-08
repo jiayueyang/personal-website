@@ -175,7 +175,7 @@
       let paused = false, storm = false, tick=0;
 
       // ---- Black hole state ----
-      const BH = { active:false, x:0, y:0, r:90, born:0, life:12000, cool:8000, lastGone: -1e9, eht:false, rippleT:0, hsAng:0, prevRect:null };
+      const BH = { active:false, x:0, y:0, r:90, born:0, life:12000, cool:8000, lastGone: -1e9, eht:true, rippleT:0, hsAng:0, prevRect:null };
       const CLICK = { chanceBH:0.30, nearFactor:1.5 };
 
       // 全局闪烁稳态：降速、距离衰减、缓启动
@@ -183,15 +183,15 @@
       const T_TWINKLE_EASE = 3500; // ms
 
       // 每帧上限（不卡策略）
-      const MAX_PARTICLES = isMobile ? 350 : 700;
-      const MAX_METEORS   = isMobile ? 6  : 10;
+      const MAX_PARTICLES = isMobile ? 200 : 400;
+      const MAX_METEORS   = isMobile ? 3  : 7;
 
       const cfg = {
-        star: { density: 0.00008, min: 50, max: 120, twinkle: 0.005 }, // 降密度&基础闪烁速度变慢
+        star: { density: 0.00006, min: 30, max: 90, twinkle: 0.004 }, // 降密度&基础闪烁速度变慢
         meteor: { baseRate: 0.18, speedMin: 6, speedVar: 6, lenMin: 100, lenVar: 150, angle: Math.PI/4 },
         trail: { life: 620 },
         burst: { count: 55, speed: [2.2, 7.5], life: [600, 1400] },
-        nebula: { blobs: 6, drift: 0.012, skip: isMobile ?  5 : 4 } // 雾层降频
+        nebula: { blobs: 6, drift: 0.012, skip: isMobile ?  7 : 6 } // 雾层降频
       };
 
       function fit(canvas, ctx){
@@ -1104,6 +1104,7 @@
   </script>
 </body>
 </html>
+
 
 
 
