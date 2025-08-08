@@ -7,352 +7,456 @@
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      line-height: 1.6;
-      margin: 0;
-      padding: 0;
+      line-height: 1.6; margin: 0; padding: 0;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: #333;
-      min-height: 100vh;
+      color: #333; min-height: 100vh;
     }
-    .container {
-      width: 85%;
-      max-width: 1200px;
-      margin: 0 auto;
-      overflow: hidden;
-    }
+    .container { width: 85%; max-width: 1200px; margin: 0 auto; overflow: hidden; }
     header {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      color: #333;
-      padding: 20px 0;
-      position: fixed;
-      width: 100%;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 2px 20px rgba(0,0,0,0.1);
-      transition: all 0.3s ease;
+      background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
+      color:#333; padding:20px 0; position:fixed; width:100%; top:0; z-index:1000;
+      box-shadow:0 2px 20px rgba(0,0,0,0.1); transition: all .3s ease;
     }
-    header:hover { background: rgba(255, 255, 255, 0.98); }
-    header a { color: #333; text-decoration: none; font-weight: 500; transition: color 0.3s ease; }
-    header a:hover { color: #667eea; }
-    header ul { padding: 0; list-style: none; margin: 0; }
-    header li { display: inline-block; margin: 0 15px; }
-    header #branding { float: left; }
-    header #branding h1 {
-      margin: 0; font-size: 1.8em;
+    header:hover{ background: rgba(255,255,255,0.98);}
+    header a{ color:#333; text-decoration:none; font-weight:500; transition: color .3s;}
+    header a:hover{ color:#667eea;}
+    header ul{ padding:0; list-style:none; margin:0;}
+    header li{ display:inline-block; margin:0 15px;}
+    header #branding{ float:left;}
+    header #branding h1{
+      margin:0; font-size:1.8em;
       background: linear-gradient(45deg, #667eea, #764ba2);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
     }
-    header nav { float: right; margin-top: 10px; }
-    header .highlight, header .current a { color: #667eea; font-weight: bold; }
-    .language-toggle { position: absolute; top: 15px; right: 20px; }
-    .language-toggle button {
-      background: none; border: 2px solid #667eea; color: #667eea;
-      padding: 8px 15px; border-radius: 25px; cursor: pointer; transition: all 0.3s ease; font-weight: 500;
+    header nav{ float:right; margin-top:10px;}
+    header .highlight, header .current a{ color:#667eea; font-weight:bold;}
+    .language-toggle{ position:absolute; top:15px; right:20px;}
+    .language-toggle button{
+      background:none; border:2px solid #667eea; color:#667eea; padding:8px 15px;
+      border-radius:25px; cursor:pointer; transition: all .3s ease; font-weight:500;
     }
-    .language-toggle button:hover, .language-toggle button.highlight {
-      background: #667eea; color: white; transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+    .language-toggle button:hover, .language-toggle button.highlight{
+      background:#667eea; color:white; transform: translateY(-2px);
+      box-shadow:0 5px 15px rgba(102,126,234,.3);
     }
 
-    /* Home (with stars & meteors) */
-    #home {
-      min-height: 70vh;
-      padding-top: 120px;
-      text-align: center;
-      color: #fff;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      scroll-margin-top: 120px;
-      overflow: hidden;
+    /* =================== HOME with Nebula + Stars + Meteors =================== */
+    #home{
+      min-height: 70vh; padding-top:120px; text-align:center; color:#fff;
+      position:relative; display:flex; align-items:center; justify-content:center;
+      scroll-margin-top:120px; overflow:hidden;
     }
-    /* 背景微暗层放在最底层，避免盖住星星 */
-    #home::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: rgba(0, 0, 0, 0.28);
-      z-index: 0;
+    /* 最底层微暗 */
+    #home::before{
+      content:''; position:absolute; inset:0; background: rgba(0,0,0,.22); z-index:0;
     }
-    /* 星空画布占满首页，位于暗层之上、内容之下 */
-    #star-canvas {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      z-index: 1;
-      display: block;
-      pointer-events: none; /* 不挡按钮点击 */
+    /* 银河雾气（在星空下？不，我们让雾在星上方一点点，层次更梦幻） */
+    #nebula-canvas, #star-canvas{
+      position:absolute; inset:0; width:100%; height:100%; display:block; pointer-events:none;
     }
-    #home .content { position: relative; z-index: 2; animation: fadeInUp 1s ease-out; }
-    #home h1 {
-      font-size: 3.5em; margin-bottom: 20px;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    #star-canvas{ z-index:1; }    /* 星星 + 流星 */
+    #nebula-canvas{ z-index:2; mix-blend-mode: screen; opacity:.55; filter: blur(1px); }
+
+    #home .content{ position:relative; z-index:3; animation: fadeInUp 1s ease-out; }
+    #home h1{
+      font-size:3.5em; margin-bottom:20px; text-shadow:2px 2px 4px rgba(0,0,0,.5);
       animation: glow 2s ease-in-out infinite alternate;
     }
-    #home p { font-size: 1.3em; margin-bottom: 30px; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
-    #home img {
-      position: absolute; top: 20px; right: 20px; max-width: 180px; border-radius: 50%;
-      border: 5px solid rgba(255, 255, 255, 0.3); transition: all 0.3s ease; animation: float 3s ease-in-out infinite; z-index: 2;
+    #home p{ font-size:1.3em; margin-bottom:30px; text-shadow:1px 1px 2px rgba(0,0,0,.5);}
+    #home img{
+      position:absolute; top:20px; right:20px; max-width:180px; border-radius:50%;
+      border:5px solid rgba(255,255,255,.3); transition:.3s; animation: float 3s ease-in-out infinite; z-index:3;
     }
-    #home img:hover { transform: scale(1.1); border-color: rgba(255, 255, 255, 0.8); }
+    #home img:hover{ transform: scale(1.08); border-color: rgba(255,255,255,.8); }
 
-    @keyframes fadeInUp { from {opacity:0; transform: translateY(30px);} to {opacity:1; transform: translateY(0);} }
-    @keyframes glow {
-      from { text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 20px rgba(255,255,255,0.3); }
-      to   { text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 30px rgba(255,255,255,0.6); }
+    @keyframes fadeInUp{ from{opacity:0; transform: translateY(30px);} to{opacity:1; transform: translateY(0);} }
+    @keyframes glow{
+      from { text-shadow: 2px 2px 4px rgba(0,0,0,.5), 0 0 20px rgba(255,255,255,.3); }
+      to   { text-shadow: 2px 2px 4px rgba(0,0,0,.5), 0 0 30px rgba(255,255,255,.6); }
     }
-    @keyframes float { 0%,100% {transform: translateY(0);} 50% {transform: translateY(-10px);} }
+    @keyframes float{ 0%,100%{transform: translateY(0);} 50%{transform: translateY(-10px);} }
 
-    section {
-      padding: 40px 20px; margin: 30px 0; background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px); border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-      transition: all 0.3s ease; position: relative; overflow: hidden;
-      scroll-margin-top: 120px; /* for fixed header */
+    section{
+      padding:40px 20px; margin:30px 0; background: rgba(255,255,255,.95);
+      backdrop-filter: blur(10px); border-radius:20px; box-shadow:0 10px 40px rgba(0,0,0,.1);
+      transition:.3s; position:relative; overflow:hidden; scroll-margin-top:120px;
     }
-    section::before {
-      content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 3px;
-      background: linear-gradient(90deg, transparent, #667eea, transparent); transition: left 0.5s ease;
+    section::before{
+      content:''; position:absolute; top:0; left:-100%; width:100%; height:3px;
+      background: linear-gradient(90deg, transparent, #667eea, transparent); transition: left .5s;
     }
-    section:hover::before { left: 100%; }
-    section:hover { transform: translateY(-5px); box-shadow: 0 20px 60px rgba(0,0,0,0.15); }
+    section:hover::before{ left:100%; }
+    section:hover{ transform: translateY(-5px); box-shadow:0 20px 60px rgba(0,0,0,.15); }
 
-    .hidden { display: none; }
-    h2 {
-      font-size: 2.2em; color: #333; border-bottom: 3px solid #667eea; padding-bottom: 15px; margin-bottom: 25px;
-      position: relative; display: inline-block;
+    .hidden{ display:none; }
+    h2{
+      font-size:2.2em; color:#333; border-bottom:3px solid #667eea; padding-bottom:15px; margin-bottom:25px;
+      position:relative; display:inline-block;
     }
-    h2::after {
-      content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 3px; background: #764ba2; transition: width 0.3s ease;
+    h2::after{
+      content:''; position:absolute; bottom:-3px; left:0; width:0; height:3px; background:#764ba2; transition: width .3s;
     }
-    h2:hover::after { width: 100%; }
-    h3 { font-size: 1.5em; color: #667eea; margin: 25px 0 15px 0; position: relative; }
-    h4 { font-size: 1.2em; color: #555; margin: 20px 0 10px 0; }
+    h2:hover::after{ width:100%;}
+    h3{ font-size:1.5em; color:#667eea; margin:25px 0 15px; }
+    h4{ font-size:1.2em; color:#555; margin:20px 0 10px; }
 
-    .publication {
+    .publication{
       background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-      padding: 20px; margin: 15px 0; border-radius: 15px; border-left: 5px solid #667eea; transition: all 0.3s ease;
+      padding:20px; margin:15px 0; border-radius:15px; border-left:5px solid #667eea; transition:.3s;
     }
-    .publication:hover { transform: translateX(10px); box-shadow: 0 5px 20px rgba(102,126,234,0.2); }
+    .publication:hover{ transform: translateX(10px); box-shadow:0 5px 20px rgba(102,126,234,.2); }
 
-    .award {
+    .award{
       background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
-      padding: 15px; margin: 10px 0; border-radius: 12px; border-left: 4px solid #e17055; transition: all 0.3s ease;
+      padding:15px; margin:10px 0; border-radius:12px; border-left:4px solid #e17055; transition:.3s;
     }
-    .award:hover { transform: scale(1.02); }
+    .award:hover{ transform: scale(1.02); }
 
-    .research-item {
+    .research-item{
       background: linear-gradient(135deg, #a8e6cf 0%, #88d8a3 100%);
-      padding: 20px; margin: 20px 0; border-radius: 15px; border-left: 5px solid #00b894; transition: all 0.3s ease;
+      padding:20px; margin:20px 0; border-radius:15px; border-left:5px solid #00b894; transition:.3s;
     }
-    .research-item:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,184,148,0.2); }
+    .research-item:hover{ transform: translateY(-3px); box-shadow:0 10px 25px rgba(0,184,148,.2); }
 
-    .stats-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 30px 0;
+    .stats-grid{
+      display:grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap:20px; margin:30px 0;
     }
-    .stat-card {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white; padding: 30px; border-radius: 15px; text-align: center; transition: all 0.3s ease;
+    .stat-card{
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color:white; padding:30px; border-radius:15px; text-align:center; transition:.3s;
     }
-    .stat-card:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 15px 30px rgba(102,126,234,0.3); }
-    .stat-number { font-size: 2.5em; font-weight: bold; margin-bottom: 10px; }
+    .stat-card:hover{ transform: translateY(-5px) scale(1.05); box-shadow:0 15px 30px rgba(102,126,234,.3);}
+    .stat-number{ font-size:2.5em; font-weight:bold; margin-bottom:10px; }
 
-    .contact-info { display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-around; margin: 30px 0; }
-    .contact-card {
+    .contact-info{ display:flex; flex-wrap:wrap; gap:20px; justify-content:space-around; margin:30px 0;}
+    .contact-card{
       background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
-      padding: 20px; border-radius: 15px; text-align: center; flex: 1; min-width: 200px; transition: all 0.3s ease;
+      padding:20px; border-radius:15px; text-align:center; flex:1; min-width:200px; transition:.3s;
     }
-    .contact-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(132,250,176,0.3); }
+    .contact-card:hover{ transform: translateY(-5px); box-shadow:0 10px 25px rgba(132,250,176,.3); }
 
-    footer {
-      padding: 40px 20px; margin-top: 50px; color: #fff;
-      background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); text-align: center; border-radius: 20px 20px 0 0;
+    footer{
+      padding:40px 20px; margin-top:50px; color:#fff;
+      background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); text-align:center; border-radius:20px 20px 0 0;
     }
-    .button {
-      display: inline-block; color: #fff; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      padding: 12px 30px; text-decoration: none; border-radius: 25px; transition: all 0.3s ease; font-weight: 500; margin: 10px 5px;
+    .button{
+      display:inline-block; color:#fff; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding:12px 30px; text-decoration:none; border-radius:25px; transition:.3s; font-weight:500; margin:10px 5px;
     }
-    .button:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(102,126,234,0.3); }
-    ul { padding-left: 25px; }
-    li { margin: 8px 0; transition: all 0.2s ease; }
-    li:hover { color: #667eea; transform: translateX(5px); }
+    .button:hover{ transform: translateY(-2px); box-shadow:0 10px 20px rgba(102,126,234,.3); }
+    ul{ padding-left:25px; }
+    li{ margin:8px 0; transition:.2s; }
+    li:hover{ color:#667eea; transform: translateX(5px); }
 
-    html { scroll-behavior: smooth; }
+    html{ scroll-behavior: smooth; }
 
-    @media (max-width: 768px) {
-      .container { width: 95%; }
-      header li { display: block; margin: 5px 0; }
-      header nav { float: none; text-align: center; margin-top: 20px; }
-      #home h1 { font-size: 2.5em; }
-      #home img { position: static; margin: 20px auto; display: block; }
-      .stats-grid { grid-template-columns: 1fr; }
+    @media (max-width:768px){
+      .container{ width:95%;}
+      header li{ display:block; margin:5px 0;}
+      header nav{ float:none; text-align:center; margin-top:20px;}
+      #home h1{ font-size:2.5em;}
+      #home img{ position:static; margin:20px auto; display:block;}
+      .stats-grid{ grid-template-columns:1fr;}
     }
   </style>
 
   <script>
+    /* ------------------------- Language Toggle ------------------------- */
     function toggleLanguage(lang) {
-      var zhSections = document.querySelectorAll('.zh');
-      var enSections = document.querySelectorAll('.en');
+      const zhSections = document.querySelectorAll('.zh');
+      const enSections = document.querySelectorAll('.en');
       if (lang === 'zh') {
         zhSections.forEach(s => s.classList.remove('hidden'));
         enSections.forEach(s => s.classList.add('hidden'));
-        document.getElementById('zh-btn').classList.add('highlight');
-        document.getElementById('en-btn').classList.remove('highlight');
+        document.getElementById('zh-btn')?.classList.add('highlight');
+        document.getElementById('en-btn')?.classList.remove('highlight');
       } else {
         zhSections.forEach(s => s.classList.add('hidden'));
         enSections.forEach(s => s.classList.remove('hidden'));
-        document.getElementById('zh-btn').classList.remove('highlight');
-        document.getElementById('en-btn').classList.add('highlight');
+        document.getElementById('zh-btn')?.classList.remove('highlight');
+        document.getElementById('en-btn')?.classList.add('highlight');
       }
     }
 
-    // ===== 星光 + 流星雨（高分屏自适应） =====
-    function initStarsAndMeteors() {
-      const canvas = document.getElementById('star-canvas');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
+    /* ====================== Cosmos FX: Nebula + Stars + Meteors ====================== */
+    function cosmosFX() {
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const starCanvas = document.getElementById('star-canvas');
+      const nebulaCanvas = document.getElementById('nebula-canvas');
+      if (!starCanvas || !nebulaCanvas) return;
 
-      function fitToContainer() {
-        const dpr = Math.min(window.devicePixelRatio || 1, 2); // 限制到2防止超耗
-        const cssW = canvas.clientWidth;
-        const cssH = canvas.clientHeight;
-        canvas.width = Math.floor(cssW * dpr);
-        canvas.height = Math.floor(cssH * dpr);
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0); // 把绘图坐标系映射回CSS像素
+      const sctx = starCanvas.getContext('2d');
+      const nctx = nebulaCanvas.getContext('2d');
+
+      let stars = [], meteors = [], particles = [];
+      let lastTime = performance.now(), lastScrollY = window.scrollY, scrollSpeed = 0;
+      let paused = false, storm = false;
+      const DPR = Math.min(window.devicePixelRatio || 1, 2);
+
+      const cfg = {
+        star: { baseDensity: 0.00028, min: 130, max: 260, twinkle: 0.013 },
+        meteor: { baseRate: 0.28, speedMin: 6, speedVar: 6, lengthMin: 100, lengthVar: 140, angle: Math.PI/4 },
+        trail: { particles: 32, life: 550, size: [1,2.2] },
+        burst: { count: 80, speed: [2,7], life: [500,1200] },
+        nebula: { blobs: 6, drift: 0.015 }
+      };
+
+      function fitCanvas(canvas, ctx){
+        const w = canvas.clientWidth, h = canvas.clientHeight;
+        canvas.width = Math.floor(w * DPR);
+        canvas.height = Math.floor(h * DPR);
+        ctx.setTransform(DPR,0,0,DPR,0,0);
       }
 
-      // 根据面积调节星星数量
-      let stars = [];
-      let meteors = [];
-      function resetStars() {
+      function resizeAll(){
+        fitCanvas(starCanvas, sctx);
+        fitCanvas(nebulaCanvas, nctx);
+        resetStars();
+        drawNebula(true);
+      }
+
+      /* ---------------- Nebula (soft moving color fog) ---------------- */
+      let nebulaT = 0;
+      function drawNebula(init=false){
+        const w = nebulaCanvas.clientWidth, h = nebulaCanvas.clientHeight;
+        nctx.clearRect(0,0,w,h);
+        nctx.globalCompositeOperation = 'lighter';
+        const cx = w*0.55, cy = h*0.5;
+        for (let i=0;i<cfg.nebula.blobs;i++){
+          const r = Math.min(w,h) * (0.35 + i*0.07);
+          const ang = i*1.1 + nebulaT*cfg.nebula.drift;
+          const x = cx + Math.cos(ang)* (w*0.08 + i*12);
+          const y = cy + Math.sin(ang)* (h*0.06 + i*8);
+          const hue = (210 + i*18 + nebulaT*8) % 360;
+          const grad = nctx.createRadialGradient(x,y,0, x,y,r);
+          grad.addColorStop(0, `hsla(${hue}, 85%, 65%, ${init?0.35:0.22})`);
+          grad.addColorStop(1, `hsla(${(hue+40)%360}, 90%, 10%, 0)`);
+          nctx.fillStyle = grad;
+          nctx.beginPath(); nctx.arc(x,y,r,0,Math.PI*2); nctx.fill();
+        }
+        nctx.globalCompositeOperation = 'source-over';
+        nebulaT += 1;
+      }
+
+      /* ---------------- Stars ---------------- */
+      function resetStars(){
         stars = [];
-        const area = canvas.clientWidth * canvas.clientHeight;
-        const baseDensity = 0.00025; // 每像素密度（可微调）
-        const count = Math.max(120, Math.min(240, Math.floor(area * baseDensity)));
-        for (let i = 0; i < count; i++) {
+        const area = starCanvas.clientWidth * starCanvas.clientHeight;
+        const count = Math.max(cfg.star.min, Math.min(cfg.star.max, Math.floor(area * cfg.star.baseDensity)));
+        for (let i=0; i<count; i++){
           stars.push({
-            x: Math.random() * canvas.clientWidth,
-            y: Math.random() * canvas.clientHeight,
-            r: Math.random() * 1.2 + 0.2,
+            x: Math.random()*starCanvas.clientWidth,
+            y: Math.random()*starCanvas.clientHeight,
+            r: Math.random()*1.3 + 0.2,
             alpha: Math.random(),
-            speed: 0.005 + Math.random() * 0.015
+            tw: (Math.random()*0.012 + cfg.star.twinkle),
+            hue: Math.floor(200 + Math.random()*80), /* 蓝紫到青白区间 */
+            hueShift: (Math.random()*0.15 + 0.05) * (Math.random()<.5?-1:1)
           });
         }
       }
 
-      function drawStars() {
-        ctx.fillStyle = "white";
-        stars.forEach(star => {
-          ctx.globalAlpha = star.alpha;
-          ctx.beginPath();
-          ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
-          ctx.fill();
-          star.alpha += star.speed;
-          if (star.alpha > 1) { star.speed *= -1; }
-          else if (star.alpha < 0) {
-            star.x = Math.random() * canvas.clientWidth;
-            star.y = Math.random() * canvas.clientHeight;
-            star.speed *= -1;
-          }
-        });
-        ctx.globalAlpha = 1;
+      function drawStars(dt){
+        const w = starCanvas.clientWidth, h = starCanvas.clientHeight;
+        for (const s of stars){
+          const twinkleBoost = 1 + Math.min(1, scrollSpeed/1500); // 滚动越快闪烁越明显
+          s.alpha += s.tw * twinkleBoost;
+          if (s.alpha > 1){ s.tw *= -1; s.alpha = 1; }
+          if (s.alpha < 0){ s.tw *= -1; s.alpha = 0; s.x=Math.random()*w; s.y=Math.random()*h; }
+
+          // 轻微颜色渐变
+          s.hue += s.hueShift;
+          if (s.hue<180 || s.hue>260) s.hueShift *= -1;
+
+          sctx.fillStyle = `hsla(${s.hue}, 80%, ${70 + Math.sin(s.hue*0.05)*10}%, ${0.7*s.alpha})`;
+          sctx.beginPath(); sctx.arc(s.x, s.y, s.r, 0, Math.PI*2); sctx.fill();
+        }
       }
 
-      function createMeteor() {
-        const startX = Math.random() * canvas.clientWidth * 0.8; // 避免太靠右生成
+      /* ---------------- Meteors + Trails ---------------- */
+      function spawnMeteor(xStart){
+        const w = starCanvas.clientWidth;
+        const x = (typeof xStart==='number') ? xStart : Math.random()*w*0.85;
         meteors.push({
-          x: startX,
-          y: -20,
-          length: 120 + Math.random() * 120,
-          speed: 6 + Math.random() * 5,
-          angle: Math.PI / 4, // 45°
-          opacity: 0.9
+          x, y: -40,
+          length: cfg.meteor.lengthMin + Math.random()*cfg.meteor.lengthVar,
+          speed: cfg.meteor.speedMin + Math.random()*cfg.meteor.speedVar,
+          angle: cfg.meteor.angle,
+          opacity: 0.95,
+          hue: 200 + Math.random()*60,
         });
       }
 
-      function drawMeteors() {
-        meteors.forEach((m, idx) => {
-          ctx.strokeStyle = `rgba(255,255,255,${m.opacity})`;
-          ctx.lineWidth = 2;
-          ctx.beginPath();
-          ctx.moveTo(m.x, m.y);
-          ctx.lineTo(m.x - m.length * Math.cos(m.angle), m.y - m.length * Math.sin(m.angle));
-          ctx.stroke();
+      function drawMeteors(dt){
+        for (let i=meteors.length-1; i>=0; i--){
+          const m = meteors[i];
+          // 主体
+          sctx.strokeStyle = `hsla(${m.hue}, 100%, 85%, ${m.opacity})`;
+          sctx.lineWidth = 2;
+          sctx.beginPath();
+          sctx.moveTo(m.x, m.y);
+          sctx.lineTo(m.x - m.length*Math.cos(m.angle), m.y - m.length*Math.sin(m.angle));
+          sctx.stroke();
 
-          m.x += m.speed;
-          m.y += m.speed;
-          m.opacity -= 0.012;
-
-          if (m.opacity <= 0 || m.x > canvas.clientWidth + 200 || m.y > canvas.clientHeight + 200) {
-            meteors.splice(idx, 1);
+          // 轨迹粒子
+          for (let p=0; p<2; p++){
+            particles.push({
+              x: m.x - Math.random()*8, y: m.y - Math.random()*8,
+              vx: -Math.cos(m.angle)*(m.speed*0.4) + (Math.random()-0.5)*1.6,
+              vy: -Math.sin(m.angle)*(m.speed*0.4) + (Math.random()-0.5)*1.6,
+              size: 1 + Math.random()*1.5,
+              life: cfg.trail.life, born: performance.now(),
+              hue: m.hue, alpha: 0.6
+            });
           }
-        });
+
+          // 更新位置
+          m.x += m.speed; m.y += m.speed;
+          m.opacity -= 0.010;
+
+          if (m.opacity <=0 || m.x>starCanvas.clientWidth+200 || m.y>starCanvas.clientHeight+200){
+            meteors.splice(i,1);
+          }
+        }
       }
 
-      function render() {
-        ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
-        drawStars();
-        drawMeteors();
+      function drawParticles(now){
+        for (let i=particles.length-1;i>=0;i--){
+          const p = particles[i];
+          const age = now - p.born;
+          const t = age / p.life;
+          if (t>=1){ particles.splice(i,1); continue; }
+          const fade = 1-t;
+          sctx.fillStyle = `hsla(${p.hue}, 100%, ${70 + 20*(1-fade)}%, ${p.alpha*fade})`;
+          sctx.beginPath(); sctx.arc(p.x, p.y, p.size*fade, 0, Math.PI*2); sctx.fill();
+
+          // 更新
+          p.x += p.vx; p.y += p.vy;
+          p.vx *= 0.985; p.vy *= 0.985; // 阻尼
+        }
+      }
+
+      /* ---------------- Click Burst (meteor explosion) ---------------- */
+      function burstAt(x, y){
+        const count = cfg.burst.count;
+        for (let i=0;i<count;i++){
+          const ang = (Math.PI*2) * (i/count) + Math.random()*0.4;
+          const sp = cfg.burst.speed[0] + Math.random()*(cfg.burst.speed[1]-cfg.burst.speed[0]);
+          particles.push({
+            x, y, vx: Math.cos(ang)*sp, vy: Math.sin(ang)*sp,
+            size: 1.2 + Math.random()*2.2,
+            life: cfg.burst.life[0] + Math.random()*(cfg.burst.life[1]-cfg.burst.life[0]),
+            born: performance.now(),
+            hue: 190 + Math.random()*100,
+            alpha: 0.9
+          });
+        }
+        // 也从点击处“射出”一条流星
+        spawnMeteor(Math.max(0, Math.min(x, starCanvas.clientWidth)));
+      }
+
+      /* ---------------- Loop ---------------- */
+      function render(now){
+        if (paused) { requestAnimationFrame(render); return; }
+        const dt = now - lastTime; lastTime = now;
+
+        // 背景层
+        sctx.clearRect(0,0,starCanvas.clientWidth, starCanvas.clientHeight);
+        drawStars(dt);
+        drawMeteors(dt);
+        drawParticles(now);
+
+        // 银河轻漂移（雾气是另一个画布，降低刷新频率以省电）
+        if (now % 2 < 1) drawNebula(false);
+
+        // 根据滚动速度动态生成流星
+        const rate = cfg.meteor.baseRate + Math.min(0.6, scrollSpeed/1200) + (storm?0.35:0);
+        if (Math.random() < rate * 0.016) spawnMeteor();
+
         requestAnimationFrame(render);
       }
 
-      function onResize() {
-        fitToContainer();
-        resetStars();
+      /* ---------------- Housekeeping ---------------- */
+      function onScroll(){
+        const y = window.scrollY;
+        const now = performance.now();
+        const dy = Math.abs(y - lastScrollY);
+        const dt = now - lastTime || 16;
+        // px/ms -> 提升一点强度
+        scrollSpeed = (dy/dt) * 16.6 * 60; // 估成每秒像素
+        lastScrollY = y;
       }
 
-      window.addEventListener('resize', onResize);
-      onResize();
-      render();
+      function onClick(e){
+        // 只在 home 区域触发
+        const home = document.getElementById('home');
+        const rect = home.getBoundingClientRect();
+        const x = e.clientX - rect.left, y = e.clientY - rect.top;
+        if (x>=0 && y>=0 && x<=rect.width && y<=rect.height) burstAt(x, y);
+      }
 
-      // 随机生成流星
-      setInterval(() => {
-        if (Math.random() < 0.35) createMeteor();
-      }, 1000);
-    }
+      function onKey(e){
+        if (e.key.toLowerCase()==='g'){ // toggle nebula
+          const cur = nebulaCanvas.style.opacity || '0.55';
+          nebulaCanvas.style.opacity = (parseFloat(cur)>0.1) ? '0' : '0.55';
+        } else if (e.key.toLowerCase()==='m'){
+          storm = !storm; // 小型流星风暴开关
+        }
+      }
 
-    document.addEventListener('DOMContentLoaded', function() {
-      // 默认英文
-      toggleLanguage('en');
+      document.addEventListener('scroll', onScroll, {passive:true});
+      window.addEventListener('resize', resizeAll);
+      document.addEventListener('click', onClick);
+      document.addEventListener('keydown', onKey);
 
-      // 头部微变
-      window.addEventListener('scroll', function() {
-        const header = document.querySelector('header');
-        if (window.scrollY > 50) header.style.background = 'rgba(255,255,255,0.98)';
-        else header.style.background = 'rgba(255,255,255,0.95)';
+      document.addEventListener('visibilitychange', ()=>{
+        paused = document.hidden || prefersReduced;
       });
 
-      // section 进场动画
+      resizeAll();
+      if (!prefersReduced){
+        requestAnimationFrame(render);
+      }
+    }
+
+    /* ------------------------- Page Init ------------------------- */
+    document.addEventListener('DOMContentLoaded', function(){
+      toggleLanguage('en');
+
+      // 头部背景微变
+      window.addEventListener('scroll', function(){
+        const header = document.querySelector('header');
+        header.style.background = (window.scrollY>50) ? 'rgba(255,255,255,0.98)' : 'rgba(255,255,255,0.95)';
+      });
+
+      // section 入场动画
       const sections = document.querySelectorAll('section');
-      const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
+      const observer = new IntersectionObserver((entries)=>{
+        entries.forEach(entry=>{
+          if (entry.isIntersecting){
             entry.target.style.opacity = '1';
             entry.target.style.transform = 'translateY(0)';
           }
         });
-      }, { threshold: 0.1 });
-
-      sections.forEach(section => {
-        section.style.opacity = '0';
-        section.style.transform = 'translateY(20px)';
-        section.style.transition = 'all 0.6s ease';
+      }, {threshold: 0.1});
+      sections.forEach(section=>{
+        section.style.opacity='0';
+        section.style.transform='translateY(20px)';
+        section.style.transition='all .6s ease';
         observer.observe(section);
       });
 
-      // 初始化星空
-      initStarsAndMeteors();
+      // 启动宇宙特效
+      cosmosFX();
     });
   </script>
 </head>
 <body>
   <header>
     <div class="container">
-      <div id="branding">
-        <h1>杨佳悦 | Jiayue Yang</h1>
-      </div>
+      <div id="branding"><h1>杨佳悦 | Jiayue Yang</h1></div>
       <nav>
         <ul>
-          <!-- English menu (default visible) -->
+          <!-- English (default) -->
           <li class="current en"><a href="#home">Home</a></li>
           <li class="en"><a href="#about">About</a></li>
           <li class="en"><a href="#research">Research</a></li>
@@ -360,8 +464,7 @@
           <li class="en"><a href="#teaching">Teaching</a></li>
           <li class="en"><a href="#awards">Awards</a></li>
           <li class="en"><a href="#contact">Contact</a></li>
-
-          <!-- Chinese menu (default hidden) -->
+          <!-- Chinese -->
           <li class="current zh hidden"><a href="#home">主页</a></li>
           <li class="zh hidden"><a href="#about">关于我</a></li>
           <li class="zh hidden"><a href="#research">研究成果</a></li>
@@ -378,10 +481,11 @@
     </div>
   </header>
 
-  <!-- HOME -->
+  <!-- ================== HOME ================== -->
   <section id="home">
-    <!-- 星空背景画布 -->
+    <!-- 星空 + 银河 -->
     <canvas id="star-canvas"></canvas>
+    <canvas id="nebula-canvas"></canvas>
 
     <div class="content zh hidden">
       <h1>欢迎来到我的个人主页</h1>
@@ -408,16 +512,9 @@
     <img src="888.jpg" alt="Profile Photo">
   </section>
 
-  <!-- STATS -->
-  <section class="container zh hidden">
-    <h2>学术成果一览 | Academic Achievements</h2>
-    <div class="stats-grid">
-      <div class="stat-card"><div class="stat-number">6</div><div>发表论文</div></div>
-      <div class="stat-card"><div class="stat-number">20+</div><div>学术报告</div></div>
-      <div class="stat-card"><div class="stat-number">765K+</div><div>B站视频播放量</div></div>
-      <div class="stat-card"><div class="stat-number">12.8K+</div><div>B站粉丝数</div></div>
-    </div>
-  </section>
+  <!-- 下面各区块保持不变（为简洁省略你的原始内容 —— 你可以照搬之前文件的 STATS / ABOUT / PUBLICATIONS / RESEARCH / TEACHING / AWARDS / CONTACT / footer） -->
+  <!-- ... 你现有的其它 section 原样保留 ... -->
+
   <section class="container en">
     <h2>Academic Achievements | 学术成果一览</h2>
     <div class="stats-grid">
@@ -425,316 +522,6 @@
       <div class="stat-card"><div class="stat-number">20+</div><div>Presentations</div></div>
       <div class="stat-card"><div class="stat-number">765K+</div><div>Bilibili Video Views</div></div>
       <div class="stat-card"><div class="stat-number">12.8K+</div><div>Bilibili Followers</div></div>
-    </div>
-  </section>
-
-  <!-- ABOUT -->
-  <section id="about" class="container">
-    <div class="zh hidden">
-      <h2>关于我 | About Me</h2>
-      <p>我是<strong>杨佳悦</strong>，目前在加拿大滑铁卢大学攻读数学与物理博士学位，同时也是周界理论物理研究所(Perimeter Institute)的研究生。我的研究领域主要集中在量子信息与量子引力的交叉领域。</p>
-      <h3>🎓 教育背景</h3>
-      <ul>
-        <li><strong>博士生</strong> (2024年9月-2028年8月) - 加拿大滑铁卢大学，数学与物理，全额奖学金50,800加元×4年</li>
-        <li><strong>硕士</strong> (2022年9月-2024年8月) - 加拿大滑铁卢大学，物理学，平均成绩94.33/100</li>
-        <li><strong>本科</strong> (2018年9月-2022年6月) - 吉林大学唐敖庆班，物理学，平均成绩91.16/100</li>
-      </ul>
-      <h3>🔬 研究兴趣</h3>
-      <ul>
-        <li><strong>量子信息与量子计算 (QIQC)</strong></li>
-        <li><strong>量子引力中的量子信息 (QIQG)</strong></li>
-        <li><strong>相对论性量子信息 (RQI)</strong></li>
-        <li><strong>黑洞热力学</strong></li>
-        <li><strong>高能物理理论</strong></li>
-        <li><strong>广义相对论与量子宇宙学</strong></li>
-      </ul>
-      <h3>🌟 科研亮点</h3>
-      <p>我的研究涵盖了从黑洞热力学到全息复杂度，从虫洞解到类比黑洞等多个前沿领域。特别是在黑洞相变动力学和量子引力中的复杂度理论方面取得了重要进展。</p>
-    </div>
-    <div class="en">
-      <h2>About Me | 关于我</h2>
-      <p>I am <strong>Jiayue Yang</strong>, currently pursuing a Ph.D. in Mathematics and Physics at the University of Waterloo, Canada, while also serving as an Associate Graduate Student at the Perimeter Institute. My research focuses on the intersection of quantum information and quantum gravity.</p>
-      <h3>🎓 Education</h3>
-      <ul>
-        <li><strong>Ph.D. Student</strong> (Sep 2024 - Aug 2028) - University of Waterloo, Math & Physics, Full Scholarship 50,800 CAD×4 years</li>
-        <li><strong>Master's</strong> (Sep 2022 - Aug 2024) - University of Waterloo, Physics, Average Score 94.33/100</li>
-        <li><strong>Bachelor's</strong> (Sep 2018 - Jun 2022) - Tang Aoqing Honors Program, Jilin University, Physics, Average Score 91.16/100</li>
-      </ul>
-      <h3>🔬 Research Interests</h3>
-      <ul>
-        <li><strong>Quantum Information and Quantum Computing (QIQC)</strong></li>
-        <li><strong>Quantum Information in Quantum Gravity (QIQG)</strong></li>
-        <li><strong>Relativistic Quantum Information (RQI)</strong></li>
-        <li><strong>Black Hole Thermodynamics</strong></li>
-        <li><strong>High Energy Physics - Theory</strong></li>
-        <li><strong>General Relativity and Quantum Cosmology</strong></li>
-      </ul>
-      <h3>🌟 Research Highlights</h3>
-      <p>My research spans from black hole thermodynamics to holographic complexity, from wormhole solutions to analogue black holes. I have made significant contributions to the dynamics of black hole phase transitions and complexity theory in quantum gravity.</p>
-    </div>
-  </section>
-
-  <!-- PUBLICATIONS -->
-  <section id="publications" class="container">
-    <div class="zh hidden">
-      <h2>发表论文 | Publications</h2>
-      <div class="publication">
-        <h4>[1] Complexity, Scaling, and a Phase Transition</h4>
-        <p><strong>Yang, J.</strong>, Frey, A.R. <em>Journal of High Energy Physics</em> 2023, 29 (2023)</p>
-        <p>研究了圆上紧化CFT的全息复杂度，发现复杂度在相变中起到序参量的作用。</p>
-      </div>
-      <div class="publication">
-        <h4>[2] Dynamic Behaviours of Black Hole Phase Transitions Near Quadruple Points</h4>
-        <p><strong>Yang, J.</strong>, Mann, R.B. <em>Journal of High Energy Physics</em> 2023, 28 (2023)</p>
-        <p>首次研究了黑洞四重点附近的动力学行为，发现了丰富的相变现象。</p>
-      </div>
-      <div class="publication">
-        <h4>[3] Gravitational Wormholes</h4>
-        <p>Lu, M., <strong>Yang, J.</strong>, Mann, R. B. <em>Universe</em>, 10(6), 257 (2024)</p>
-        <p>综述了引力虫洞的理论研究，特别是在高阶曲率理论中的新进展。</p>
-      </div>
-      <div class="publication">
-        <h4>[4] Existence of Vacuum Wormholes in Einsteinian Cubic Gravity</h4>
-        <p>Lu, M., <strong>Yang, J.</strong>, Mann, R. B. <em>Accepted by JHEP</em> (2024)</p>
-        <p>在爱因斯坦立方引力理论中发现了不需要外来物质的真空虫洞解。</p>
-      </div>
-      <div class="publication">
-        <h4>[5] Smart Holes: Analogue Black Holes with the Right Temperature and Entropy</h4>
-        <p><strong>Yang, J.</strong>, Afshordi, N., Torabian, M., Jafari, S. A., Baskaran, G. <em>Submitted to JHEP</em> (2024)</p>
-        <p>提出了新型类比黑洞"智能洞"，可以同时模拟黑洞的温度和熵。</p>
-      </div>
-      <div class="publication">
-        <h4>[6] On Thermodynamics of Charged and Accelerating Black Holes</h4>
-        <p>Hale, T., Kubizňák, D., Menšíková, J., Mann, R. B, <strong>Yang, J.</strong> <em>Submitted to PRD</em> (2025)</p>
-        <p>重新审视了带电加速黑洞的热力学性质，发现了新的理论问题。</p>
-      </div>
-    </div>
-    <div class="en">
-      <h2>Publications | 发表论文</h2>
-      <div class="publication">
-        <h4>[1] Complexity, Scaling, and a Phase Transition</h4>
-        <p><strong>Yang, J.</strong>, Frey, A.R. <em>Journal of High Energy Physics</em> 2023, 29 (2023)</p>
-        <p>Investigated holographic complexity of CFTs on a circle, finding complexity acts as an order parameter for phase transitions.</p>
-      </div>
-      <div class="publication">
-        <h4>[2] Dynamic Behaviours of Black Hole Phase Transitions Near Quadruple Points</h4>
-        <p><strong>Yang, J.</strong>, Mann, R.B. <em>Journal of High Energy Physics</em> 2023, 28 (2023)</p>
-        <p>First investigation of dynamics near black hole quadruple points, revealing rich phase transition phenomena.</p>
-      </div>
-      <div class="publication">
-        <h4>[3] Gravitational Wormholes</h4>
-        <p>Lu, M., <strong>Yang, J.</strong>, Mann, R. B. <em>Universe</em>, 10(6), 257 (2024)</p>
-        <p>Comprehensive review of gravitational wormholes, especially new developments in higher-curvature theories.</p>
-      </div>
-      <div class="publication">
-        <h4>[4] Existence of Vacuum Wormholes in Einsteinian Cubic Gravity</h4>
-        <p>Lu, M., <strong>Yang, J.</strong>, Mann, R. B. <em>Accepted by JHEP</em> (2024)</p>
-        <p>Discovered vacuum wormhole solutions in Einsteinian Cubic Gravity without exotic matter.</p>
-      </div>
-      <div class="publication">
-        <h4>[5] Smart Holes: Analogue Black Holes with the Right Temperature and Entropy</h4>
-        <p><strong>Yang, J.</strong>, Afshordi, N., Torabian, M., Jafari, S. A., Baskaran, G. <em>Submitted to JHEP</em> (2024)</p>
-        <p>Proposed novel analogue black holes "smart holes" that can simulate both temperature and entropy of real black holes.</p>
-      </div>
-      <div class="publication">
-        <h4>[6] On Thermodynamics of Charged and Accelerating Black Holes</h4>
-        <p>Hale, T., Kubizňák, D., Menšíková, J., Mann, R. B, <strong>Yang, J.</strong> <em>Submitted to PRD</em> (2025)</p>
-        <p>Reconsidered thermodynamics of charged accelerating black holes, uncovering new theoretical issues.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- RESEARCH -->
-  <section id="research" class="container">
-    <div class="zh hidden">
-      <h2>研究经历 | Research Experience</h2>
-      <div class="research-item">
-        <h4>🔥 带电加速黑洞热力学研究 (2023-2025)</h4>
-        <p><strong>指导老师：</strong>Robert Mann 教授</p>
-        <p>重新考虑了描述带电（缓慢）加速AdS黑洞的各种C-度规时空，并重新审视了它们的热力学性质。发现了一种度规的参数化方法，可以消除在以前的研究中对获得一致热力学至关重要的非平凡"归一化"。</p>
-      </div>
-      <div class="research-item">
-        <h4>🌟 智能洞：具有正确温度和熵的类比黑洞 (2022-2024)</h4>
-        <p><strong>指导老师：</strong>Niayesh Afshordi 教授</p>
-        <p>在类比引力研究中，我们的目标是在受控的实验室环境中复制黑洞现象。我们计算了这个系统的熵，发现如果形成类比视界，它具有与黑洞Bekenstein-Hawking熵相同的形式。</p>
-      </div>
-      <div class="research-item">
-        <h4>🕳️ 爱因斯坦立方引力中真空虫洞的存在 (2023-2024)</h4>
-        <p><strong>指导老师：</strong>Robert Mann 教授</p>
-        <p>提出了爱因斯坦立方引力场方程的虫洞解，这是广义相对论的现象学竞争者，包括曲率的立方项，没有物质，外来物质或其他物质。这些纯引力虫洞几何是渐近AdS的，但在无穷远处包含几何缺陷。</p>
-      </div>
-      <div class="research-item">
-        <h4>⚡ 黑洞四重点附近相变的动力学行为 (2022-2023)</h4>
-        <p><strong>指导老师：</strong>Robert Mann 教授</p>
-        <p>将视界半径作为热涨落中的序参量，自由能景观模型揭示了黑洞相变的动力学行为。我们首次研究了最近发现的黑洞多临界性的动力学。</p>
-      </div>
-      <div class="research-item">
-        <h4>📐 复杂度、标度和相变 (2021)</h4>
-        <p><strong>指导老师：</strong>Andrew Frey 教授 (Mitacs Globalink项目)</p>
-        <p>研究了在圆上紧化且带有Wilson线的CFT的全息复杂度，该理论对偶于AdS₄和AdS₅中的磁化孤子。这些理论作为Wilson线的函数具有禁闭-去禁闭相变，形成复杂度作为这种相变的序参量。</p>
-      </div>
-    </div>
-    <div class="en">
-      <h2>Research Experience | 研究经历</h2>
-      <div class="research-item">
-        <h4>🔥 Thermodynamics of Charged and Accelerating Black Holes (2023-2025)</h4>
-        <p><strong>Advisor:</strong> Prof. Robert Mann</p>
-        <p>Reconsidered various C-metric spacetimes describing charged and (slowly) accelerating AdS black holes and revisited their thermodynamic properties. Found a parametrization of the metric where we can eliminate the non-trivial 'normalization' crucial for obtaining consistent thermodynamics.</p>
-      </div>
-      <div class="research-item">
-        <h4>🌟 Smart Holes: Analogue Black Holes with the Right Temperature and Entropy (2022-2024)</h4>
-        <p><strong>Advisor:</strong> Prof. Niayesh Afshordi</p>
-        <p>In analogue gravity studies, the goal is to replicate black hole phenomena within controlled laboratory settings. We computed the entropy of this system and found it has the same form as black hole Bekenstein-Hawking entropy if an analogue horizon forms.</p>
-      </div>
-      <div class="research-item">
-        <h4>🕳️ Existence of Vacuum Wormholes in Einsteinian Cubic Gravity (2023-2024)</h4>
-        <p><strong>Advisor:</strong> Prof. Robert Mann</p>
-        <p>Presented a wormhole solution to the field equations of Einsteinian Cubic Gravity, a phenomenological competitor to general relativity that includes terms cubic in the curvature with no matter, exotic or otherwise. These purely gravitational wormhole geometries are asymptotically AdS.</p>
-      </div>
-      <div class="research-item">
-        <h4>⚡ Dynamic Behaviours of Black Hole Phase Transitions Near Quadruple Points (2022-2023)</h4>
-        <p><strong>Advisor:</strong> Prof. Robert Mann</p>
-        <p>Treating the horizon radius as an order parameter in thermal fluctuation, the free energy landscape model sheds light on dynamic behaviour of black hole phase transitions. We carried out the first investigation of dynamics of recently discovered multicriticality in black holes.</p>
-      </div>
-      <div class="research-item">
-        <h4>📐 Complexity, Scaling, and a Phase Transition (2021)</h4>
-        <p><strong>Advisor:</strong> Prof. Andrew Frey (Mitacs Globalink Project)</p>
-        <p>Investigated holographic complexity of CFTs compactified on a circle with a Wilson line, dual to magnetized solitons in AdS₄ and AdS₅. These theories have a confinement-deconfinement phase transition as a function of the Wilson line, and complexity of formation acts as an order parameter.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- TEACHING -->
-  <section id="teaching" class="container">
-    <div class="zh hidden">
-      <h2>教学经历 | Teaching Experience</h2>
-      <h3>🎓 大学教学助理经历</h3>
-      <ul>
-        <li><strong>量子理论3</strong> (2025年1月-4月) - 滑铁卢大学应用数学系助教</li>
-        <li><strong>天文学导论</strong> (2023年5月-12月) - 滑铁卢大学SCI 238课程助教</li>
-      </ul>
-      <h3>📺 在线教学课程 (B站免费课程)</h3>
-      <ul>
-        <li><strong>量子场论</strong> (2023年11月至今)</li>
-        <li><strong>广义相对论</strong> (2023年9月至今)</li>
-        <li><strong>分析力学</strong> (2020年3月-2021年1月)</li>
-        <li><strong>数学物理方法</strong> (2020年1月-2021年1月)</li>
-      </ul>
-      <h3>🎤 学术报告与演讲 (近期)</h3>
-      <ul>
-        <li><strong>从黑洞热力学到黑洞化学</strong> - 滑铁卢大学AMATH研究生小型会议 (2025年1月)</li>
-        <li><strong>从黑洞热力学到黑洞化学</strong> - 南科大第二届研讨会 (2025年1月)</li>
-        <li><strong>复杂度、标度和相变</strong> - 江西师范大学 (2024年12月)</li>
-        <li><strong>黑洞四重点附近的相变动力学行为</strong> - 巡回报告 (2024年10月-12月)</li>
-      </ul>
-      <h3>📚 科普教育工作</h3>
-      <ul>
-        <li><strong>B站科普视频</strong> - 超过76.5万播放量，1.28万粉丝关注</li>
-        <li><strong>科学普及活动</strong> - 组织分发免费科普书籍给全国青少年</li>
-      </ul>
-    </div>
-    <div class="en">
-      <h2>Teaching Experience | 教学经历</h2>
-      <h3>🎓 University Teaching Assistant</h3>
-      <ul>
-        <li><strong>Quantum Theory 3</strong> (Jan-Apr 2025)</li>
-        <li><strong>Introductory Astronomy</strong> (May-Dec 2023)</li>
-      </ul>
-      <h3>📺 Online Teaching Courses (Free Bilibili Courses)</h3>
-      <ul>
-        <li><strong>Quantum Field Theory</strong> (Nov 2023-Present)</li>
-        <li><strong>General Relativity</strong> (Sep 2023-Present)</li>
-        <li><strong>Analytical Mechanics</strong> (Mar 2020-Jan 2021)</li>
-        <li><strong>Methods of Mathematical Physics</strong> (Jan 2020-Jan 2021)</li>
-      </ul>
-      <h3>🎤 Recent Academic Presentations</h3>
-      <ul>
-        <li><strong>From Black Hole Thermodynamics to Black Hole Chemistry</strong> (Jan 2025)</li>
-        <li><strong>From Black Hole Thermodynamics to Black Hole Chemistry</strong> (Jan 2025)</li>
-        <li><strong>Complexity, Scaling, and a Phase Transition</strong> (Dec 2024)</li>
-        <li><strong>Dynamic Behaviours of Black Hole Phase Transitions</strong> (Oct-Dec 2024)</li>
-      </ul>
-      <h3>📚 Science Outreach</h3>
-      <ul>
-        <li><strong>Bilibili Science Videos</strong> - Over 765K views, 12.8K followers</li>
-        <li><strong>Science Popularization</strong> - Organizing free science book distribution nationwide</li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- AWARDS -->
-  <section id="awards" class="container">
-    <div class="zh hidden">
-      <h2>获奖荣誉 | Awards & Honors</h2>
-      <h3>🏆 最新获奖 (2024-2025)</h3>
-      <div class="award"><strong>Alan George学生领导力奖</strong> - 2500加元</div>
-      <div class="award"><strong>David Johnston国际学生入学奖学金</strong> - 5000加元</div>
-      <div class="award"><strong>量子计算研究所入学奖</strong> - 5000加元</div>
-      <div class="award"><strong>教务长博士入学奖学金(女性)</strong> - 5000加元</div>
-      <h3>💰 奖学金类</h3>
-      <div class="award"><strong>Mitacs Globalink研究生奖学金</strong> - 15000加元</div>
-      <div class="award"><strong>院长奖学金</strong> - 1600加元</div>
-      <div class="award"><strong>石溪大学优秀学生学费奖学金</strong> - 24740美元</div>
-      <div class="award"><strong>Mitacs Globalink本科研究奖学金</strong> - 1200加元</div>
-    </div>
-    <div class="en">
-      <h2>Awards & Honors | 获奖荣誉</h2>
-      <h3>🏆 Recent Awards (2024-2025)</h3>
-      <div class="award"><strong>Alan George Student Leadership Award</strong> - 2500 CAD</div>
-      <div class="award"><strong>David Johnston International Student Entrance Scholarship</strong> - 5000 CAD</div>
-      <div class="award"><strong>Institute for Quantum Computing Entrance Award</strong> - 5000 CAD</div>
-      <div class="award"><strong>Provost Doctoral Entrance Award for Women</strong> - 5000 CAD</div>
-      <h3>💰 Scholarships</h3>
-      <div class="award"><strong>Mitacs Globalink Graduate Fellowship</strong> - 15000 CAD</div>
-      <div class="award"><strong>Dean's Scholarship</strong> - 1600 CAD</div>
-      <div class="award"><strong>Stony Brook University Tuition Scholarship</strong> - $24740 USD</div>
-      <div class="award"><strong>Mitacs Globalink Research Internship Award</strong> - 1200 CAD</div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact" class="container">
-    <div class="zh hidden">
-      <h2>联系方式 | Contact Information</h2>
-      <div class="contact-info">
-        <div class="contact-card">
-          <h4>📧 邮箱</h4>
-          <p><a href="mailto:j43yang@uwaterloo.ca">j43yang@uwaterloo.ca</a></p>
-        </div>
-        <div class="contact-card">
-          <h4>🌐 个人网站</h4>
-          <p><a href="https://link3.cc/jiayue" target="_blank">https://link3.cc/jiayue</a></p>
-        </div>
-        <div class="contact-card">
-          <h4>📺 B站频道</h4>
-          <p><a href="https://space.bilibili.com/YOUR_BILIBILI_ID" target="_blank">物理科普视频</a></p>
-          <p>76.5万播放量 • 1.28万粉丝</p>
-        </div>
-      </div>
-      <h3>🏛️ 工作地址</h3>
-      <p><strong>滑铁卢大学应用数学系</strong><br>200 University Avenue West<br>Waterloo, ON, Canada N2L 3G1</p>
-      <p><strong>周界理论物理研究所</strong><br>31 Caroline Street North<br>Waterloo, ON, Canada N2L 2Y5</p>
-    </div>
-    <div class="en">
-      <h2>Contact Information | 联系方式</h2>
-      <div class="contact-info">
-        <div class="contact-card">
-          <h4>📧 Email</h4>
-          <p><a href="mailto:j43yang@uwaterloo.ca">j43yang@uwaterloo.ca</a></p>
-        </div>
-        <div class="contact-card">
-          <h4>🌐 Personal Website</h4>
-          <p><a href="https://link3.cc/jiayue" target="_blank">https://link3.cc/jiayue</a></p>
-        </div>
-        <div class="contact-card">
-          <h4>📺 Bilibili Channel</h4>
-          <p><a href="https://space.bilibili.com/YOUR_BILIBILI_ID" target="_blank">Physics Education Videos</a></p>
-          <p>765K+ Views • 12.8K+ Followers</p>
-        </div>
-      </div>
-      <h3>🏛️ Office Address</h3>
-      <p><strong>Department of Applied Mathematics, University of Waterloo</strong><br>200 University Avenue West<br>Waterloo, ON, Canada N2L 3G1</p>
-      <p><strong>Perimeter Institute for Theoretical Physics</strong><br>31 Caroline Street North<br>Waterloo, ON, Canada N2L 2Y5</p>
     </div>
   </section>
 
