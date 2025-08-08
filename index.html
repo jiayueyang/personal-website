@@ -155,9 +155,12 @@
     /* ==================== Cosmos FX ==================== */
     function cosmosFX(){
       const prefersReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-
       const isMobile = matchMedia('(pointer:coarse)').matches || Math.min(screen.width, window.innerWidth) < 600;
-      // 不卡策略：限制 DPR（桌面≤1.25；移动≤1.0）
+
+      // ★ 关掉星云层（要开回去改成 true）
+      const NEBULA = false;
+
+      // 不卡策略：限制 DPR（桌面≤1.25；移动≤1.0）——你这里设得更保守
       const DPR = Math.min(window.devicePixelRatio || 1, isMobile ? 0.3 : 0.5);
 
       const starCanvas = document.getElementById('star-canvas');
@@ -166,7 +169,7 @@
       if(!starCanvas || !nebulaCanvas || !bhCanvas) return;
 
       const sctx = starCanvas.getContext('2d');
-      const nctx = nebulaCanvas.getContext('2d');
+      const nctx = NEBULA ? nebulaCanvas.getContext('2d') : null; // ★ 仅启用时取上下文
       const bctx = bhCanvas.getContext('2d');
 
       let stars=[], meteors=[], particles=[];
@@ -182,12 +185,12 @@
       let twinkleGlobal = 0; // 缓启动 [0,1]
       const T_TWINKLE_EASE = 3500; // ms
 
-      // 每帧上限（不卡策略）
+      // 每帧上限（不卡策略）——可按需再降
       const MAX_PARTICLES = isMobile ? 200 : 300;
       const MAX_METEORS   = isMobile ? 3  : 6;
 
       const cfg = {
-        star: { density: 0.00005, min: 30, max: 60, twinkle: 0.004 }, // 降密度&基础闪烁速度变慢
+        star: { density: 0.00005, min: 30, max: 60, twinkle: 0.004 },
         meteor: { baseRate: 0.18, speedMin: 6, speedVar: 6, lenMin: 100, lenVar: 150, angle: Math.PI/4 },
         trail: { life: 620 },
         burst: { count: 55, speed: [2.2, 7.5], life: [600, 1400] },
@@ -201,15 +204,22 @@
       }
       function resizeAll(){
         fit(starCanvas, sctx);
-        fit(nebulaCanvas, nctx);
+        if(NEBULA){
+          fit(nebulaCanvas, nctx);
+          nebulaCanvas.style.display = 'block';
+          drawNebula(true);
+        }else{
+          // ★ 彻底隐藏星云画布，避免样式与合成开销
+          nebulaCanvas.style.display = 'none';
+        }
         fit(bhCanvas, bctx);
         resetStars();
-        drawNebula(true);
       }
 
       /* ===== Nebula ===== */
       let nebulaT = 0;
       function drawNebula(init=false){
+        if(!NEBULA) return; // ★ 关时直接早退
         const w = nebulaCanvas.clientWidth, h = nebulaCanvas.clientHeight;
         nctx.clearRect(0,0,w,h);
         nctx.globalCompositeOperation='lighter';
@@ -238,7 +248,6 @@
         const count = Math.max(cfg.star.min, Math.min(cfg.star.max, baseCount));
         const cx = starCanvas.clientWidth/2, cy = starCanvas.clientHeight/2;
         for(let i=0;i<count;i++){
-          // 伪深度，用于距离衰减（z越大，闪烁越慢、幅度越小）
           const z = 0.6 + Math.random()*1.8;
           const tier = Math.random();
           let r = (tier<0.8 ? (Math.random()*0.9 + 0.2) : (tier<0.95 ? (Math.random()*1.4 + 0.6) : (Math.random()*1.8 + 1.0))) / z;
@@ -246,8 +255,8 @@
           const x = Math.random()*starCanvas.clientWidth;
           const y = Math.random()*starCanvas.clientHeight;
           const dx = x - cx, dy = y - cy;
-          const radial = Math.hypot(dx,dy) / Math.max(cx,cy); // 用屏幕中心做个距离衰减
-          const distAtten = 0.5 + 0.5*Math.max(0,1 - radial); // 离中心越近越活跃
+          const radial = Math.hypot(dx,dy) / Math.max(cx,cy);
+          const distAtten = 0.5 + 0.5*Math.max(0,1 - radial);
 
           stars.push({
             x, y, r,
@@ -271,20 +280,16 @@
         ctx.globalAlpha = alpha;
         ctx.strokeStyle = `hsla(${hue}, 100%, 90%, ${alpha})`;
         ctx.lineWidth = 1.2;
-        // 十字
         ctx.beginPath(); ctx.moveTo(-size,0); ctx.lineTo(size,0); ctx.stroke();
         ctx.beginPath(); ctx.moveTo(0,-size); ctx.lineTo(0,size); ctx.stroke();
-        // 斜十字
         ctx.beginPath(); ctx.moveTo(-size*0.7,-size*0.7); ctx.lineTo(size*0.7,size*0.7); ctx.stroke();
         ctx.beginPath(); ctx.moveTo(size*0.7,-size*0.7); ctx.lineTo(-size*0.7,size*0.7); ctx.stroke();
         ctx.restore();
       }
       function drawStars(){
         const w = starCanvas.clientWidth, h = starCanvas.clientHeight;
-        // 滚动强度用 EMA，黑洞不改星星闪烁频率（你的要求），只影响流星量
-        const twinkleBoost = 1; // 固定，不被BH或滚动额外加速
+        const twinkleBoost = 1; // 不被BH或滚动额外加速
         const reduce = (BH.active?0.2:1.0); // 黑洞出现时再降一档密度
-        const cx = w/2, cy = h/2;
 
         for(const s of stars){
           if(Math.random()>reduce) continue;
@@ -308,7 +313,6 @@
           s.hue += s.hueShift;
           if(s.hue<180 || s.hue>265) s.hueShift*=-1;
 
-          // 少量亮星加星芒
           if(s.tier>0.95){
             drawStarGlow(s.x, s.y, s.r*1.6, s.hue, s.alpha);
             drawStarSpikes(sctx, s.x, s.y, s.r*2.4, s.hue, 0.55*s.alpha, (tick%360)/180*Math.PI);
@@ -316,7 +320,6 @@
             drawStarGlow(s.x, s.y, s.r*1.2, s.hue, 0.8*s.alpha);
           }
 
-          // 星核（亮核+Glow）
           sctx.fillStyle = `hsla(${s.hue}, 80%, ${72 + Math.sin(s.hue*0.05)*10}%, ${0.9*s.alpha})`;
           sctx.beginPath(); sctx.arc(s.x, s.y, s.r, 0, Math.PI*2); sctx.fill();
         }
@@ -359,7 +362,6 @@
           sctx.lineTo(m.x - m.len*Math.cos(m.angle), m.y - m.len*Math.sin(m.angle));
           sctx.stroke();
 
-          // 粒子尾迹（受上限控制）
           const tailCount = BH.active ? 2 : 3;
           for(let p=0;p<tailCount;p++){
             if(particles.length>=MAX_PARTICLES) break;
@@ -393,7 +395,6 @@
           if(t>=1){particles.splice(i,1); continue;}
           const fade = 1 - t;
 
-          // 轻量透镜（近区）
           if(BH.active){
             const dx = BH.x - p.x, dy = BH.y - p.y;
             const dist = Math.hypot(dx,dy);
@@ -401,7 +402,6 @@
             p.vx += dx/dist * g; p.vy += dy/dist * g;
           }
 
-          // 星芒高光
           const tw = 1 + (Math.sin((age*0.02 + i)%6.28)*0.12);
           const a = p.alpha*fade*tw;
 
@@ -424,13 +424,11 @@
           sctx.beginPath(); sctx.moveTo(L*0.7,-L*0.7); sctx.lineTo(-L*0.7,L*0.7); sctx.stroke();
           sctx.restore();
 
-          // 更新
           p.x += p.vx; p.y += p.vy;
           p.vx *= 0.985; p.vy *= 0.985;
           p.spin += 0.02*(p.jitter);
         }
 
-        // 软上限：多余的粒子直接截断（兜底）
         if(particles.length>MAX_PARTICLES){
           particles.length = MAX_PARTICLES;
         }
@@ -474,7 +472,6 @@
           particles.push(makeSparkleParticle(BH.x, BH.y, Math.cos(ang)*sp, Math.sin(ang)*sp, 1+Math.random()*2, 500+Math.random()*500, 35+Math.random()*70, 0.95));
         }
         BH.active=false; BH.lastGone = performance.now();
-        // 脏矩形清理：清掉最后一帧的矩形区域
         if(BH.prevRect){
           const r = BH.prevRect; bctx.clearRect(r.x, r.y, r.w, r.h);
           BH.prevRect = null;
@@ -494,7 +491,6 @@
         const age = now - BH.born;
         if(age > BH.life){ killBH(); return; }
 
-        // 脏矩形：只清局部
         const pad = 8;
         if(BH.prevRect){
           const r = BH.prevRect; bctx.clearRect(r.x, r.y, r.w, r.h);
@@ -508,7 +504,6 @@
         bctx.save();
         bctx.beginPath(); bctx.rect(rect.x, rect.y, rect.w, rect.h); bctx.clip();
 
-        // 入场涟漪
         if(age < 700){
           const t = age/700;
           drawRipple(BH.x, BH.y, R*(0.8+0.6*t), 0.35*(1-t));
@@ -516,19 +511,16 @@
 
         bctx.translate(BH.x, BH.y);
 
-        // 黑洞影子
         const shadow = bctx.createRadialGradient(0,0,0, 0,0,R*1.02);
         shadow.addColorStop(0, 'rgba(0,0,0,0.92)');
         shadow.addColorStop(1, 'rgba(0,0,0,0)');
         bctx.fillStyle = shadow;
         bctx.beginPath(); bctx.arc(0,0,R*1.02,0,Math.PI*2); bctx.fill();
 
-        // 光子环
         bctx.lineWidth = 2.2;
         bctx.strokeStyle = BH.eht ? 'rgba(255,180,60,0.85)' : 'rgba(200,230,255,0.9)';
         bctx.beginPath(); bctx.arc(0,0,R*1.05,0,Math.PI*2); bctx.stroke();
 
-        // 吸积盘（近侧增亮 + 可切EHT配色）
         const rot = (now*0.0005 + scrollSpeedEMA*0.00005) % (Math.PI*2);
         bctx.rotate(rot);
         const grd = bctx.createLinearGradient(-R*2,0,R*2,0);
@@ -548,18 +540,16 @@
         bctx.ellipse(0,0, R*1.8, R*0.6, 0, 0, Math.PI*2);
         bctx.fill();
 
-        // 近侧高光条（多普勒增亮假象）
         bctx.globalAlpha = 0.9;
         bctx.fillStyle = BH.eht ? 'rgba(255,220,140,0.95)' : 'rgba(220,250,255,0.95)';
         bctx.beginPath();
         bctx.ellipse(R*0.6, 0, R*0.7, R*0.16, 0, -0.3, 0.3);
         bctx.fill();
 
-        // 热点沿盘轨道绕行（小亮点）
         bctx.globalAlpha = 1.0;
-        BH.hsAng += 0.02; // 角速度
+        BH.hsAng += 0.02;
         const hsA = BH.hsAng;
-        const a = R*1.6, b = R*0.5; // 轨道椭圆半轴
+        const a = R*1.6, b = R*0.5;
         const hx = a*Math.cos(hsA), hy = b*Math.sin(hsA);
         const hs = bctx.createRadialGradient(hx,hy,0, hx,hy, R*0.18);
         hs.addColorStop(0, BH.eht?'rgba(255,230,150,1)':'rgba(220,250,255,1)');
@@ -609,13 +599,10 @@
         if(paused){ requestAnimationFrame(loop); return; }
         tick++;
 
-        // 缓启动：前几秒把 twinkleGlobal 从0缓慢拉到1
         const t0 = stars._t0 || (stars._t0 = performance.now());
         const ease = Math.min(1, (now - t0)/T_TWINKLE_EASE);
-        // 平滑缓启动（easeInOutCubic）
         twinkleGlobal = ease<0.5 ? 4*ease*ease*ease : 1 - Math.pow(-2*ease+2,3)/2;
 
-        // 清星空层
         sctx.clearRect(0,0,starCanvas.clientWidth, starCanvas.clientHeight);
 
         drawStars();
@@ -624,13 +611,14 @@
         for(const p of particles){ updateSpiral(p, now); }
         drawParticles(now);
 
-        // 雾气降频（黑洞或移动端时再降一档）
-        const skip = cfg.nebula.skip + (BH.active?1:0);
-        if(tick%skip===0) drawNebula(false);
+        // ★ 只有开启星云时才绘制；否则完全跳过
+        if(NEBULA){
+          const skip = cfg.nebula.skip + (BH.active?1:0);
+          if(tick%skip===0) drawNebula(false);
+        }
 
         drawBH(now);
 
-        // 流星触发：用 EMA 平滑后的滚动强度
         const rate = cfg.meteor.baseRate + Math.min(0.75, scrollSpeedEMA/1200) + (storm?0.38:0);
         if(Math.random() < rate*0.016) spawnMeteor();
 
@@ -641,12 +629,9 @@
       function onScroll(){
         const y = window.scrollY, now = performance.now();
         const dy = Math.abs(y - lastScrollY), dt = Math.max(16, now - lastRAF);
-        // 实时强度
-        scrollSpeedInst = (dy/dt) * 16.6 * 60; // 粗估 px/s
-        // EMA 平滑（alpha 随 dt 自适应）
-        const alpha = 1 - Math.exp(-dt/200); // ~200ms 时间常数
+        scrollSpeedInst = (dy/dt) * 16.6 * 60;
+        const alpha = 1 - Math.exp(-dt/200);
         scrollSpeedEMA = alpha*scrollSpeedInst + (1-alpha)*scrollSpeedEMA;
-
         lastScrollY = y; lastRAF = now;
       }
       function inHomeRect(clientX, clientY){
@@ -678,7 +663,7 @@
           const cur = parseFloat(getComputedStyle(nebulaCanvas).opacity) || 0.55;
           nebulaCanvas.style.opacity = (cur>0.1) ? '0' : '0.55';
         }else if(k==='m'){ storm = !storm; }
-        else if(k==='b'){ // 强制切换黑洞
+        else if(k==='b'){
           if(BH.active) killBH();
           else{
             const home = document.getElementById('home').getBoundingClientRect();
@@ -699,16 +684,13 @@
 
     /* ---------------- Page Init ---------------- */
     document.addEventListener('DOMContentLoaded', ()=>{
-      // 默认英文
-      toggleLanguage('en');
+      toggleLanguage('en'); // 默认英文
 
-      // header 背景微变
       window.addEventListener('scroll', ()=>{
         const hd = document.querySelector('header');
         hd.style.background = (window.scrollY>50) ? 'rgba(255,255,255,0.98)' : 'rgba(255,255,255,0.95)';
       });
 
-      // section 入场动画
       const sections = document.querySelectorAll('section');
       const observer = new IntersectionObserver((entries)=>{
         entries.forEach(entry=>{
@@ -1104,8 +1086,3 @@
   </script>
 </body>
 </html>
-
-
-
-
-
