@@ -51,7 +51,7 @@
       display:flex; align-items:center; justify-content:center; text-align:center; color:#fff; overflow:hidden;
       scroll-margin-top:120px;
     }
-    #home::before{content:''; position:absolute; inset:0; background:rgba(0,0,0,.6); z-index:0}
+    #home::before{content:''; position:absolute; inset:0; background:rgba(0,0,0,.4); z-index:0}
 
     /* Double canvas (nebula removed) */
     #star-canvas, #bh-canvas{
@@ -132,8 +132,12 @@
       #home .content, #home h1{animation:none!important}
       /* nebula styles removed */
     }
-    #home h1{
-  -webkit-text-stroke: 1px rgba(0,0,0,.25);
+    #home p {
+  color: #f5f8ff; /* 比纯白略偏冷白，提升对比 */
+  font-weight: 600; /* 加粗 */
+  text-shadow:
+    0 3px 8px rgba(0,0,0,.6),
+    0 0 18px rgba(255,255,255,.25); /* 外发光+暗阴影 */
 }
   </style>
 
@@ -1084,6 +1088,7 @@
   </script>
 </body>
 </html>
+
 
 
 
