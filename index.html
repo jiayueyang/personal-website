@@ -139,6 +139,74 @@
   background:rgba(0,0,0,.12); /* 更透亮的背景 */
   z-index:0;
 }
+
+/* ===================== VISITS WIDGET: BEGIN (CSS) ===================== */
+#visits-widget.visits-badge{
+  position:absolute; right:18px; bottom:18px; z-index:5;
+  user-select:none; -webkit-user-select:none;
+}
+#visits-widget .visits-inner{
+  display:flex; align-items:center; gap:10px;
+  padding:10px 14px; border-radius:999px;
+  background: var(--glass, rgba(255,255,255,.95));
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0,0,0,.12);
+  border: 2px solid rgba(255,255,255,.65);
+  transition: transform .15s ease, box-shadow .2s ease;
+}
+#visits-widget .visits-inner:hover{
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 16px 40px rgba(0,0,0,.16);
+}
+#visits-widget .star-face{
+  position:relative; width:38px; height:38px; border-radius:50%;
+  background: radial-gradient(circle at 35% 30%, #fff8cc, #ffd36a 60%, #ffbe55 100%);
+  box-shadow: 0 6px 14px rgba(255,190,85,.45), inset 0 2px 6px rgba(255,255,255,.8);
+  flex: 0 0 38px;
+  transform: translateZ(0);
+}
+#visits-widget .star-face .eye{
+  position:absolute; top:46%;
+  width:6px; height:6px; background:#4a4a4a; border-radius:50%;
+  transform: translateY(-50%);
+  animation: blink 4.5s ease-in-out infinite;
+}
+#visits-widget .star-face .eye.left{ left:11px; }
+#visits-widget .star-face .eye.right{ right:11px; }
+#visits-widget .star-face .sparkle{
+  position:absolute; left:6px; top:6px; width:10px; height:10px; border-radius:50%;
+  background: radial-gradient(circle, rgba(255,255,255,.95), rgba(255,255,255,0) 70%);
+  animation: twinkle 2.4s ease-in-out infinite alternate;
+}
+@keyframes blink{ 0%,4%,100%{transform:translateY(-50%) scaleY(1)} 2%{transform:translateY(-50%) scaleY(0.2)} }
+@keyframes twinkle{ from{transform:scale(0.85)} to{transform:scale(1.15)} }
+#visits-widget .visits-text{line-height:1.05; min-width:92px}
+#visits-widget .label{
+  font-size:.78rem; font-weight:700;
+  background: linear-gradient(45deg, var(--accent-a,#667eea), var(--accent-b,#764ba2));
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+  margin-bottom:2px;
+}
+#visits-widget .count{
+  font-weight:800; font-size:1.4rem; color:#333; letter-spacing:.5px;
+  text-shadow: 0 1px 0 rgba(255,255,255,.5);
+}
+#visits-widget .sub{
+  font-size:.7rem; color:#666; margin-top:4px;
+}
+#visits-widget .subcount{
+  font-weight:700; color:#333; font-size:.95rem;
+}
+@media (max-width:768px){
+  #visits-widget.visits-badge{ right:12px; bottom:12px; }
+  #visits-widget .visits-inner{ padding:8px 12px; gap:8px }
+  #visits-widget .count{ font-size:1.25rem }
+}
+@media (prefers-reduced-motion: reduce){
+  #visits-widget .star-face .eye, #visits-widget .star-face .sparkle { animation:none !important; }
+  #visits-widget .visits-inner{ transition:none !important; }
+}
+/* ===================== VISITS WIDGET: END (CSS) ===================== */
   </style>
 
   <script>
@@ -729,6 +797,25 @@
       <a href="https://efficacious-parcel-4e4.notion.site/Physics-Tools-de45835163a64cb59f40a222b929a691" class="button" target="_blank">Physics Toolkit</a>
     </div>
     <img src="888.jpg" alt="Profile Photo">
+
+    <!-- ===================== VISITS WIDGET: BEGIN (HTML) ===================== -->
+    <div id="visits-widget" class="visits-badge" data-path="/" aria-live="polite">
+      <div class="visits-inner">
+        <div class="star-face" aria-hidden="true">
+          <span class="eye left"></span><span class="eye right"></span><span class="sparkle"></span>
+        </div>
+        <div class="visits-text">
+          <div class="label en">Visits</div>
+          <div class="label zh hidden">访问量</div>
+          <div class="count" data-value="0">0</div>
+          <div class="sub en">Today</div>
+          <div class="sub zh hidden">今日</div>
+          <div class="subcount" data-value="0">0</div>
+        </div>
+      </div>
+    </div>
+    <!-- ===================== VISITS WIDGET: END (HTML) ===================== -->
+
   </section>
 
   <!-- ===== STATS ===== -->
@@ -1086,23 +1173,124 @@
       }
     }, {passive:true});
   </script>
+
+  <!-- ===================== VISITS WIDGET: BEGIN (JS) ===================== -->
+  <script>
+  (function(){
+    const W = document.getElementById('visits-widget');
+    if(!W) return;
+
+    const prefersReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const API_PRIMARY = (window.VISITS_API || '/api/hit'); // 你自己的后端（可保持默认，备用走 CountAPI）
+    const path = (W.getAttribute('data-path') || location.pathname || '/').split('?')[0];
+
+    // 备用：CountAPI（公开计数服务，临时用）
+    const COUNTAPI_NAMESPACE = 'jiayue-homepage-demo';
+    const countApi = {
+      hit: `https://api.countapi.xyz/hit/${encodeURIComponent(COUNTAPI_NAMESPACE)}/${encodeURIComponent(path)}`,
+      get: `https://api.countapi.xyz/get/${encodeURIComponent(COUNTAPI_NAMESPACE)}/${encodeURIComponent(path)}`
+    };
+
+    const elCount = W.querySelector('.count');
+    const elSubCount = W.querySelector('.subcount');
+
+    function tweenNumber(el, from, to, dur=600){
+      if(prefersReduced || from===to){ el.textContent = String(to); el.dataset.value = to; return; }
+      const t0 = performance.now();
+      const ease = t => t<.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2;
+      function frame(now){
+        const p = Math.min(1, (now - t0)/dur);
+        const v = Math.round(from + (to - from)*ease(p));
+        el.textContent = String(v);
+        if(p<1) requestAnimationFrame(frame); else el.dataset.value = to;
+      }
+      requestAnimationFrame(frame);
+    }
+
+    function celebratoryBurst(){
+      if(prefersReduced) return;
+      // 你的 burstAt 在 cosmosFX 内部作用域，这里无法直接访问；
+      // 为了保持“原代码不改动”，我们只在 window.burstAt 存在时才调用（默认不会触发，不会报错）。
+      if(typeof window.burstAt === 'function'){
+        const rect = W.getBoundingClientRect();
+        const x = rect.left + rect.width/2;
+        const y = rect.top + rect.height/2;
+        window.burstAt(x, y);
+      }
+    }
+
+    function seenTodayKey(){
+      const d = new Date();
+      const day = d.getFullYear() + ('0'+(d.getMonth()+1)).slice(-2) + ('0'+d.getDate()).slice(-2);
+      return `visits:seen:${path}:${day}`;
+    }
+
+    async function fetchPrimary(){
+      const url = `${API_PRIMARY}?path=${encodeURIComponent(path)}`;
+      const r = await fetch(url, { method: 'GET', mode: 'cors', credentials: 'omit', cache: 'no-store' });
+      if(!r.ok) throw new Error('primary api fail');
+      return r.json();
+    }
+    async function fetchCountApiHit(){
+      const r = await fetch(countApi.hit, {mode:'cors', cache:'no-store'});
+      if(!r.ok) throw new Error('countapi fail');
+      const j = await r.json();
+      return { ok:true, total:j.value, unique_today: undefined };
+    }
+    async function fetchCountApiGet(){
+      const r = await fetch(countApi.get, {mode:'cors', cache:'no-store'});
+      if(!r.ok) throw new Error('countapi get fail');
+      const j = await r.json();
+      return { ok:true, total:j.value, unique_today: undefined };
+    }
+
+    function updateUI(total, today){
+      const fromMain = parseInt(elCount.dataset.value||'0',10);
+      const fromSub  = parseInt(elSubCount.dataset.value||'0',10);
+      tweenNumber(elCount, fromMain, Math.max(0, total|0));
+      if(typeof today === 'number'){
+        tweenNumber(elSubCount, fromSub, Math.max(0, today|0));
+      }else{
+        elSubCount.textContent = '—';
+      }
+    }
+
+    async function init(){
+      try{
+        const data = await fetchPrimary();
+        if(data && data.ok){
+          updateUI(data.total ?? 0, data.unique_today);
+          if(data.incremented){ celebratoryBurst(); }
+          localStorage.setItem(seenTodayKey(), '1');
+          return;
+        }
+        throw new Error('primary bad payload');
+      }catch(e){
+        try{
+          const key = seenTodayKey();
+          const seen = localStorage.getItem(key) === '1';
+          const payload = await (seen ? fetchCountApiGet() : fetchCountApiHit());
+          updateUI(payload.total ?? 0, undefined);
+          if(!seen) celebratoryBurst();
+          localStorage.setItem(key, '1');
+        }catch(e2){
+          const localKey = `visits:local:${path}`;
+          const n = parseInt(localStorage.getItem(localKey)||'0',10)+1;
+          localStorage.setItem(localKey, String(n));
+          updateUI(n, undefined);
+        }
+      }
+    }
+
+    if('requestIdleCallback' in window){
+      requestIdleCallback(init, {timeout: 1200});
+    }else{
+      setTimeout(init, 400);
+    }
+  })();
+  </script>
+  <!-- ===================== VISITS WIDGET: END (JS) ===================== -->
+
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
